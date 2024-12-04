@@ -1,12 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import HeroLayout from "../layouts/HeroLayout.astro";
 import { Content, frontmatter as ArtistStatementContent } from '../content/pages/artist-statement.mdx';
 
-
+const heartMountainData = {
+  cloudinaryId: "internment-camps/heart-mountain-internment-camp-blue-room_mtzpdt",
+  title: "Heart Mountain Internment Camp, Blue Room",
+  media: "Panoramic photo collage with Fuji Crystal Archive prints",
+  year: "1995",
+  city: "Park County",
+  state: "Wyoming",
+  country: "USA",
+  size: '23" x 45"',
+};
 ---
 
-<Layout title={ArtistStatementContent.title} description="Artist Statement by Masumi Hayashi">
-  <main class="bg-museum-white prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
+<HeroLayout 
+  title={ArtistStatementContent.title} 
+  description="Artist Statement by Masumi Hayashi"
+  heroImage={heartMountainData}
+>
+  <div class="prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
     <article class="text-left">
       <h1 class="text-3xl font-bold mb-2">{ArtistStatementContent.title}</h1>
       <h2 class="text-xl mb-4">Artist Statement</h2>
@@ -15,5 +28,5 @@ import { Content, frontmatter as ArtistStatementContent } from '../content/pages
         <Content />
       </div>
     </article>
-  </main>
-</Layout>
+  </div>
+</HeroLayout>
