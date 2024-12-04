@@ -1,0 +1,37 @@
+---
+import MainHead from "./MainHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/global.css";
+
+const {
+  title = "Masumi Hayashi",
+  description = "Masumi Hayashi's panoramic photocollage artwork dealing with the Japanese American Internment Camps",
+} = Astro.props;
+---
+
+<html lang="en">
+  <MainHead title={title} description={description} />
+  <body class="bg-museum-beige text-museum-dark text-md font-sans">
+    <!-- scroll container -->
+    <div class="h-screen overflow-y-scroll snap-y snap-proximity">
+      <Header />
+
+      <slot> Default text for unnamed </slot>
+
+      <slot name="test-slot" />
+
+      <Footer />
+    </div>
+    <style>
+      main {
+        margin-bottom: 80px;
+        padding-top: 10px;
+      }
+      footer {
+        @apply fixed bottom-0 h-16; /* Adjust the h-16 value based on your footer's height */
+      }
+    </style>
+  </body>
+</html>

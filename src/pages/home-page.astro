@@ -1,0 +1,94 @@
+---
+import CloudinaryImage from "../components/CloudinaryImage.astro";
+
+const { classNames } = Astro.props;
+
+const manzanarMonument = {
+  cloudinaryId: "internment-camps/manzanar-internment-camp-monument_gue2hh",
+  title: "Manzanar Concentration Camp, Monument",
+  media: "Panoramic photo collage with Fuji Crystal Archive prints",
+  year: "1995",
+  city: "Inyo County",
+  state: "California",
+  country: "USA",
+  size: '20" x 40"',
+};
+---
+
+<section class="w-full h-full">
+  <CloudinaryImage
+    title={manzanarMonument.title}
+    name={manzanarMonument.title}
+    city={manzanarMonument.city}
+    state={manzanarMonument.state}
+    year={manzanarMonument.year}
+    cloudinaryId={manzanarMonument.cloudinaryId}
+    media={manzanarMonument.media}
+    classNames={classNames}
+    size={manzanarMonument.size}
+  />
+</section>
+<article
+  class={`${classNames} flex flex-col justify-center items-center bg-museum-white text-museum-black`}
+>
+  <section class="prose px-6 py-24 sm:px-8 max-w-3xl">
+    <h1 class="text-3xl font-bold my-6">Welcome to MasumiHayashi.com</h1>
+    <p>
+      Welcome to the official archive celebrating the legacy of Professor Masumi
+      Hayashi (1945-2006), a visionary artist whose panoramic photo collages
+      have left an indelible mark on the world of photography and historical
+      documentation.
+    </p>
+    <p>
+      Hayashi's work, exemplified by pieces like the Manzanar Concentration Camp
+      Monument shown above, stands as a powerful testament to her unique ability
+      to capture landscapes embedded with cultural memory. Her intricate
+      panoramic photo collages, meticulously crafted from hundreds of individual
+      film exposures, offer a profound engagement with historical sites and
+      their enduring significance.
+    </p>
+    <p>
+      As you explore this site, you'll discover Hayashi's groundbreaking project
+      on Japanese American internment camps, a deeply personal journey that
+      reflects her own history of being born in one such camp. Through her lens,
+      these sites of historical trauma are transformed into powerful visual
+      narratives that resonate with contemporary audiences, inviting reflection
+      on issues of memory, identity, and justice.
+    </p>
+    <p>
+      We invite you to delve into Hayashi's extensive body of work, including
+      her poignant internment camp series, the innovative Family Album Project,
+      and her artist statements that provide insight into her creative process
+      and motivations. Whether you're a long-time admirer of Hayashi's work or
+      discovering it for the first time, this archive offers a comprehensive
+      look at the life and art of this remarkable photographer.
+    </p>
+    <h2>American Concentration Camps</h2>
+    <p>
+      The "American Concentration Camps" page exhibits artist/Professor
+      Hayashi's panoramic photo collages of the 10 Japanese American relocation
+      camps. These photographs only cover the relocation centers/camps. They do
+      not address the assembly centers, the U.S. Justice Dept. camps or the
+      prison and other WRA facilities.
+    </p>
+    <h2>The Family Album Project</h2>
+    <p>
+      "The Family Album Project" was an exhibition curated by Professor Hayashi
+      for the Cleveland State University Art Gallery and the Ohio Arts Council.
+      Even though cameras were contraband, family album snapshots were taken by
+      internees and visitors to the camps. This part of the camp project defines
+      the use of photography in terms of the Japanese American and Japanese
+      Canadian internment.
+    </p>
+
+    <h2>Internee audio interviews</h2>
+    <p>
+      This is a 9 minute edited interview with Japanese American internees
+      recalling evacuation and the heated climate during internment. Memories,
+      survivors of the U.S. Concentration Camps for the Japanese Americans
+      (Nikei) during WW II, from interviews by Masumi Hayashi, in 1992 and 1993.
+      Audio mastered by James Abbott, produced by Masumi Hayashi, 1994,
+      Cleveland, Ohio.
+    </p>
+  </section>
+</article>

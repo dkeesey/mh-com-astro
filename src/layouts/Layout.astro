@@ -1,0 +1,36 @@
+---
+import MainHead from "./MainHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { fade } from "astro:transitions";
+
+import "../styles/global.css";
+
+const {
+  title = "Masumi Hayashi",
+  description = "Masumi Hayashi's panoramic photocollage artwork dealing with the Japanese American Internment Camps",
+  classes = "",
+} = Astro.props;
+---
+
+<html lang="en" transition:animate="none">
+  <MainHead title={title} description={description} />
+  <body class="bg-museum-black text-museum-dark text-md font-sans">
+    <div
+      class=`h-screen overflow-y-scroll snap-always ${classes}`
+      transition:animate={fade({ duration: ".5s" })}
+    >
+      <Header />
+      <main class="bg-museum-white">
+        <slot> Default text for unnamed slot </slot>
+      </main>
+
+      <Footer />
+    </div>
+    <style>
+      footer {
+        @apply fixed bottom-0 h-16;
+      }
+    </style>
+  </body>
+</html>

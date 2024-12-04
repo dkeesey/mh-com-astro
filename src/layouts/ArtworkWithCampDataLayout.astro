@@ -1,0 +1,56 @@
+---
+import Layout from "./Layout.astro";
+import CloudinaryImage from "../components/CloudinaryImage.astro";
+
+const { entry } = Astro.props;
+
+// Log the entry data to see what we're working with
+console.log("Entry data:", entry.data);
+
+let CampDataComponent;
+if (entry.data.campDataFile) {
+  // Dynamically import the camp data component
+  CampDataComponent = await import(`../components/data/${entry.data.campDataFile}.jsx`);
+} else {
+  console.warn(`No campDataFile specified for ${entry.data.slug}`);
+}
+---
+
+<Layout title={entry.data.title} description={entry.data.altTag}>
+  <article class="bg-museum-black">
+    <section class="pt-16">
+      <a href={`/artwork/internment-camps/#${entry.data.slug}`}>
+        <CloudinaryImage
+          cloudinaryId={entry.data.cloudinaryId}
+          alt={entry.data.altTag}
+          title={entry.data.title}
+          name={entry.data.name}
+          city={entry.data.city}
+          state={entry.data.state}
+          country={entry.data.country}
+          media={entry.data.media}
+          year={entry.data.year}
+          size={entry.data.size}
+          inventory={entry.data.inventory}
+          slug={entry.data.slug}
+          figcaptionClasses="text-museum-white bg-museum-black"
+        />
+      </a>
+
+
+    <!-- Camp data section -->
+      {CampDataComponent && <CampDataComponent.default />}
+    </section>
+
+    <slot />
+  </article>
+</Layout>
+
+<style>
+  .camp-data {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+  }
+</style>

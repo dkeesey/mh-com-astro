@@ -1,0 +1,90 @@
+---
+// Import necessary components and utilities
+import { getCollection } from "astro:content";
+import CloudinaryImage from "../../../components/CloudinaryImage.astro";
+import ScrollSnapLayout from "../../../layouts/ScrollSnapLayout.astro";
+
+// Fetch all entries from the "artwork" collection
+const allEntries = await getCollection("artwork");
+
+// Filter entries by series
+const japaneseAmericanCamps = allEntries.filter(
+  (entry) => entry.data.series === "Japanese-American Internment Camps"
+);
+const japaneseCanadianCamps = allEntries.filter(
+  (entry) => entry.data.series === "Japanese-Canadian Internment Camps"
+);
+---
+
+<style>
+  .snap-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh; /* Full viewport height */
+  }
+  .snap-item {
+    scroll-snap-align: center;
+    height: 100vh; /* Full viewport height */
+    min-height: 100vh; /* Minimum height to ensure it covers full screen */
+  }
+</style>
+
+<ScrollSnapLayout title="Internment Camps" classes="">
+  <h1 class="text-museum-white bg-museum-black text-center text-2xl pt-4">
+    Japanese-American Internment Camps
+  </h1>
+
+  {
+    japaneseAmericanCamps.map((camp) => (
+      <article
+        id={camp.data.slug}
+        class="bg-museum-black text-museum-white py-8 snap-item snap-start flex flex-col justify-center items-center"
+      >
+        <a href={`/artwork/internment-camps/${camp.data.slug}`}>
+          <CloudinaryImage
+            cloudinaryId={camp.data.cloudinaryId}
+            title={camp.data.title}
+            name={camp.data.name}
+            city={camp.data.city}
+            state={camp.data.state}
+            country={camp.data.country}
+            media={camp.data.media}
+            year={camp.data.year}
+            size={camp.data.size}
+            slug={camp.data.slug}
+            figcaptionClasses="text-museum-white bg-museum-black"
+          />
+        </a>
+      </article>
+    ))
+  }
+
+  <h1
+    class="text-museum-white bg-museum-black text-center snap-item snap-center text-2xl pt-4 self-center"
+  >
+    Japanese-Canadian Internment Camps
+  </h1>
+  {
+    japaneseCanadianCamps.map((camp) => (
+      <article
+        id={camp.data.slug}
+        class="bg-museum-black text-museum-white py-16 snap-item snap-start flex flex-col justify-center items-center pb-16"
+      >
+        <a href={`/artwork/internment-camps/${camp.data.slug}`}>
+          <CloudinaryImage
+            cloudinaryId={camp.data.cloudinaryId}
+            title={camp.data.title}
+            name={camp.data.name}
+            city={camp.data.city}
+            state={camp.data.state}
+            country={camp.data.country}
+            media={camp.data.media}
+            year={camp.data.year}
+            size={camp.data.size}
+            figcaptionClasses="text-museum-white bg-museum-black"
+          />
+        </a>
+      </article>
+    ))
+  }
+</ScrollSnapLayout>

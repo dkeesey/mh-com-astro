@@ -1,0 +1,124 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import heroImage from '@images/installation.jpg';
+---
+
+<Layout title="American Concentration Camps: A Collective Memory">
+  <!-- Hero Section -->
+  <section class="relative w-full h-[60vh] min-h-[400px] overflow-hidden">
+    <div class="absolute inset-0 bg-black/40 z-10"></div>
+    <Image 
+      src={heroImage} 
+      alt="Gallery Installation of American Concentration Camps Photography"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center text-white">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+        American Concentration Camps: A Collective Memory
+      </h1>
+      <p class="text-xl md:text-2xl font-light">Artist Statement, 1997</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Left Column: Artist Statement -->
+      <div class="prose prose-lg max-w-none">
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">Historical Context</h2>
+          <p class="mb-4">
+            On February 19, 1942, President Franklin D. Roosevelt signed Executive Order 9066, 
+            authorizing the forced removal and incarceration of over 120,000 Japanese Americans 
+            from the West Coast. This unprecedented action, driven by wartime hysteria and racial 
+            prejudice, led to the creation of ten concentration camps across remote areas of the 
+            United States.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">The Displacement</h2>
+          <p class="mb-4">
+            Families were given just days to dispose of their property and belongings, 
+            allowed to bring only what they could carry. The Japanese phrase "<em>shikata ga nai</em>" 
+            (it cannot be helped) became a common expression of resignation to their fate. 
+            Yet through "<em>gamman</em>" (endurance and perseverance), communities maintained 
+            their dignity and cultural traditions within the confines of barbed wire.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">Collective Memory</h2>
+          <p class="mb-4">
+            These panoramic photographs serve as both document and metaphor—a visual 
+            representation of the collective memory of Japanese Americans. Each image, 
+            composed of multiple photographs taken in a 360-degree rotation, creates a 
+            distorted yet complete view of these historic sites, much like memory itself.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-6">The Panopticon Theory</h2>
+          <p class="mb-4">
+            The camps' architecture embodied the concept of the panopticon—a circular 
+            prison with a central watchtower, designed to create a consciousness of 
+            permanent visibility. This architectural power dynamic reflected the 
+            psychological impact of constant surveillance on the incarcerated community.
+          </p>
+        </section>
+      </div>
+
+      <!-- Right Column: Interactive Map -->
+      <div class="h-[600px] lg:h-full min-h-[600px] bg-gray-100 rounded-lg p-4">
+        <div class="w-full h-full" id="camp-map"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Map Script -->
+  <script>
+    // Camp locations data
+    const camps = [
+      { name: "Manzanar", location: [36.7286, -118.1541], years: "1942-1945" },
+      { name: "Tule Lake", location: [41.8889, -121.3722], years: "1942-1946" },
+      { name: "Heart Mountain", location: [44.6736, -108.9427], years: "1942-1945" },
+      { name: "Minidoka", location: [42.6778, -114.2450], years: "1942-1945" },
+      { name: "Topaz", location: [39.4166, -112.7727], years: "1942-1945" },
+      { name: "Granada (Amache)", location: [38.0516, -102.3272], years: "1942-1945" },
+      { name: "Poston", location: [33.9961, -114.4000], years: "1942-1945" },
+      { name: "Gila River", location: [33.0147, -111.8735], years: "1942-1945" },
+      { name: "Rohwer", location: [33.7645, -91.2767], years: "1942-1945" },
+      { name: "Jerome", location: [33.4115, -91.4659], years: "1942-1944" }
+    ];
+
+    // Initialize map when the page loads
+    window.onload = function() {
+      // Create map centered on US
+      const map = L.map('camp-map').setView([39.8283, -98.5795], 4);
+      
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // Add markers for each camp
+      camps.forEach(camp => {
+        L.marker(camp.location)
+          .bindPopup(`<strong>${camp.name}</strong><br>Years: ${camp.years}`)
+          .addTo(map);
+      });
+    }
+  </script>
+
+  <!-- Leaflet CSS and JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</Layout>
+
+<style>
+  /* Additional custom styles can be added here */
+  .prose em {
+    @apply font-semibold text-gray-900;
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AudioPlayerComponent from "../components/audio-player";
+
+const audioFiles = [
+  {
+    title: "All American Boy...",
+    src: "/audio/JACCampsMP3/camps.01.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.01.ogg",
+  },
+  {
+    title: "Angry Man...",
+    src: "/audio/JACCampsMP3/camps.02.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.02.ogg",
+  },
+  {
+    title: "What would you do if we deported you?",
+    src: "/audio/JACCampsMP3/camps.03.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.03.ogg",
+  },
+  {
+    title: "Everyone just believed in the government...",
+    src: "/audio/JACCampsMP3/camps.04.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.04.ogg",
+  },
+  {
+    title: "We are American citizens and had nothing to do with Pearl Harbor",
+    src: "/audio/JACCampsMP3/camps.05.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.05.ogg",
+  },
+  {
+    title: "We were being treated like the enemy...",
+    src: "/audio/JACCampsMP3/camps.06.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.06.ogg",
+  },
+  {
+    title: "No future for my children?...",
+    src: "/audio/JACCampsMP3/camps.07.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.07.ogg",
+  },
+  {
+    title: "Rehabilitation",
+    src: "/audio/JACCampsMP3/camps.08.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.08.ogg",
+  },
+  {
+    title: "If I can get through that...",
+    src: "/audio/JACCampsMP3/camps.09.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.09.ogg",
+  },
+];
+---
+
+<Layout title="Internee Audio Interviews | Masumi Hayashi">
+  <main class="container mx-auto px-4 flex justify-center items-center">
+    <div class="prose prose-sm sm:prose lg:prose-lg">
+      <h1>Japanese American Internee Audio Interviews</h1>
+      <p>
+        Listen to firsthand accounts from Japanese American internees about
+        their experiences during World War II.
+      </p>
+    </div>
+  </main>
+
+  <AudioPlayerComponent
+    client:load
+    audioFiles={audioFiles.map((file) => ({ ...file, url: file.src }))}
+  />
+</Layout>

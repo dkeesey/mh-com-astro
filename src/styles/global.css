@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap");
+
+html {
+  background-color: #f1f5f9;
+  font-family: sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  padding-bottom: 80px;
+  padding-top: 10px;
+}
+
+a {
+  color: theme("colors.link-normal");
+  text-decoration: none;
+}
+
+a:hover {
+  color: theme("colors.link-hover");
+  text-decoration: underline;
+}
+
+a:visited {
+  color: theme("colors.link-visited");
+}

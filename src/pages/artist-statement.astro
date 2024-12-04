@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content, frontmatter as ArtistStatementContent } from '../content/pages/artist-statement.mdx';
+
+
+---
+
+<Layout title={ArtistStatementContent.title} description="Artist Statement by Masumi Hayashi">
+  <main class="bg-museum-white prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
+    <article class="text-left">
+      <h1 class="text-3xl font-bold mb-2">{ArtistStatementContent.title}</h1>
+      <h2 class="text-xl mb-4">Artist Statement</h2>
+      <p class="text-gray-600 mb-6">By {ArtistStatementContent.author}, {ArtistStatementContent.date}</p>
+      <div class="prose prose-lg">
+        <Content />
+      </div>
+    </article>
+  </main>
+</Layout>

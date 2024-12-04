@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content as AboutContent } from '../content/pages/about.mdx';
+const { classNames } = Astro.props;
+
+import CloudinaryImage from "../components/CloudinaryImage.astro";
+
+const rameswaramData = {
+  cloudinaryId: "sacred-architectures/rameswaram-1_baqkjr",
+  title: "Rameswaram Temple, No.1",
+  media: "Panoramic photo collage with Fuji Crystal archive prints",
+  year: "2004",
+  city: "Rameswaram",
+  state: "Tamil Nadu",
+  country: "India",
+  size: '41" x 23"',
+};
+
+---
+
+<Layout title="About Masumi Hayashi" description="Learn about the life and work of Masumi Hayashi">
+    <section class="w-full h-full bg-museum-black" >
+      <CloudinaryImage
+      title={rameswaramData.title}
+      name={rameswaramData.title}
+      city={rameswaramData.city}
+      state={rameswaramData.state}
+      year={rameswaramData.year}
+      cloudinaryId={rameswaramData.cloudinaryId}
+      media={rameswaramData.media}
+      classNames={classNames}
+      size={rameswaramData.size}
+    />
+  </section>
+    <article class="text-left bg-museum-white prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
+      <h1 class="text-3xl font-bold mb-6">About Masumi Hayashi (1945-2006)</h1>
+      <AboutContent />
+    </article>
+    
+</Layout>

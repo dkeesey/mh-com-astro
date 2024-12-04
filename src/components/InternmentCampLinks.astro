@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+
+interface CampEntry {
+  slug: string;
+  name: string;
+  series: string;
+}
+
+interface Props {
+  entries: CampEntry[];
+}
+// Fetch all entries from the "artworks" collection
+const allArtPagesEntries = (await getCollection("artwork")).map((entry) => ({
+  slug: entry.data.slug,
+  name: entry.data.name,
+  series: entry.data.series,
+}));
+
+const { entries } = Astro.props as Props;
+---
+
+<div>
+  <h2 class="text-xl py-8">Japanese-American Internment Camps</h2>
+  <ul class="flex flex-col items-center">
+    {
+      entries
+        .filter(
+          (entry) => entry.series === "Japanese-American Internment Camps"
+        )
+        .map((entry) => (
+          <li class="self-start ml-8">
+            <a href={`/artwork/internment-camps/${entry.slug}`}>{entry.name}</a>
+          </li>
+        ))
+    }
+  </ul>
+  <h2 class="text-xl py-8">Japanese-Canadian Internment Camps</h2>
+  <ul class="flex flex-col justify-center pb-8">
+    {
+      entries
+        .filter(
+          (entry) => entry.series === "Japanese-Canadian Internment Camps"
+        )
+        .map((entry) => (
+          <li class="px-2">
+            <a href={`/artwork/internment-camps/${entry.slug}`}>{entry.name}</a>
+          </li>
+        ))
+    }
+  </ul>
+</div>
