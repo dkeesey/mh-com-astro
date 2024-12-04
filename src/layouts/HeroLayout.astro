@@ -1,0 +1,47 @@
+---
+import Layout from "./Layout.astro";
+import CloudinaryImage from "../components/CloudinaryImage.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  classes?: string;
+  heroImage: {
+    cloudinaryId: string;
+    title: string;
+    media: string;
+    year: string;
+    city: string;
+    state: string;
+    country: string;
+    size: string;
+  };
+}
+
+const { 
+  title = "Masumi Hayashi",
+  description = "Masumi Hayashi's panoramic photocollage artwork",
+  heroImage,
+  classes = ""
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class={`min-h-screen ${classes}`}>
+    <section class="w-full bg-museum-black">
+      <CloudinaryImage
+        title={heroImage.title}
+        name={heroImage.title}
+        city={heroImage.city}
+        state={heroImage.state}
+        year={heroImage.year}
+        cloudinaryId={heroImage.cloudinaryId}
+        media={heroImage.media}
+        size={heroImage.size}
+      />
+    </section>
+    <article class="text-left bg-museum-white">
+      <slot />
+    </article>
+  </div>
+</Layout>
