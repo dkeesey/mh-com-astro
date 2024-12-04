@@ -17,6 +17,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/leaflet": "^1.9.15",
     "astro": "^4.15.2",
     "astro-devtool-breakpoints": "^0.3.0",
     "astro-icon": "^1.1.0",

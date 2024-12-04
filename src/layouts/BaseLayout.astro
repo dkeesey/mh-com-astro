@@ -1,0 +1,15 @@
+---
+export interface Props {
+  title: string;
+}
+---
+
+<html>
+  <head>
+    <title>{Astro.props.title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+

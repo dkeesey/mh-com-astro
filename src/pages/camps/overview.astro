@@ -5,6 +5,12 @@ import heroImage from '@images/installation.jpg';
 ---
 
 <Layout title="American Concentration Camps: A Collective Memory">
+  <!-- Leaflet CSS and JS -->
+  <head slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  </head>
+
   <!-- Hero Section -->
   <section class="relative w-full h-[60vh] min-h-[400px] overflow-hidden">
     <div class="absolute inset-0 bg-black/40 z-10"></div>
@@ -78,6 +84,8 @@ import heroImage from '@images/installation.jpg';
 
   <!-- Map Script -->
   <script>
+    declare const L: any; // Declare Leaflet global variable
+
     // Camp locations data
     const camps = [
       { name: "Manzanar", location: [36.7286, -118.1541], years: "1942-1945" },
@@ -92,34 +100,53 @@ import heroImage from '@images/installation.jpg';
       { name: "Jerome", location: [33.4115, -91.4659], years: "1942-1944" }
     ];
 
-    // Initialize map when the page loads
-    window.onload = function() {
+    // Initialize map when the script loads
+    function initMap() {
+      const mapElement = document.getElementById('camp-map');
+      if (!mapElement) return;
+
       // Create map centered on US
       const map = L.map('camp-map').setView([39.8283, -98.5795], 4);
       
       // Add OpenStreetMap tiles
-      const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
-      });
-      osmTileLayer.addTo(map);
+      }).addTo(map);
 
       // Add markers for each camp
       camps.forEach(camp => {
-        const marker = L.marker(camp.location);
-        marker.bindPopup(`<strong>${camp.name}</strong><br>Years: ${camp.years}`);
-        marker.addTo(map);
+        L.marker(camp.location)
+         .bindPopup(`<strong>${camp.name}</strong><br>Years: ${camp.years}`)
+         .addTo(map);
       });
+    }
+
+    // Wait for both DOM and Leaflet to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        // Check if Leaflet is loaded
+        if (typeof L !== 'undefined') {
+          initMap();
+        } else {
+          // Wait for Leaflet script to load
+          document.querySelector('script[src*="leaflet"]')?.addEventListener('load', initMap);
+        }
+      });
+    } else {
+      // DOM already loaded, check for Leaflet
+      if (typeof L !== 'undefined') {
+        initMap();
+      } else {
+        // Wait for Leaflet script to load
+        document.querySelector('script[src*="leaflet"]')?.addEventListener('load', initMap);
+      }
     }
   </script>
 
-  <!-- Leaflet CSS and JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <style>
+    /* Additional custom styles can be added here */
+    .prose em {
+      @apply font-semibold text-gray-900;
+    }
+  </style>
 </Layout>
-
-<style>
-  /* Additional custom styles can be added here */
-  .prose em {
-    @apply font-semibold text-gray-900;
-  }
-</style>
