@@ -1,0 +1,33 @@
+---
+import HeroLayout from "../layouts/HeroLayout.astro";
+
+const familyAlbumData = {
+  title: "Family Album",
+  description: "A collection of family memories and photographs.",
+  heroImage: {
+    cloudinaryId: "your-cloudinary-id-for-family-album",
+    title: "Family Album Cover",
+    media: "Photo",
+    year: "2023",
+    city: "Your City",
+    state: "Your State",
+    country: "Your Country",
+    size: "Your Size",
+  },
+};
+---
+
+<HeroLayout
+  title={familyAlbumData.title}
+  description={familyAlbumData.description}
+  heroImage={familyAlbumData.heroImage}
+>
+  <div class="prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
+    <h1 class="text-3xl font-bold mb-6">{familyAlbumData.title}</h1>
+    <p>
+      This is a placeholder for the Family Album page. More content will be
+      added soon.
+    </p>
+  </div>
+</HeroLayout>
+
