@@ -1,0 +1,47 @@
+---
+// src/pages/family-album/index.astro
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PhotographerGrid from '@components/PhotographerGrid.astro';
+import ExhibitionImage from '@components/ExhibitionImage.astro';
+---
+
+<BaseLayout title="The Family Album Pages">
+  <!-- Hero with original banner image -->
+  <div class="relative h-64 md:h-96 bg-gray-900">
+    <img 
+      src="/images/famalbum/fambanner.jpeg"
+      alt="Family Album Banner"
+      class="w-full h-full object-cover opacity-80"
+    />
+    <div class="absolute inset-0 flex items-center justify-center">
+      <h1 class="text-4xl md:text-6xl text-white font-light">
+        The Family Album Pages
+      </h1>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <!-- Introduction -->
+    <div class="prose prose-lg mx-auto">
+      <p class="text-xl font-light">
+        These family album pages show pictures from the daily lives of the internees, 
+        in both the Canadian and American camps...
+      </p>
+      
+      <ExhibitionImage 
+        src="/images/famalbum/install.pic1.jpeg"
+        alt="Exhibition installation view"
+        caption="Cleveland State University Art Gallery, March 1996"
+      />
+    </div>
+
+    <!-- Photographer Grid -->
+    <PhotographerGrid />
+
+    <!-- Main Content Sections -->
+    <div class="prose prose-lg mx-auto mt-16">
+      <h2>The Camera and The Photographer</h2>
+      {/* Content sections */}
+    </div>
+  </main>
+</BaseLayout>

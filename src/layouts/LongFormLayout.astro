@@ -1,11 +1,10 @@
-// src/layouts/LongFormLayout.astro
-
+---
 import MainHead from './MainHead.astro';
-import { contentSections } from '@content/family-album/config.ts';
-import TableOfContents from '../components/TableOfContents.astro';
-import ProgressBar from '../components/ProgressBar.astro';
-import ImageGallery from '../components/ImageGallery.astro';
-import MobileNav from '../components/MobileNav.astro';
+import { contentSections } from '@content/family-album/config';
+import TableOfContents from '@components/TableOfContents.astro';
+import ProgressBar from '@components/ProgressBar.astro';
+import ImageGallery from '@components/ImageGallery.astro';
+import MobileNav from '@components/MobileNav.astro';
 
 interface Props {
   title: string;
@@ -23,17 +22,17 @@ const sections = contentSections.map((section) => ({
   id: section.id,
   title: section.title,
 }));
+---
 
-___
-
-<html>
-  <MainHead title={title} description={description} />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <MainHead title={title} description={description} />
+  </head>
   <body>
     <div class="min-h-screen">
       <!-- Sticky Progress + Nav on Desktop -->
-      <div
-        class="hidden lg:block fixed top-0 left-0 w-64 h-screen border-r border-gray-200 p-6"
-      >
+      <div class="hidden lg:block fixed top-0 left-0 w-64 h-screen border-r border-gray-200 p-6">
         <ProgressBar />
         <TableOfContents sections={sections} />
       </div>
