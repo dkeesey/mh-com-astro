@@ -1,170 +1,51 @@
 ---
-// src/components/PhotographerGrid.astro
 interface Photographer {
   name: string;
-  slug: string;
-  role: 'amateur' | 'official' | 'canadian' | 'professional' | 'visitor';
-  location: string;
-  thumbnail?: string;
-  birth?: string;
-  death?: string;
-  resettled?: string;
+  link: string;
+  birthYear: string;
+  birthPlace: string;
+  deathYear?: string;
+  deathPlace?: string;
+  camp: string;
+  image: string;
 }
 
-const photographers: Photographer[] = [
-  {
-    name: "Toyo Miyatake",
-    slug: "toyo-miyatake",
-    role: "official",
-    location: "Manzanar Relocation Camp",
-    birth: "1895",
-    death: "1979",
-    resettled: "Los Angeles",
-    thumbnail: "images/miyatake1.jpeg"
-  },
-  {
-    name: "Hideharu Fukuyama",
-    slug: "hideharu-fukuyama",
-    role: "official",
-    location: "Gila River Relocation Camp",
-    birth: "1905",
-    death: "1978",
-    resettled: "Los Angeles",
-    thumbnail: "images/fukuyama5.gif"
-  },
-  {
-    name: "James Yonemura",
-    slug: "james-yonemura",
-    role: "official",
-    location: "Heart Mountain Relocation Camp"
-  },
-  {
-    name: "Grace Akiya",
-    slug: "grace-akiya",
-    role: "amateur",
-    location: "Heart Mountain Relocation Camp",
-    birth: "1917",
-    resettled: "Cleveland, Ohio",
-    thumbnail: "images/akiya3.gif"
-  },
-  {
-    name: "June Utako Morioka",
-    slug: "june-morioka",
-    role: "amateur",
-    location: "Heart Mountain Relocation Camp",
-    birth: "1915",
-    resettled: "Honolulu, Hawaii",
-    thumbnail: "images/morioka5.jpeg"
-  },
-  {
-    name: "Eva Hashiguichi",
-    slug: "eva-hashiguichi",
-    role: "amateur",
-    location: "Heart Mountain Relocation Camp",
-    birth: "1925",
-    resettled: "Cleveland, Ohio"
-  },
-  {
-    name: "Tokuye Sato",
-    slug: "tokuye-sato",
-    role: "amateur",
-    location: "Topaz Relocation Camp",
-    resettled: "Los Angeles"
-  },
-  {
-    name: "Shigeyo Yamamoto",
-    slug: "shigeyo-yamamoto",
-    role: "visitor",
-    location: "Minidoka Relocation Camp"
-  },
-  {
-    name: "Tayeko Nomura",
-    slug: "tayeko-nomura",
-    role: "visitor",
-    location: "Granada Relocation Camp (Amache)"
-  },
-  {
-    name: "Midge Ayukawa",
-    slug: "midge-ayukawa",
-    role: "canadian",
-    location: "Lemon Creek Internment Camp",
-    resettled: "Victoria Island, B.C., Canada",
-    thumbnail: "images/ayukawa2.jpeg"
-  },
-  {
-    name: "Irene Tsuyuki",
-    slug: "irene-tsuyuki",
-    role: "canadian",
-    location: "Tashme Internment Camp",
-    resettled: "Richmond, Vancouver",
-    thumbnail: "images/tsuyuki2.jpeg"
-  }
-];
+interface Props {
+  photographers: Photographer[];
+}
 
-// Group photographers by role for organized display
-const groupedPhotographers = {
-  official: photographers.filter(p => p.role === 'official'),
-  amateur: photographers.filter(p => p.role === 'amateur'),
-  visitor: photographers.filter(p => p.role === 'visitor'),
-  canadian: photographers.filter(p => p.role === 'canadian')
-};
+const { photographers } = Astro.props;
+
 ---
 
-<section class="my-16 space-y-16">
-  {Object.entries(groupedPhotographers).map(([role, photographers]) => (
-    <div class="space-y-6">
-      <h2 class="text-2xl font-light text-gray-900 capitalize">
-        {role === 'official' && 'Official Camp Photographers'}
-        {role === 'amateur' && 'Amateur Photographers'}
-        {role === 'visitor' && 'Visitor Photography'}
-        {role === 'canadian' && 'Canadian Internment Photographers'}
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {photographers.map(photographer => (
-          <a 
-            href={`/family-album/photographers/${photographer.slug}`}
-            class="group relative bg-gray-50 p-6 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <div class="aspect-square mb-4 overflow-hidden rounded-lg bg-gray-200">
-              {photographer.thumbnail ? (
-                <img 
-                  src={photographer.thumbnail} 
-                  alt={`Photos by ${photographer.name}`}
-                  class="w-full h-full object-cover transition-transform group-hover:scale-105"
-                />
-              ) : (
-                <div class="w-full h-full flex items-center justify-center">
-                  <svg 
-                    class="w-12 h-12 text-gray-400" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    stroke-width="2" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round"
-                  >
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                    <circle cx="12" cy="13" r="4" />
-                  </svg>
-                </div>
-              )}
-            </div>
-            
-            <div class="space-y-2">
-              <h3 class="text-lg font-medium text-gray-900">{photographer.name}</h3>
-              <div class="text-sm text-gray-600">
-                {photographer.location}
-              </div>
-              <div class="text-sm text-gray-500">
-                {photographer.birth && `Born ${photographer.birth}`}
-                {photographer.death && ` • Died ${photographer.death}`}
-                {photographer.resettled && <div>Resettled: {photographer.resettled}</div>}
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
+<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  {photographers.map(photographer => (
+    <a href={photographer.link} class="group">
+      <article class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 hover:scale-105">
+        <div class="aspect-[4/3] overflow-hidden bg-gray-100">
+          <img
+            src={photographer.image}
+            alt={photographer.name}
+            class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="text-lg font-bold mb-2">{photographer.name}</h3>
+          <p class="text-sm text-gray-600">
+            Born {photographer.birthYear}, {photographer.birthPlace}
+            {photographer.deathYear && (
+              <span>
+                <br />
+                Died {photographer.deathYear}, {photographer.deathPlace}
+              </span>
+            )}
+          </p>
+          <p class="text-sm text-gray-600 mt-2">
+            Interned at {photographer.camp}
+          </p>
+        </div>
+      </article>
+    </a>
   ))}
-</section>
+</div>

@@ -1,33 +1,101 @@
 ---
-import HeroLayout from "../layouts/HeroLayout.astro";
+import LongFormLayout from "../layouts/LongFormLayout.astro";
+import ExhibitionImage from "@components/ExhibitionImage.astro";
+import PhotographerGrid from "@components/PhotographerGrid.astro";
 
-const familyAlbumData = {
-  title: "Family Album",
-  description: "A collection of family memories and photographs.",
-  heroImage: {
-    cloudinaryId: "your-cloudinary-id-for-family-album",
-    title: "Family Album Cover",
-    media: "Photo",
-    year: "2023",
-    city: "Your City",
-    state: "Your State",
-    country: "Your Country",
-    size: "Your Size",
+const photographers = [
+  {
+    name: "TOYO MIYATAKE",
+    link: "/family-album/photographers/miyatake",
+    birthYear: "1895",
+    birthPlace: "Japan",
+    deathYear: "1979",
+    deathPlace: "Los Angeles",
+    camp: "Manzanar Relocation Camp",
+    image: "/src/images/family-album/miyatake.jpg"
   },
-};
+  {
+    name: "HIDEHARU FUKUYAMA",
+    link: "/family-album/photographers/fukuyama",
+    birthYear: "1905",
+    birthPlace: "Japan",
+    deathYear: "1978",
+    deathPlace: "Los Angeles",
+    camp: "Gila River Relocation Camp",
+    image: "/src/images/family-album/fukuyama5.gif"
+  },
+  // Add more photographers here
+];
+
+const images = [
+  {
+    src: "/src/images/family-album/fambanner.jpeg",
+    alt: "Family Album Banner",
+    caption: "The Family Album Pages"
+  },
+  {
+    src: "/src/images/family-album/install.pic1.jpeg",
+    alt: "Installation View 1",
+    caption: "Installation view of the Family Album exhibition"
+  },
+  {
+    src: "/src/images/family-album/install.pic3.jpeg",
+    alt: "Installation View 2",
+    caption: "Another view of the Family Album exhibition"
+  }
+];
 ---
 
-<HeroLayout
-  title={familyAlbumData.title}
-  description={familyAlbumData.description}
-  heroImage={familyAlbumData.heroImage}
+<LongFormLayout
+  title="The Family Album Pages"
+  description="A collection of photographs from the daily lives of internees in both Canadian and American camps"
+  images={images}
 >
-  <div class="prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
-    <h1 class="text-3xl font-bold mb-6">{familyAlbumData.title}</h1>
-    <p>
-      This is a placeholder for the Family Album page. More content will be
-      added soon.
-    </p>
-  </div>
-</HeroLayout>
+  <div class="space-y-8">
+    <header class="text-center mb-12">
+      <ExhibitionImage
+        src={images[0].src}
+        alt={images[0].alt}
+        caption={images[0].caption}
+      />
+    </header>
 
+    <section class="prose max-w-none">
+      <p class="lead">
+        These family album pages show pictures from the daily lives of the internees, in both the Canadian and American camps. 
+        In a variety of ways cameras were brought in the camps, loaned out to friends, film processed, and the rituals of daily life were preserved.
+      </p>
+
+      <p>
+        During the course of working on this project, Hayashi traveled to photograph each camp site, and also attended reunions 
+        and conferences for the camp survivors and their relatives. She came into contact with internees and their relatives, 
+        many of whom had collected and saved fascinating albums of photographs from the time that they were interned.
+      </p>
+    </section>
+
+    <section class="my-12">
+      <h2 class="text-2xl font-bold mb-6">Featured Photographers</h2>
+      <PhotographerGrid photographers={photographers} />
+    </section>
+
+    <section class="my-12">
+      <h2 class="text-2xl font-bold mb-6">Exhibition Views</h2>
+      <div class="grid gap-8 md:grid-cols-2">
+        {images.slice(1).map(image => (
+          <ExhibitionImage
+            src={image.src}
+            alt={image.alt}
+            caption={image.caption}
+          />
+        ))}
+      </div>
+    </section>
+
+    <footer class="mt-16 text-center text-sm text-gray-600">
+      <p>
+        This exhibition was funded by the Ohio Arts Council and the artist. 
+        These web pages and web site are supported by CSU, the Civil Liberties Educational Fund, OAC, and the artist.
+      </p>
+    </footer>
+  </div>
+</LongFormLayout>
