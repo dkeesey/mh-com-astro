@@ -1,31 +1,8 @@
 ---
-import LongFormLayout from "../layouts/LongFormLayout.astro";
+import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
-
-const photographers = [
-  {
-    name: "TOYO MIYATAKE",
-    link: "/family-album/photographers/miyatake",
-    birthYear: "1895",
-    birthPlace: "Japan",
-    deathYear: "1979",
-    deathPlace: "Los Angeles",
-    camp: "Manzanar Relocation Camp",
-    image: "/src/images/family-album/miyatake.jpg"
-  },
-  {
-    name: "HIDEHARU FUKUYAMA",
-    link: "/family-album/photographers/fukuyama",
-    birthYear: "1905",
-    birthPlace: "Japan",
-    deathYear: "1978",
-    deathPlace: "Los Angeles",
-    camp: "Gila River Relocation Camp",
-    image: "/src/images/family-album/fukuyama5.gif"
-  },
-  // Add more photographers here
-];
+import { photographers } from "@content/family-album/config";
 
 const images = [
   {
@@ -44,24 +21,29 @@ const images = [
     caption: "Another view of the Family Album exhibition"
   }
 ];
+
+const featuredPhotographers = photographers.filter(p => 
+  p.category === 'official' || p.category === 'amateur'
+).map(p => ({
+  name: p.name,
+  link: `/family-album/photographers/${p.id}`,
+  birthYear: p.birthYear || '',
+  birthPlace: p.birthPlace || '',
+  deathYear: p.deathYear,
+  deathPlace: p.deathPlace,
+  camp: p.camp,
+  image: p.image || ''
+}));
 ---
 
-<LongFormLayout
+<Layout
   title="The Family Album Pages"
   description="A collection of photographs from the daily lives of internees in both Canadian and American camps"
-  images={images}
 >
-  <div class="space-y-8">
-    <header class="text-center mb-12">
-      <ExhibitionImage
-        src={images[0].src}
-        alt={images[0].alt}
-        caption={images[0].caption}
-      />
-    </header>
-
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
     <section class="prose max-w-none">
-      <p class="lead">
+      <h1 class="text-4xl font-light mb-8">The Family Album Pages</h1>
+      <p class="lead text-xl">
         These family album pages show pictures from the daily lives of the internees, in both the Canadian and American camps. 
         In a variety of ways cameras were brought in the camps, loaned out to friends, film processed, and the rituals of daily life were preserved.
       </p>
@@ -73,13 +55,13 @@ const images = [
       </p>
     </section>
 
-    <section class="my-12">
-      <h2 class="text-2xl font-bold mb-6">Featured Photographers</h2>
-      <PhotographerGrid photographers={photographers} />
+    <section>
+      <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
+      <PhotographerGrid photographers={featuredPhotographers} />
     </section>
 
-    <section class="my-12">
-      <h2 class="text-2xl font-bold mb-6">Exhibition Views</h2>
+    <section>
+      <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
       <div class="grid gap-8 md:grid-cols-2">
         {images.slice(1).map(image => (
           <ExhibitionImage
@@ -91,11 +73,11 @@ const images = [
       </div>
     </section>
 
-    <footer class="mt-16 text-center text-sm text-gray-600">
+    <section class="text-center text-sm text-gray-600 border-t pt-8">
       <p>
         This exhibition was funded by the Ohio Arts Council and the artist. 
         These web pages and web site are supported by CSU, the Civil Liberties Educational Fund, OAC, and the artist.
       </p>
-    </footer>
+    </section>
   </div>
-</LongFormLayout>
+</Layout>

@@ -36,7 +36,19 @@ import ExhibitionImage from '@components/ExhibitionImage.astro';
     </div>
 
     <!-- Photographer Grid -->
-    <PhotographerGrid />
+    <PhotographerGrid photographers={[
+      {
+        name: "Photographer Name",
+        link: "/photographer-link",
+        birthYear: "1900",
+        birthPlace: "Birth Place",
+        deathYear: "1980",
+        deathPlace: "Death Place",
+        camp: "Camp Name",
+        image: "/path/to/image.jpg"
+      }
+      // Add more photographers here
+    ]} />
 
     <!-- Main Content Sections -->
     <div class="prose prose-lg mx-auto mt-16">
