@@ -98,15 +98,16 @@ import heroImage from '@images/installation.jpg';
       const map = L.map('camp-map').setView([39.8283, -98.5795], 4);
       
       // Add OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      const osmTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+      });
+      osmTileLayer.addTo(map);
 
       // Add markers for each camp
       camps.forEach(camp => {
-        L.marker(camp.location)
-          .bindPopup(`<strong>${camp.name}</strong><br>Years: ${camp.years}`)
-          .addTo(map);
+        const marker = L.marker(camp.location);
+        marker.bindPopup(`<strong>${camp.name}</strong><br>Years: ${camp.years}`);
+        marker.addTo(map);
       });
     }
   </script>
