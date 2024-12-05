@@ -2,15 +2,37 @@
 import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
-import { photographers } from "@content/family-album/config";
+import { photographers, type Photographer } from "@content/family-album/config";
 import { getEntry, getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+interface RenderedSection {
+  Content: any; // Astro component type
+  data: {
+    title: string;
+    description?: string;
+    [key: string]: any;
+  };
+}
+
+interface FeaturedPhotographer {
+  name: string;
+  link: string;
+  birthYear: string;
+  birthPlace: string;
+  deathYear?: string;
+  deathPlace?: string;
+  camp: string;
+  image: string;
+  category: 'official' | 'amateur' | 'visitor' | 'canadian';
+}
 
 // Initialize variables outside try block
 let introData = {
   title: "Family Album Project",
   description: "Default description",
 };
-let renderedSections = [];
+let renderedSections: RenderedSection[] = [];
 let images = [
   {
     src: "/src/images/family-album/fambanner.jpeg",
@@ -28,7 +50,7 @@ let images = [
     caption: "Another view of the Family Album exhibition",
   },
 ];
-let featuredPhotographers = [];
+let featuredPhotographers: FeaturedPhotographer[] = [];
 
 try {
   // Load introduction data
@@ -69,6 +91,7 @@ try {
       deathPlace: p.deathPlace,
       camp: p.camp,
       image: p.image || "",
+      category: p.category,
     }));
 
 } catch (error) {
