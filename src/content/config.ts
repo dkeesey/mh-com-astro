@@ -5,7 +5,22 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string().optional(),
-      // Add other fields as needed
+      heroImage: z.string().optional(),
+      layout: z.string().optional(),
+      name: z.string().optional(),
+      birthYear: z.string().optional(),
+      birthPlace: z.string().optional(),
+      deathYear: z.string().optional(),
+      deathPlace: z.string().optional(),
+      camp: z.string().optional(),
+      image: z.string().optional(),
+      photos: z.array(
+        z.object({
+          src: z.string(),
+          alt: z.string(),
+          caption: z.string()
+        })
+      ).optional()
     })
   })
 };

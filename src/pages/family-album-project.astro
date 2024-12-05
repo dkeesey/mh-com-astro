@@ -11,6 +11,7 @@ interface RenderedSection {
   data: {
     title: string;
     description?: string;
+    heroImage?: string;
     [key: string]: any;
   };
 }
@@ -27,57 +28,51 @@ interface FeaturedPhotographer {
   category: 'official' | 'amateur' | 'visitor' | 'canadian';
 }
 
-// Initialize variables outside try block
-let introData = {
-  title: "Family Album Project",
-  description: "Default description",
-};
+// Initialize variables
 let renderedSections: RenderedSection[] = [];
-let images = [
-  {
-    src: "/src/images/family-album/fambanner.jpeg",
-    alt: "Family Album Banner",
-    caption: "The Family Album Pages",
-  },
-  {
-    src: "/src/images/family-album/install.pic1.jpeg",
-    alt: "Installation View 1",
-    caption: "Installation view of the Family Album exhibition",
-  },
-  {
-    src: "/src/images/family-album/install.pic3.jpeg",
-    alt: "Installation View 2",
-    caption: "Another view of the Family Album exhibition",
-  },
-];
 let featuredPhotographers: FeaturedPhotographer[] = [];
 
 try {
-  // Load introduction data
-  const introduction = await getEntry("family-album", "introduction");
-  if (introduction) {
-    const rendered = await introduction.render();
-    introData = {
-      title: introduction.data.title || "Family Album Project",
-      description: introduction.data.description || "Default description",
-    };
-  }
-
   // Get all family album content sections
   const sections = await getCollection('family-album', (entry) => {
-    return entry.id.startsWith('0') && entry.id.endsWith('.mdx');
+    // Only include files that:
+    // 1. Start with a number (01-, 02-, etc.)
+    // 2. End with .mdx
+    // 3. Are in the root family-album directory (not in photographers/)
+    const isNumberedMdx = /^\d{2}-[^/]+\.mdx$/.test(entry.id);
+    const isInRoot = !entry.id.includes('/');
+    console.log(`Checking entry ${entry.id}:`, { isNumberedMdx, isInRoot });
+    return isNumberedMdx && isInRoot;
   });
+
+  // Log found sections
+  console.log('Found sections:', sections.map(s => s.id).join(', '));
+
+  if (sections.length === 0) {
+    console.error('No sections found. Check the content collection filter.');
+    throw new Error('No content sections found');
+  }
 
   // Sort sections by filename (01-, 02-, etc.)
   const sortedSections = sections.sort((a, b) => a.id.localeCompare(b.id));
+  console.log('Sorted sections:', sortedSections.map(s => s.id).join(', '));
 
   // Render each section's content
   renderedSections = await Promise.all(
     sortedSections.map(async (section) => {
-      const { Content } = await section.render();
-      return { Content, data: section.data };
+      console.log(`Rendering section: ${section.id}`);
+      try {
+        const { Content } = await section.render();
+        console.log(`Successfully rendered section: ${section.id}`);
+        return { Content, data: section.data };
+      } catch (error) {
+        console.error(`Error rendering section ${section.id}:`, error);
+        return null;
+      }
     })
-  );
+  ).then(results => results.filter(Boolean) as RenderedSection[]);
+
+  console.log(`Successfully rendered ${renderedSections.length} sections`);
 
   // Set up featured photographers
   featuredPhotographers = photographers
@@ -96,18 +91,26 @@ try {
 
 } catch (error) {
   console.error("Error loading content:", error);
+  console.error("Error details:", (error as Error).message, (error as Error).stack);
 }
 ---
 
-<Layout title={introData.title} description={introData.description}>
+<Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-    {renderedSections.map(({ Content, data }) => (
-      <section class="prose max-w-none mb-12">
-        <h2 class="text-2xl font-bold mb-4">{data.title}</h2>
-        {data.description && <p class="text-lg mb-6">{data.description}</p>}
-        <Content />
-      </section>
-    ))}
+    {renderedSections.length > 0 ? (
+      renderedSections.map(({ Content, data }) => (
+        <section class="prose max-w-none mb-12">
+          <h2 class="text-2xl font-bold mb-4">{data.title}</h2>
+          {data.description && <p class="text-lg mb-6">{data.description}</p>}
+          <Content />
+        </section>
+      ))
+    ) : (
+      <div class="text-center py-12">
+        <p class="text-xl text-gray-600">Loading content sections...</p>
+        <p class="text-sm text-gray-500 mt-2">If this message persists, please check the console for errors.</p>
+      </div>
+    )}
 
     <section>
       <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
@@ -117,22 +120,21 @@ try {
     <section>
       <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
       <div class="grid gap-8 md:grid-cols-2">
-        {images.slice(1).map((image) => (
-          <ExhibitionImage
-            src={image.src}
-            alt={image.alt}
-            caption={image.caption}
-          />
+        {[
+          {
+            src: "/src/images/family-album/install.pic1.jpeg",
+            alt: "Installation View 1",
+            caption: "Installation view of the Family Album exhibition",
+          },
+          {
+            src: "/src/images/family-album/install.pic3.jpeg",
+            alt: "Installation View 2",
+            caption: "Another view of the Family Album exhibition",
+          },
+        ].map((image) => (
+          <ExhibitionImage src={image.src} alt={image.alt} caption={image.caption} />
         ))}
       </div>
-    </section>
-
-    <section class="text-center text-sm text-gray-600 border-t pt-8">
-      <p>
-        This exhibition was funded by the Ohio Arts Council and the artist.
-        These web pages and web site are supported by CSU, the Civil Liberties
-        Educational Fund, OAC, and the artist.
-      </p>
     </section>
   </div>
 </Layout>
