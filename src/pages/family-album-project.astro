@@ -3,64 +3,102 @@ import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
 import { photographers } from "@content/family-album/config";
-import { getEntry } from 'astro:content';
+import { getEntry } from "astro:content";
 
-const introduction = await getEntry('family-album', 'introduction');
-const camerasInCamps = await getEntry('family-album', 'cameras-in-camps');
-const amateurPhotographers = await getEntry('family-album', 'amateur-photographers');
+// Add error handling for content loading
+let IntroContent, CamerasContent, AmateurContent;
+let introData = {
+  title: "Family Album Project",
+  description: "Default description",
+};
 
-const { Content: IntroContent } = await introduction.render();
-const { Content: CamerasContent } = await camerasInCamps.render();
-const { Content: AmateurContent } = await amateurPhotographers.render();
+try {
+  const introduction = await getEntry("family-album", "introduction");
+  const camerasInCamps = await getEntry("family-album", "cameras-in-camps");
+  const amateurPhotographers = await getEntry(
+    "family-album",
+    "amateur-photographers"
+  );
+
+  if (introduction) {
+    const rendered = await introduction.render();
+    IntroContent = rendered.Content;
+    introData = {
+      title: introduction.data.title || "Family Album Project",
+      description: introduction.data.description || "Default description",
+    };
+  }
+
+  if (camerasInCamps) {
+    const rendered = await camerasInCamps.render();
+    CamerasContent = rendered.Content;
+  }
+
+  if (amateurPhotographers) {
+    const rendered = await amateurPhotographers.render();
+    AmateurContent = rendered.Content;
+  }
+} catch (error) {
+  console.error("Error loading content:", error);
+}
 
 const images = [
   {
     src: "/src/images/family-album/fambanner.jpeg",
     alt: "Family Album Banner",
-    caption: "The Family Album Pages"
+    caption: "The Family Album Pages",
   },
   {
     src: "/src/images/family-album/install.pic1.jpeg",
     alt: "Installation View 1",
-    caption: "Installation view of the Family Album exhibition"
+    caption: "Installation view of the Family Album exhibition",
   },
   {
     src: "/src/images/family-album/install.pic3.jpeg",
     alt: "Installation View 2",
-    caption: "Another view of the Family Album exhibition"
-  }
+    caption: "Another view of the Family Album exhibition",
+  },
 ];
 
-const featuredPhotographers = photographers.filter(p => 
-  p.category === 'official' || p.category === 'amateur'
-).map(p => ({
-  name: p.name,
-  link: `/family-album/photographers/${p.id}`,
-  birthYear: p.birthYear || '',
-  birthPlace: p.birthPlace || '',
-  deathYear: p.deathYear,
-  deathPlace: p.deathPlace,
-  camp: p.camp,
-  image: p.image || ''
-}));
+const featuredPhotographers = photographers
+  .filter((p) => p.category === "official" || p.category === "amateur")
+  .map((p) => ({
+    name: p.name,
+    link: `/family-album/photographers/${p.id}`,
+    birthYear: p.birthYear || "",
+    birthPlace: p.birthPlace || "",
+    deathYear: p.deathYear,
+    deathPlace: p.deathPlace,
+    camp: p.camp,
+    image: p.image || "",
+  }));
 ---
 
-<Layout
-  title={introduction.data.title}
-  description={introduction.data.description}
->
+<Layout title={introData.title} description={introData.description}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-    <section class="prose max-w-none">
-      <IntroContent />
-    </section>
+    {
+      IntroContent && (
+        <section class="prose max-w-none">
+          <IntroContent />
+        </section>
+      )
+    }
 
-    <section class="prose max-w-none mt-12">
-      <CamerasContent />
-    </section>
+    {
+      CamerasContent && (
+        <section class="prose max-w-none mt-12">
+          <CamerasContent />
+        </section>
+      )
+    }
 
-    <section class="prose max-w-none mt-12">
-      <AmateurContent />
-    </section>
+    {
+      AmateurContent && (
+        <section class="prose max-w-none mt-12">
+          <AmateurContent />
+        </section>
+      )
+    }
 
     <section>
       <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
@@ -70,20 +108,25 @@ const featuredPhotographers = photographers.filter(p =>
     <section>
       <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
       <div class="grid gap-8 md:grid-cols-2">
-        {images.slice(1).map(image => (
-          <ExhibitionImage
-            src={image.src}
-            alt={image.alt}
-            caption={image.caption}
-          />
-        ))}
+        {
+          images
+            .slice(1)
+            .map((image) => (
+              <ExhibitionImage
+                src={image.src}
+                alt={image.alt}
+                caption={image.caption}
+              />
+            ))
+        }
       </div>
     </section>
 
     <section class="text-center text-sm text-gray-600 border-t pt-8">
       <p>
-        This exhibition was funded by the Ohio Arts Council and the artist. 
-        These web pages and web site are supported by CSU, the Civil Liberties Educational Fund, OAC, and the artist.
+        This exhibition was funded by the Ohio Arts Council and the artist.
+        These web pages and web site are supported by CSU, the Civil Liberties
+        Educational Fund, OAC, and the artist.
       </p>
     </section>
   </div>

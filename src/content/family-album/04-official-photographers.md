@@ -1,4 +1,4 @@
-![Alt text here](image-url)---
+---
 title: "The Internee as Official Camp Photographer"
 description: "Profiles of official photographers in the internment camps"
 ---
