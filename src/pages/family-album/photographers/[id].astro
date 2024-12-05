@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import PhotographerProfile from '@layouts/PhotographerProfile.astro';
+
+export async function getStaticPaths() {
+  const photographers = await getCollection('family-album', entry => entry.id.startsWith('photographers/'));
+  return photographers.map(entry => ({
+    params: { id: entry.id.split('/')[1] },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<PhotographerProfile frontmatter={entry.data}>
+  <Content />
+</PhotographerProfile>

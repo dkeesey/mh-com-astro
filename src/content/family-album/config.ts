@@ -33,7 +33,7 @@ export const photographers: Photographer[] = [
     deathYear: '1979',
     deathPlace: 'Los Angeles',
     camp: 'Manzanar Relocation Camp',
-    image: '/src/images/family-album/miyatake.jpg',
+    image: '/src/images/family-album/photographers/miyatake.jpg',
     category: 'official'
   },
   {
@@ -44,10 +44,27 @@ export const photographers: Photographer[] = [
     deathYear: '1978',
     deathPlace: 'Los Angeles',
     camp: 'Gila River Relocation Camp',
-    image: '/src/images/family-album/fukuyama5.gif',
+    image: '/src/images/family-album/photographers/fukuyama5.gif',
     category: 'official'
   },
-  // Add more photographers here
+  {
+    id: 'akiya',
+    name: 'Grace Akiya',
+    birthYear: '1917',
+    birthPlace: 'Lankershiem, California',
+    camp: 'Heart Mountain Relocation Camp',
+    image: '/src/images/family-album/photographers/akiya3.gif',
+    category: 'amateur'
+  },
+  {
+    id: 'morioka',
+    name: 'June Utako Morioka',
+    birthYear: '1915',
+    birthPlace: 'Japan',
+    camp: 'Heart Mountain Relocation Camp',
+    image: '/src/images/family-album/photographers/morioka5.jpeg',
+    category: 'amateur'
+  }
 ];
 
 export const contentSections: ContentSection[] = [

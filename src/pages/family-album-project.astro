@@ -3,6 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
 import { photographers } from "@content/family-album/config";
+import { getEntry } from 'astro:content';
+
+const introduction = await getEntry('family-album', 'introduction');
+const camerasInCamps = await getEntry('family-album', 'cameras-in-camps');
+const amateurPhotographers = await getEntry('family-album', 'amateur-photographers');
+
+const { Content: IntroContent } = await introduction.render();
+const { Content: CamerasContent } = await camerasInCamps.render();
+const { Content: AmateurContent } = await amateurPhotographers.render();
 
 const images = [
   {
@@ -37,22 +46,20 @@ const featuredPhotographers = photographers.filter(p =>
 ---
 
 <Layout
-  title="The Family Album Pages"
-  description="A collection of photographs from the daily lives of internees in both Canadian and American camps"
+  title={introduction.data.title}
+  description={introduction.data.description}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
     <section class="prose max-w-none">
-      <h1 class="text-4xl font-light mb-8">The Family Album Pages</h1>
-      <p class="lead text-xl">
-        These family album pages show pictures from the daily lives of the internees, in both the Canadian and American camps. 
-        In a variety of ways cameras were brought in the camps, loaned out to friends, film processed, and the rituals of daily life were preserved.
-      </p>
+      <IntroContent />
+    </section>
 
-      <p>
-        During the course of working on this project, Hayashi traveled to photograph each camp site, and also attended reunions 
-        and conferences for the camp survivors and their relatives. She came into contact with internees and their relatives, 
-        many of whom had collected and saved fascinating albums of photographs from the time that they were interned.
-      </p>
+    <section class="prose max-w-none mt-12">
+      <CamerasContent />
+    </section>
+
+    <section class="prose max-w-none mt-12">
+      <AmateurContent />
     </section>
 
     <section>
