@@ -5,13 +5,33 @@ import PhotographerGrid from "@components/PhotographerGrid.astro";
 import { photographers } from "@content/family-album/config";
 import { getEntry, getCollection } from "astro:content";
 
-// Add error handling for content loading
+// Initialize variables outside try block
 let introData = {
   title: "Family Album Project",
   description: "Default description",
 };
+let renderedSections = [];
+let images = [
+  {
+    src: "/src/images/family-album/fambanner.jpeg",
+    alt: "Family Album Banner",
+    caption: "The Family Album Pages",
+  },
+  {
+    src: "/src/images/family-album/install.pic1.jpeg",
+    alt: "Installation View 1",
+    caption: "Installation view of the Family Album exhibition",
+  },
+  {
+    src: "/src/images/family-album/install.pic3.jpeg",
+    alt: "Installation View 2",
+    caption: "Another view of the Family Album exhibition",
+  },
+];
+let featuredPhotographers = [];
 
 try {
+  // Load introduction data
   const introduction = await getEntry("family-album", "introduction");
   if (introduction) {
     const rendered = await introduction.render();
@@ -30,32 +50,15 @@ try {
   const sortedSections = sections.sort((a, b) => a.id.localeCompare(b.id));
 
   // Render each section's content
-  const renderedSections = await Promise.all(
+  renderedSections = await Promise.all(
     sortedSections.map(async (section) => {
       const { Content } = await section.render();
       return { Content, data: section.data };
     })
   );
 
-  const images = [
-    {
-      src: "/src/images/family-album/fambanner.jpeg",
-      alt: "Family Album Banner",
-      caption: "The Family Album Pages",
-    },
-    {
-      src: "/src/images/family-album/install.pic1.jpeg",
-      alt: "Installation View 1",
-      caption: "Installation view of the Family Album exhibition",
-    },
-    {
-      src: "/src/images/family-album/install.pic3.jpeg",
-      alt: "Installation View 2",
-      caption: "Another view of the Family Album exhibition",
-    },
-  ];
-
-  const featuredPhotographers = photographers
+  // Set up featured photographers
+  featuredPhotographers = photographers
     .filter((p) => p.category === "official" || p.category === "amateur")
     .map((p) => ({
       name: p.name,
@@ -71,7 +74,6 @@ try {
 } catch (error) {
   console.error("Error loading content:", error);
 }
-
 ---
 
 <Layout title={introData.title} description={introData.description}>
@@ -92,17 +94,13 @@ try {
     <section>
       <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
       <div class="grid gap-8 md:grid-cols-2">
-        {
-          images
-            .slice(1)
-            .map((image) => (
-              <ExhibitionImage
-                src={image.src}
-                alt={image.alt}
-                caption={image.caption}
-              />
-            ))
-        }
+        {images.slice(1).map((image) => (
+          <ExhibitionImage
+            src={image.src}
+            alt={image.alt}
+            caption={image.caption}
+          />
+        ))}
       </div>
     </section>
 
