@@ -3,10 +3,9 @@ import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
 import { photographers } from "@content/family-album/config";
-import { getEntry } from "astro:content";
+import { getEntry, getCollection } from "astro:content";
 
 // Add error handling for content loading
-let IntroContent, CamerasContent, AmateurContent;
 let introData = {
   title: "Family Album Project",
   description: "Default description",
@@ -14,91 +13,76 @@ let introData = {
 
 try {
   const introduction = await getEntry("family-album", "introduction");
-  const camerasInCamps = await getEntry("family-album", "cameras-in-camps");
-  const amateurPhotographers = await getEntry(
-    "family-album",
-    "amateur-photographers"
-  );
-
   if (introduction) {
     const rendered = await introduction.render();
-    IntroContent = rendered.Content;
     introData = {
       title: introduction.data.title || "Family Album Project",
       description: introduction.data.description || "Default description",
     };
   }
 
-  if (camerasInCamps) {
-    const rendered = await camerasInCamps.render();
-    CamerasContent = rendered.Content;
-  }
+  // Get all family album content sections
+  const sections = await getCollection('family-album', (entry) => {
+    return entry.id.startsWith('0') && entry.id.endsWith('.mdx');
+  });
 
-  if (amateurPhotographers) {
-    const rendered = await amateurPhotographers.render();
-    AmateurContent = rendered.Content;
-  }
+  // Sort sections by filename (01-, 02-, etc.)
+  const sortedSections = sections.sort((a, b) => a.id.localeCompare(b.id));
+
+  // Render each section's content
+  const renderedSections = await Promise.all(
+    sortedSections.map(async (section) => {
+      const { Content } = await section.render();
+      return { Content, data: section.data };
+    })
+  );
+
+  const images = [
+    {
+      src: "/src/images/family-album/fambanner.jpeg",
+      alt: "Family Album Banner",
+      caption: "The Family Album Pages",
+    },
+    {
+      src: "/src/images/family-album/install.pic1.jpeg",
+      alt: "Installation View 1",
+      caption: "Installation view of the Family Album exhibition",
+    },
+    {
+      src: "/src/images/family-album/install.pic3.jpeg",
+      alt: "Installation View 2",
+      caption: "Another view of the Family Album exhibition",
+    },
+  ];
+
+  const featuredPhotographers = photographers
+    .filter((p) => p.category === "official" || p.category === "amateur")
+    .map((p) => ({
+      name: p.name,
+      link: `/family-album/photographers/${p.id}`,
+      birthYear: p.birthYear || "",
+      birthPlace: p.birthPlace || "",
+      deathYear: p.deathYear,
+      deathPlace: p.deathPlace,
+      camp: p.camp,
+      image: p.image || "",
+    }));
+
 } catch (error) {
   console.error("Error loading content:", error);
 }
 
-const images = [
-  {
-    src: "/src/images/family-album/fambanner.jpeg",
-    alt: "Family Album Banner",
-    caption: "The Family Album Pages",
-  },
-  {
-    src: "/src/images/family-album/install.pic1.jpeg",
-    alt: "Installation View 1",
-    caption: "Installation view of the Family Album exhibition",
-  },
-  {
-    src: "/src/images/family-album/install.pic3.jpeg",
-    alt: "Installation View 2",
-    caption: "Another view of the Family Album exhibition",
-  },
-];
-
-const featuredPhotographers = photographers
-  .filter((p) => p.category === "official" || p.category === "amateur")
-  .map((p) => ({
-    name: p.name,
-    link: `/family-album/photographers/${p.id}`,
-    birthYear: p.birthYear || "",
-    birthPlace: p.birthPlace || "",
-    deathYear: p.deathYear,
-    deathPlace: p.deathPlace,
-    camp: p.camp,
-    image: p.image || "",
-  }));
 ---
 
 <Layout title={introData.title} description={introData.description}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-    {
-      IntroContent && (
-        <section class="prose max-w-none">
-          <IntroContent />
-        </section>
-      )
-    }
-
-    {
-      CamerasContent && (
-        <section class="prose max-w-none mt-12">
-          <CamerasContent />
-        </section>
-      )
-    }
-
-    {
-      AmateurContent && (
-        <section class="prose max-w-none mt-12">
-          <AmateurContent />
-        </section>
-      )
-    }
+    {renderedSections.map(({ Content, data }) => (
+      <section class="prose max-w-none mb-12">
+        <h2 class="text-2xl font-bold mb-4">{data.title}</h2>
+        {data.description && <p class="text-lg mb-6">{data.description}</p>}
+        <Content />
+      </section>
+    ))}
 
     <section>
       <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
