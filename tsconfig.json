@@ -10,7 +10,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
-      "@lib/*": ["src/lib/*"]  
+      "@lib/*": ["src/lib/*"],
+      "@radix/*": ["node_modules/@radix-ui/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
