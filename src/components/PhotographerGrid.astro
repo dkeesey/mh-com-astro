@@ -20,6 +20,8 @@ interface Props {
 
 const { photographers } = Astro.props;
 
+// Import all images dynamically
+const imageModules = import.meta.glob('@images/family-album/photographers/**/*.(jpg|gif|png|webp)', { eager: true });
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -32,6 +34,15 @@ const { photographers } = Astro.props;
           category={photographer.category}
         />
         <div class="p-6">
+          {photographer.image && (
+            <div class="mb-4">
+              <Image
+                src={(imageModules[photographer.image] as { default: ImageMetadata })?.default}
+                alt={`Portrait of ${photographer.name}`}
+                class="w-full h-48 object-cover"
+              />
+            </div>
+          )}
           <div class="space-y-2">
             <p class="text-sm text-gray-600">
               Born: {photographer.birthYear || 'Unknown'}, {photographer.birthPlace || 'Unknown'}

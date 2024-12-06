@@ -33,7 +33,7 @@ export const photographers: Photographer[] = [
     deathYear: '1979',
     deathPlace: 'Los Angeles',
     camp: 'Manzanar Relocation Camp',
-    image: '/src/images/family-album/photographers/miyatake/miyatake1.jpg',
+    image: '@images/family-album/photographers/miyatake/miyatake1.jpg',
     category: 'official'
   },
   {
@@ -44,7 +44,7 @@ export const photographers: Photographer[] = [
     deathYear: '1978',
     deathPlace: 'Los Angeles',
     camp: 'Gila River Relocation Camp',
-    image: '/src/images/family-album/photographers/fukuyama/fukuyama1.gif',
+    image: '@images/family-album/photographers/fukuyama/fukuyama1.gif',
     category: 'official'
   },
   {
@@ -53,7 +53,7 @@ export const photographers: Photographer[] = [
     birthYear: '1917',
     birthPlace: 'Lankershiem, California',
     camp: 'Heart Mountain Relocation Camp',
-    image: '/src/images/family-album/photographers/akiya/akiya1.gif',
+    image: '@images/family-album/photographers/akiya/akiya1.gif',
     category: 'amateur'
   },
   {
@@ -62,14 +62,14 @@ export const photographers: Photographer[] = [
     birthYear: '1915',
     birthPlace: 'Japan',
     camp: 'Heart Mountain Relocation Camp',
-    image: '/src/images/family-album/photographers/morioka/morioka1.jpg',
+    image: '@images/family-album/photographers/morioka/morioka1.jpg',
     category: 'amateur'
   },
   {
     id: 'nomura',
     name: 'Tayeko Nomura',
     camp: 'Granada (Amache) Relocation Camp',
-    image: '/src/images/family-album/photographers/nomura/nomura1.jpg',
+    image: '@images/family-album/photographers/nomura/nomura1.jpg',
     category: 'amateur'
   },
   {
@@ -77,7 +77,7 @@ export const photographers: Photographer[] = [
     name: 'Midge Ayukawa',
     birthPlace: 'Vancouver, B.C., Canada',
     camp: 'Lemon Creek Internment Camp',
-    image: '/src/images/family-album/photographers/ayukawa/ayukawa.jpg',
+    image: '@images/family-album/photographers/ayukawa/ayukawa.jpg',
     category: 'canadian'
   },
   {
@@ -85,7 +85,7 @@ export const photographers: Photographer[] = [
     name: 'Irene Tsuyuki',
     birthPlace: 'Vancouver, B.C., Canada',
     camp: 'Tashme Internment Camp',
-    image: '/src/images/family-album/photographers/tsuyuki/tsuyuki1.jpg',
+    image: '@images/family-album/photographers/tsuyuki/tsuyuki1.jpg',
     category: 'canadian'
   }
 ];
