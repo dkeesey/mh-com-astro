@@ -1,4 +1,7 @@
 ---
+import installPic1 from '@images/family-album/install-pic1.jpg';
+import installPic3 from '@images/family-album/install-pic3.jpg';
+
 import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
 import PhotographerGrid from "@components/PhotographerGrid.astro";
@@ -16,21 +19,9 @@ interface RenderedSection {
   };
 }
 
-interface FeaturedPhotographer {
-  name: string;
-  link: string;
-  birthYear: string;
-  birthPlace: string;
-  deathYear?: string;
-  deathPlace?: string;
-  camp: string;
-  image: string;
-  category: 'official' | 'amateur' | 'visitor' | 'canadian';
-}
-
 // Initialize variables
 let renderedSections: RenderedSection[] = [];
-let featuredPhotographers: FeaturedPhotographer[] = [];
+let featuredPhotographers: Photographer[] = [];
 
 try {
   // Get all family album content sections
@@ -75,24 +66,13 @@ try {
   console.log(`Successfully rendered ${renderedSections.length} sections`);
 
   // Set up featured photographers
-  featuredPhotographers = photographers
-    .filter((p) => p.category === "official" || p.category === "amateur")
-    .map((p) => ({
-      name: p.name,
-      link: `/family-album/photographers/${p.id}`,
-      birthYear: p.birthYear || "",
-      birthPlace: p.birthPlace || "",
-      deathYear: p.deathYear,
-      deathPlace: p.deathPlace,
-      camp: p.camp,
-      image: p.image || "",
-      category: p.category,
-    }));
+  featuredPhotographers = photographers.filter((p) => p.category === "official" || p.category === "amateur");
 
 } catch (error) {
   console.error("Error loading content:", error);
   console.error("Error details:", (error as Error).message, (error as Error).stack);
 }
+
 ---
 
 <Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
@@ -120,20 +100,16 @@ try {
     <section>
       <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
       <div class="grid gap-8 md:grid-cols-2">
-        {[
-          {
-            src: "@images/family-album/install-pic1.jpg",
-            alt: "Installation View 1",
-            caption: "Installation view of the Family Album exhibition",
-          },
-          {
-            src: "@images/family-album/install-pic3.jpg",
-            alt: "Installation View 2",
-            caption: "Another view of the Family Album exhibition",
-          },
-        ].map((image) => (
-          <ExhibitionImage {...image} />
-        ))}
+        <ExhibitionImage 
+          src={installPic1}
+          alt="Installation View 1"
+          caption="Installation view of the Family Album exhibition"
+        />
+        <ExhibitionImage 
+          src={installPic3}
+          alt="Installation View 2"
+          caption="Another view of the Family Album exhibition"
+        />
       </div>
     </section>
   </div>

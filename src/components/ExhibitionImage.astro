@@ -3,22 +3,17 @@
 import { Image } from 'astro:assets';
 
 interface Props {
-  src: string | ImageMetadata;
+  src: ImageMetadata;  // Only accept ImageMetadata
   alt: string;
   caption?: string;
 }
 
 const { src, alt, caption } = Astro.props;
-
-// Handle both string paths and direct image imports
-const imageSrc = typeof src === 'string' 
-  ? (await import(`@images/family-album/${src.split('/').pop()}`)).default
-  : src;
 ---
 
 <figure class="relative">
   <Image
-    src={imageSrc}
+    src={src}
     alt={alt}
     class="w-full rounded-lg shadow-lg"
     loading="lazy"
@@ -29,13 +24,3 @@ const imageSrc = typeof src === 'string'
     </figcaption>
   )}
 </figure>
-
-<style>
-  figure img {
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  figure:hover img {
-    transform: scale(1.01);
-  }
-</style>
