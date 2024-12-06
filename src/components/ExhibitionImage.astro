@@ -12,7 +12,7 @@ const { src, alt, caption } = Astro.props;
 
 // Handle both string paths and direct image imports
 const imageSrc = typeof src === 'string' 
-  ? (await import(`../images/family-album/${src.split('/').pop()}`)).default
+  ? (await import(`@images/family-album/${src.split('/').pop()}`)).default
   : src;
 ---
 
