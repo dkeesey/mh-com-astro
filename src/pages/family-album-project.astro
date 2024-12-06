@@ -34,7 +34,7 @@ let featuredPhotographers: FeaturedPhotographer[] = [];
 
 try {
   // Get all family album content sections
-  const sections = await getCollection('family-album', (entry) => {
+  const sections = await getCollection('family-album', (entry: CollectionEntry<'family-album'>) => {
     // Only include files that:
     // 1. Start with a number (01-, 02-, etc.)
     // 2. End with .mdx
@@ -46,7 +46,7 @@ try {
   });
 
   // Log found sections
-  console.log('Found sections:', sections.map(s => s.id).join(', '));
+  console.log('Found sections:', sections.map((s: CollectionEntry<'family-album'>) => s.id).join(', '));
 
   if (sections.length === 0) {
     console.error('No sections found. Check the content collection filter.');
@@ -54,8 +54,8 @@ try {
   }
 
   // Sort sections by filename (01-, 02-, etc.)
-  const sortedSections = sections.sort((a, b) => a.id.localeCompare(b.id));
-  console.log('Sorted sections:', sortedSections.map(s => s.id).join(', '));
+  const sortedSections: CollectionEntry<'family-album'>[] = sections.sort((a: CollectionEntry<'family-album'>, b: CollectionEntry<'family-album'>) => a.id.localeCompare(b.id));
+  console.log('Sorted sections:', sortedSections.map((s: CollectionEntry<'family-album'>) => s.id).join(', '));
 
   // Render each section's content
   renderedSections = await Promise.all(

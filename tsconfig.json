@@ -9,11 +9,12 @@
       "@images/*": ["src/images/*"],
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@lib/*": ["src/lib/*"]  
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "allowJs": true,
-    "strictNullChecks": true,
+    "strictNullChecks": true
   }
 }
