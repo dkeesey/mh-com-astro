@@ -1,0 +1,90 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+
+// Import images
+import tsuyukiTomato from   '@images/family-album/photographers/tsuyuki/tsuyuki1.jpg';
+import tsuyukiFuneral1 from '@images/family-album/photographers/tsuyuki/tsuyuki2.jpg';
+import tsuyukiFuneral2 from '@images/family-album/photographers/tsuyuki/tsuyuki4.jpg';
+import tsuyukiFamily from   '@images/family-album/photographers/tsuyuki/tsuyuki5.jpg';
+import tsuyukiHunter from   '@images/family-album/photographers/tsuyuki/tsuyuki6.jpg';
+import tsuyukiMassage from  '@images/family-album/photographers/tsuyuki/tsuzuki8.gif';
+
+const title = "Family Album";
+const description = "Family Album from Lillooet Self-Supporting Camp by Norman Tsuyuki";
+
+const photos = [
+  {
+    src: tsuyukiHunter,
+    alt: "Pre-war hunting photo",
+    description: "Prewar families were free to hunt and fish and live as free Canadian citizens. During WWII they were labeled \"enemy aliens\" and they were rounded up and interned. Some families in Vancouver left before the forced evacuation. These families resettled in towns where \"self-supporting\" camps were designated. As in the States, they were told they could relocate away from the Coast. But most people did not realize the implications of evacution and/or did not have the resources to move within a week or a month."
+  },
+  {
+    src: tsuyukiFamily,
+    alt: "Tsuyuki family at Lillooet",
+    description: "The Tsuyuki family evacuated to a farm in Lillooet that was part of the \"self-supporting\" camps. Norman Tsuyuki was a teenager in the camps and was an avid photographer. He was able to record all aspects of their life during this internment time."
+  },
+  {
+    src: tsuyukiFuneral1,
+    alt: "Funeral service",
+    description: "A neighboring family's funeral service. Some traditions were more difficult to maintain as it is a tradition to cremate the bodies before burial. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiFuneral2,
+    alt: "Buddhist funeral service",
+    description: "Although many internees were Christian, the ritural of cremation and Buddhist services before and after burial of the ashes was a ritural most maintained. It is part of the Japanese culture and ritual of ancestral worship. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiTomato,
+    alt: "Tomato plantings",
+    description: "Tomatoes and cantaloupe were a couple of the crops they grew. All photographs are by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiMassage,
+    alt: "Traditional massage",
+    description: "After a days work on the farms it was part of the culture to enjoy both the bath, furo, and the message. The art of message was passed down from parents to children."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <PhotographersGrid />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Lillooet Self-Supporting Camp, British Columbia"
+      collection="Mr. and Mrs. Norman and Irene Tsuyuki"
+      photographer="Mr. Norman Tsuyuki"
+      date="1943-1948"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          Norman Tsuyuki's photographs provide a unique perspective of life in the Lillooet self-supporting camp during World War II. 
+          As a teenage photographer during the internment, he documented daily life, cultural traditions, and agricultural activities 
+          of Japanese-Canadian families who chose to evacuate to self-supporting camps. His photographs capture both the preservation 
+          of cultural practices and the adaptations required by their circumstances, including farming activities and religious ceremonies.
+        </p>
+        <p class="mt-4">
+          Cameras and guns and knives and all sharp utencils were considered contraband and were confiscated, making these photographic 
+          records particularly rare and valuable historical documents of the internment experience.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>

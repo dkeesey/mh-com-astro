@@ -1,0 +1,74 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+
+// Import images
+import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake1.jpg';
+import miyatakeBoys from '@images/family-album/photographers/miyatake/miyatake2.jpg';
+import miyatakeBirthday1 from '@images/family-album/photographers/miyatake/miyatake2.1.jpg';
+import miyatakeBirthday2 from '@images/family-album/photographers/miyatake/miyatake2.2.jpg';
+
+const title = "Family Album";
+const description = "Family Album from Manzanar Relocation Camp by Toyo Miyatake";
+
+const photos = [
+  {
+    src: miyatakeSoldier,
+    alt: "Son and soldier of the 442nd visiting parents",
+    description: "A son and soldier of the 442nd visiting his parents at Manzanar Concentration Camp. Photo copyright by Archie Miyatake."
+  },
+  {
+    src: miyatakeBoys,
+    alt: "Young boys near fence and guard tower",
+    description: "These young boys were playing near the fense and one of the guard tower of the camp. Photo copyright by Archie Miyatake."
+  },
+  {
+    src: miyatakeBirthday1,
+    alt: "Men fishing beyond barbed wire",
+    description: "Some men would sneak out beyond the barbed wire fence to go fishing for several days."
+  },
+  {
+    src: miyatakeBirthday2,
+    alt: "Child with birthday cake",
+    description: "Difficult as it was to get material goods, children still had birthdays to celebrate. Bartering was common to get birthday cakes from the cook."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <PhotographersGrid />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Manzanar Relocation Camp, California"
+      collection="Mr. Archie Miyatake"
+      photographer="Toyo Miyatake, a camp photographer, who used a number of format cameras"
+      date="1942-1945"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          Toyo Miyatake was a professional photographer who was incarcerated at Manzanar. Despite cameras being 
+          considered contraband, he managed to document life in the camp using various format cameras. His photographs 
+          provide a unique insider's perspective of daily life, celebrations, and the resilience of the Japanese-American 
+          community during their internment at Manzanar.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>

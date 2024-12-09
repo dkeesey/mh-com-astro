@@ -1,0 +1,98 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+
+// Import images
+import ayukawa9 from '@images/family-album/photographers/ayukawa/ayukawa9.jpg';
+import ayukawa5 from '@images/family-album/photographers/ayukawa/ayukawa5.jpg';
+import ayukawa2 from '@images/family-album/photographers/ayukawa/ayukawa2.jpg';
+import ayukawa8 from '@images/family-album/photographers/ayukawa/ayukawa8.jpg';
+import ayukawa7 from '@images/family-album/photographers/ayukawa/ayukawa7.jpg';
+import ayukawa3 from '@images/family-album/photographers/ayukawa/ayukawa3.jpg';
+import ayukawa6 from '@images/family-album/photographers/ayukawa/ayukawa6.jpg';
+import ayukawa4 from '@images/family-album/photographers/ayukawa/ayukawa4.jpg';
+
+const title = "Family Album";
+const description = "Family Album from Lemon Creek Internment Camp by Dr. Midge Ayakawa";
+
+const photos = [
+  {
+    src: ayukawa9,
+    alt: "Pre-camp photo in downtown Vancouver",
+    description: "This pre-camp photo of Ms. Ayukawa's mother and brother in downtown Vancouver. Photographers used to set up on the street, take pictures, and offer the photos a week later for sale."
+  },
+  {
+    src: ayukawa5,
+    alt: "Mother sitting on porch at Lemon Creek",
+    description: "This is Midge Ayukawa's mother sitting on the porch in the Lemon Creek Internment Camp hut. There was isolation in the internment camps, and the hardships without their husbands made these camps a difficult place and time. Mrs. Ayukawa's mother is now in her 90's."
+  },
+  {
+    src: ayukawa2,
+    alt: "Mother and neighbors on fence",
+    description: "Ms. Midge Ayukawa's mother and neighbors sitting on the fense, photographed with a borrowed box camera."
+  },
+  {
+    src: ayukawa8,
+    alt: "Children dressed up for photograph",
+    description: "Children getting dressed up for the photograph."
+  },
+  {
+    src: ayukawa7,
+    alt: "Winter scene at Lemon Creek",
+    description: "Weather was bitter cold in the winter with the snow and the wind."
+  },
+  {
+    src: ayukawa3,
+    alt: "Neighborhood boys before leaving",
+    description: "Before leaving Lemon Creek, Ms. Ayukawa took these photos of neignhbood boys with a borrowed box camera."
+  },
+  {
+    src: ayukawa6,
+    alt: "Rock gardens at Lemon Creek",
+    description: "Rock gardens were common in Lemon Creek Internment Camp. The rock gardens have remained over 50 years later. This camp was located on farm land rented by the government from farmers."
+  },
+  {
+    src: ayukawa4,
+    alt: "Another view of Lemon Creek camp",
+    description: "Other internment sites were located in isolated ghost towns."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <PhotographersGrid />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Lemon Creek Internment Camp, Slocan, British Columbia, Canada"
+      collection="Dr. Midge Ayakawa"
+      photographer="Dr. Midge Ayakawa and other internees"
+      date="1942-1948"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          Dr. Midge Ayukawa's family album provides an intimate look at life in the Lemon Creek Internment Camp during World War II. 
+          These photographs, many taken with a borrowed box camera, document both the hardships and the resilience of Japanese-Canadian 
+          families during their internment. The collection spans from pre-camp life in Vancouver to the daily experiences within 
+          the camp, capturing moments of family life despite the difficult circumstances.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>
