@@ -4,40 +4,36 @@ description: "A collection of photographs from the daily lives of internees in b
 heroImage: "@images/family-album/amy.jpg"
 ---
 
-import FloatingImage from '@components/FloatingImage.astro';
+import { Image } from 'astro:assets';
 import tsuyuki2 from '@images/family-album/tsuyuki2.jpg';
 import ayukawa2 from '@images/family-album/ayukawa2.jpg';
 import morioka5 from '@images/family-album/morioka5.jpg';
 import akiya3 from '@images/family-album/akiya3.gif';
 
-<FloatingImage 
-  src={tsuyuki2.src} 
+<Image 
+  src={tsuyuki2}
   alt="Tsuyuki photograph" 
-  float="left" 
   width={286}
   height={202}
 />
 
-<FloatingImage 
-  src={ayukawa2.src} 
+<Image 
+  src={ayukawa2}
   alt="Ayukawa photograph" 
-  float="right" 
   width={264}
   height={190}
 />
 
-<FloatingImage 
-  src={morioka5.src} 
+<Image 
+  src={morioka5}
   alt="Morioka photograph" 
-  float="left" 
   width={150}
   height={215}
 />
 
-<FloatingImage 
-  src={akiya3.src} 
+<Image 
+  src={akiya3}
   alt="Akiya photograph" 
-  float="right" 
   width={150}
   height={226}
 />
