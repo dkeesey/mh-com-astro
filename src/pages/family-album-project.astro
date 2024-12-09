@@ -78,6 +78,22 @@ try {
 
 <Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <section>
+      <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <ExhibitionImage 
+          src={installPic1}
+          alt="Installation View 1"
+          caption="Installation view of the Family Album exhibition"
+        />
+        <ExhibitionImage 
+          src={installPic3}
+          alt="Installation View 2"
+          caption="Another view of the Family Album exhibition"
+        />
+      </div>
+    </section>
+
     {renderedSections.length > 0 ? (
       renderedSections.map(({ Content, data }) => (
         <section class="prose max-w-none mb-12">
@@ -98,22 +114,6 @@ try {
     <section>
       <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
       {/* <PhotographerGrid photographers={featuredPhotographers} /> */}
-    </section>
-
-    <section>
-      <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
-      <div class="grid gap-8 md:grid-cols-2">
-        <ExhibitionImage 
-          src={installPic1}
-          alt="Installation View 1"
-          caption="Installation view of the Family Album exhibition"
-        />
-        <ExhibitionImage 
-          src={installPic3}
-          alt="Installation View 2"
-          caption="Another view of the Family Album exhibition"
-        />
-      </div>
     </section>
   </div>
 </Layout>

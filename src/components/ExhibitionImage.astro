@@ -3,19 +3,23 @@
 import { Image } from 'astro:assets';
 
 interface Props {
-  src: ImageMetadata;  // Only accept ImageMetadata
+  src: ImageMetadata;
   alt: string;
   caption?: string;
+  width?: number;
+  height?: number;
 }
 
-const { src, alt, caption } = Astro.props;
+const { src, alt, caption, width, height } = Astro.props;
 ---
 
-<figure class="relative">
+<figure class="relative inline-block">
   <Image
     src={src}
     alt={alt}
-    class="w-full rounded-lg shadow-lg"
+    width={width || src.width}
+    height={height || src.height}
+    class="rounded-lg shadow-lg"
     loading="lazy"
   />
   {caption && (
