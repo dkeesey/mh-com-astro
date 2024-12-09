@@ -7,9 +7,9 @@ export default function PostonData() {
                 Research: Poston Relocation Camp
             </h3>
             <div className="text-gray-500">
-                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Southwestern Arizona, near the town of Parker.</p>
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> La Paz County, Arizona, 12 miles south of Parker and 15 miles west of the Colorado River.</p>
 
-                <img src={`/usmap.sm.gif`} className="float-right m-6 ml-6" alt="small map of Japanese-American internment camps in western USA" />
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Land:</span> Colorado River Indian Reservation.</p>
 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Size:</span> 71,000 acres; the center was divided into three camps: I, II, and III.</p>
 

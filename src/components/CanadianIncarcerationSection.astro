@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import ContentSection from "@components/ContentSection.astro";
 import Typography from "./Typography.astro";
+import ayukawaImage from '@images/family-album/photographers/ayukawa/ayukawa2.jpg';
+import tsuyukiImage from '@images/family-album/photographers/tsuyuki/tsuyuki2.jpg';
 ---
 
 <ContentSection>
@@ -32,7 +34,7 @@ import Typography from "./Typography.astro";
             </Typography>
           </div>
           <Image 
-            src="/images/family-album/ayukawa2.jpg"
+            src={ayukawaImage}
             alt="Midge Ayukawa photograph"
             width={318}
             height={230}
@@ -58,7 +60,7 @@ import Typography from "./Typography.astro";
             </Typography>
           </div>
           <Image 
-            src="/images/family-album/tsuyuki2.jpg"
+            src={tsuyukiImage}
             alt="Irene Tsuyuki photograph"
             width={318}
             height={230}

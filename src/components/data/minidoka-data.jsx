@@ -9,8 +9,6 @@ export default function MinidokaData() {
             <div className="text-gray-500">
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Jerome County, south central Idaho, 6 miles north of Eden.</p>
 
-                <img src={`/usmap.sm.gif`} className="float-right m-6 ml-6" alt="small map of Japanese-American internment camps in western USA" />
-
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Land: </span> Federal reclamation project land, part of the Gooding Reclamation District.</p>
 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Size:</span> 33,500 acres.</p>
@@ -44,6 +42,12 @@ export default function MinidokaData() {
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Industry: </span> Minidoka had a garment factory which produced goods for internal consumption. </p>
 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">History: </span> Minidoka was regarded as the "best" of the camps whose positive atmosphere stemmed from the relatively homogenous population and the relatively benevolent administration. Because it was not in the Western Defense Command restricted area, its security was lighter than that of other camps. </p>
+                
+                <div className="prose prose-invert max-w-none">
+                    <p>
+                        Minidoka Relocation Camp was located in Jerome County, Idaho, about 15 miles northeast of Twin Falls and 130 miles southeast of Boise. The camp opened on August 10, 1942, and closed on October 28, 1945. At its peak, the camp held 9,397 Japanese Americans from Oregon, Washington, and Alaska.
+                    </p>
+                </div>
                 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block" >Source:</span> <em>Japanese American History: An A to Z Reference, 1868 to the Present</em>, by Brian Niiya. New York: Facts on File, 1993. This information is provided with the permission from the Japanese American National Museum and Brian Niiya, 1997. 
                 </p>

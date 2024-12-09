@@ -7,9 +7,9 @@ export default function RohwerData() {
                 Research: Rohwer Relocation Camp
             </h3>
             <div className="text-gray-500">
-                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Southeastern Arkansas, near McGehee.</p>
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Desha County, Arkansas, 110 miles southeast of Little Rock and 27 miles south of McGehee.</p>
 
-                <img src={`/usmap.sm.gif`} className="float-right m-6 ml-6" alt="small map of Japanese-American internment camps in western USA" />
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Land:</span> Farm Security Administration land.</p>
 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Size:</span> 10,161 acres; the center was divided into two camps: North and South.</p>
 

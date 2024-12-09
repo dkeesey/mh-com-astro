@@ -7,9 +7,9 @@ export default function HeartMountainData() {
                 Research: Heart Mountain Relocation Camp
             </h3>
             <div className="text-gray-500">
-                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Northwestern Wyoming, near the town of Cody.</p>
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Location:</span> Park County, Wyoming, 13 miles northeast of Cody and 60 miles east of Yellowstone National Park.</p>
 
-                <img src={`/usmap.sm.gif`} className="float-right m-6 ml-6" alt="small map of Japanese-American internment camps in western USA" />
+                <p><span className="font-bold text-blue-600 mt-1 inline-block">Land:</span> Bureau of Reclamation land.</p>
 
                 <p><span className="font-bold text-blue-600 mt-1 inline-block">Size:</span> 46,000 acres; the center was divided into two camps: North and South.</p>
 
