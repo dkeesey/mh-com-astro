@@ -4,7 +4,7 @@ import installPic3 from '@images/family-album/install-pic3.jpg';
 
 import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
-import PhotographerGrid from "@components/PhotographerGrid.astro";
+// import PhotographerGrid from "@components/PhotographerGrid.astro";
 import { photographers, type Photographer } from "@content/family-album/config";
 import { getEntry, getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
@@ -94,7 +94,7 @@ try {
 
     <section>
       <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
-      <PhotographerGrid photographers={featuredPhotographers} />
+      {/* <PhotographerGrid photographers={featuredPhotographers} /> */}
     </section>
 
     <section>
