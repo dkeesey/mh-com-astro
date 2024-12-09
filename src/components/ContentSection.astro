@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import Typography from './Typography.astro';
+
+interface Props {
+  id?: string;
+  title?: string;
+}
+
+const { id, title } = Astro.props;
+---
+
+<section id={id} class="max-w-4xl mx-auto py-16 scroll-mt-16">
+  {title && (
+    <Typography as="h2" variant="section-title">
+      {title}
+    </Typography>
+  )}
+  <div class="prose prose-lg max-w-none">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .prose :global(img) {
+    @apply rounded-lg shadow-lg my-8;
+  }
+  
+  .prose :global(p) {
+    @apply mb-6;
+  }
+  
+  .prose :global(a) {
+    @apply text-blue-600 hover:text-blue-800 underline;
+  }
+</style>

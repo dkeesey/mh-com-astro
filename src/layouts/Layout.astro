@@ -14,19 +14,13 @@ const {
 
 <html lang="en">
   <MainHead title={title} description={description} />
-  <body class="bg-museum-black text-museum-dark text-md font-sans">
-    <div class={`h-screen overflow-y-scroll snap-always ${classes}`}>
+  <body class="bg-gradient-to-b from-gray-900 to-gray-800 text-gray-100 text-md font-sans min-h-screen">
+    <div class={`flex flex-col min-h-screen ${classes}`}>
       <Header />
-      <main class="bg-museum-white">
+      <main class="flex-grow bg-gradient-to-b from-gray-900 to-gray-800 pb-20">
         <slot> Default text for unnamed slot </slot>
       </main>
-
-      <Footer />
+      <Footer class="mt-auto" />
     </div>
-    <style>
-      footer {
-        @apply fixed bottom-0 h-16;
-      }
-    </style>
   </body>
 </html>

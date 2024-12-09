@@ -1,0 +1,45 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import FamilyAlbumSection from "@components/FamilyAlbumSection.astro";
+import FamilyAlbumIntro from "@components/FamilyAlbumIntro.astro";
+
+// Import your images here
+import installPic1 from '@images/family-album/install-pic1.jpg';
+import installPic3 from '@images/family-album/install-pic3.jpg';
+---
+
+<Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Introduction Section -->
+    <FamilyAlbumIntro />
+
+    <!-- Exhibition Images Section -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
+      <div class="flex flex-wrap gap-8 justify-center">
+        <Image 
+          src={installPic1}
+          alt="Installation View 1"
+          width={600}
+          height={400}
+          class="rounded-lg shadow-lg"
+        />
+        <Image 
+          src={installPic3}
+          alt="Installation View 2"
+          width={600}
+          height={400}
+          class="rounded-lg shadow-lg"
+        />
+      </div>
+    </section>
+
+    <!-- Ready for content sections -->
+    <!-- You can paste the markdown content here and I'll help transform it into components -->
+  </main>
+</Layout>
+
+<style>
+  /* Add any custom styles here */
+</style>

@@ -1,0 +1,87 @@
+---
+const { as: Component = 'div', variant, class: className } = Astro.props;
+
+// Color palette
+const colors = {
+  primary: '#2D3648', // Deep navy
+  accent: '#644E5B', // Muted burgundy
+  secondary: '#4A5568', // Slate gray
+};
+
+const styles = {
+  // Exhibition title - All caps
+  'exhibition-title': `
+    text-5xl 
+    font-light 
+    tracking-widest 
+    uppercase 
+    text-center 
+    mb-16
+    text-${colors.primary}
+  `,
+  
+  // Major section headers - All caps
+  'section-title': `
+    text-3xl 
+    font-light 
+    tracking-wider 
+    uppercase 
+    text-center 
+    mb-12
+    text-${colors.primary}
+  `,
+  
+  // Subsection headers - All caps
+  'subsection-title': `
+    text-2xl 
+    font-normal 
+    tracking-wide 
+    uppercase 
+    mb-8
+    text-${colors.primary}
+  `,
+  
+  // Photographer names - Regular case with distinction
+  'photographer-name': `
+    text-2xl
+    font-medium
+    tracking-wide
+    text-${colors.accent}
+    mb-4
+  `,
+  
+  // Body text
+  'body': `
+    text-lg 
+    leading-relaxed 
+    tracking-normal 
+    text-${colors.secondary}
+  `,
+  
+  // Captions
+  'caption': `
+    text-base 
+    italic 
+    tracking-normal 
+    text-gray-600
+  `,
+  
+  // Quotes
+  'quote': `
+    text-xl 
+    italic 
+    leading-relaxed 
+    tracking-normal 
+    text-gray-700 
+    pl-6 
+    border-l-4 
+    border-${colors.accent}
+  `,
+};
+
+const combinedClass = `${styles[variant] || ''} ${className || ''}`.trim();
+---
+
+<Component class={combinedClass}>
+  <slot />
+</Component>

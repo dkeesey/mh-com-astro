@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import butcamIcon from '@images/family-album/butcam.gif';
+
+interface Props {
+  name: string;
+  url: string;
+  firstName: string;
+  lastName: string;
+}
+
+const { name, url, firstName, lastName } = Astro.props;
+---
+
+<div class="flex flex-col items-center gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-gray-800/20">
+  <a href={url} class="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+    <Image 
+      src={butcamIcon}
+      alt={`View ${name}'s photographs`}
+      class="rounded-sm shadow-md"
+    />
+  </a>
+  <a 
+    href={url}
+    class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200"
+  >
+    {firstName} {lastName}
+  </a>
+</div>

@@ -1,0 +1,31 @@
+---
+import PhotographerCard from './PhotographerCard.astro';
+
+const photographers = [
+  { firstName: 'Midge', lastName: 'Ayukawa', url: '/family-album/photographers/ayukawa' },
+  { firstName: 'Irene', lastName: 'Tsuyuki', url: '/family-album/photographers/tsuyuki' },
+  { firstName: 'Toyo', lastName: 'Miyatake', url: '/family-album/photographers/miyatake' },
+  { firstName: 'Hideharu', lastName: 'Fukuyama', url: '/family-album/photographers/fukuyama' },
+  { firstName: 'Grace', lastName: 'Akiya', url: '/family-album/photographers/akiya' },
+  { firstName: 'Takeko', lastName: 'Nomura', url: '/family-album/photographers/nomura' },
+  { firstName: 'June', lastName: 'Morioka', url: '/family-album/photographers/morioka' },
+  { firstName: 'Professional', lastName: 'Photographers', url: '/family-album/photographers/professional' },
+];
+
+---
+
+<section class="py-12">
+  <h2 class="text-2xl font-semibold mb-8 text-center">Internee's Album Pages</h2>
+  <div class="flex flex-wrap justify-evenly gap-y-8 max-w-4xl mx-auto">
+    {photographers.map(photographer => (
+      <div class="flex-1 min-w-[100px] flex justify-center">
+        <PhotographerCard 
+          name={`${photographer.firstName} ${photographer.lastName}`}
+          firstName={photographer.firstName}
+          lastName={photographer.lastName}
+          url={photographer.url}
+        />
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,36 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap");
 
-html {
-  background-color: #f1f5f9;
-  font-family: sans-serif;
-  overflow-x: hidden;
-  overflow-y: hidden;
+/* Base styles for Family Album section */
+.family-album {
+  @apply bg-fa-bg-primary text-fa-text-primary;
+}
+
+.family-album h1,
+.family-album h2,
+.family-album h3,
+.family-album h4,
+.family-album h5,
+.family-album h6,
+.family-album p,
+.family-album li {
+  @apply text-fa-text-primary;
+}
+
+.family-album a {
+  @apply text-fa-interactive-link hover:text-fa-interactive-hover visited:text-fa-interactive-visited;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-robotoCondensed;
 }
 
 body {
-  line-height: 1.5;
-  font-size: 16px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-main {
-  padding-bottom: 80px;
-  padding-top: 10px;
-}
-
-a {
-  color: theme("colors.link-normal");
-  text-decoration: none;
-}
-
-a:hover {
-  color: theme("colors.link-hover");
-  text-decoration: underline;
-}
-
-a:visited {
-  color: theme("colors.link-visited");
+  @apply font-montserrat text-base leading-relaxed;
 }

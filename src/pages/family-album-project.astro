@@ -1,118 +1,65 @@
 ---
+import Layout from "@layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import FamilyAlbumIntro from "@components/FamilyAlbumIntro.astro";
+import ContentSection from "@components/ContentSection.astro";
+import PhotographersGrid from "@components/PhotographersGrid.astro";
+import ContrabandSection from "@components/ContrabandSection.astro";
+import InterneePhotographerSection from "@components/InterneePhotographerSection.astro";
+import AmateurPhotographerSection from "@components/AmateurPhotographerSection.astro";
+import VisitorsSection from "@components/VisitorsSection.astro";
+import CanadianIncarcerationSection from "@components/CanadianIncarcerationSection.astro";
 import installPic1 from '@images/family-album/install-pic1.jpg';
 import installPic3 from '@images/family-album/install-pic3.jpg';
-import { Image } from 'astro:assets';
-import Layout from "../layouts/Layout.astro";
-import ExhibitionImage from "@components/ExhibitionImage.astro";
-// import PhotographerGrid from "@components/PhotographerGrid.astro";
-import { photographers, type Photographer } from "@content/family-album/config";
-import { getEntry, getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 
-interface RenderedSection {
-  Content: any; // Astro component type
-  data: {
-    title: string;
-    description?: string;
-    heroImage?: string;
-    [key: string]: any;
-  };
-}
-
-// Initialize variables
-let renderedSections: RenderedSection[] = [];
-let featuredPhotographers: Photographer[] = [];
-
-try {
-  // Get all family album content sections
-  const sections = await getCollection('family-album', (entry: CollectionEntry<'family-album'>) => {
-    // Only include files that:
-    // 1. Start with a number (01-, 02-, etc.)
-    // 2. End with .mdx
-    // 3. Are in the root family-album directory (not in photographers/)
-    const isNumberedMdx = /^\d{2}-[^/]+\.mdx$/.test(entry.id);
-    const isInRoot = !entry.id.includes('/');
-    console.log(`Checking entry ${entry.id}:`, { isNumberedMdx, isInRoot });
-    return isNumberedMdx && isInRoot;
-  });
-
-  // Log found sections
-  console.log('Found sections:', sections.map((s: CollectionEntry<'family-album'>) => s.id).join(', '));
-
-  if (sections.length === 0) {
-    console.error('No sections found. Check the content collection filter.');
-    throw new Error('No content sections found');
-  }
-
-  // Sort sections by filename (01-, 02-, etc.)
-  const sortedSections: CollectionEntry<'family-album'>[] = sections.sort((a: CollectionEntry<'family-album'>, b: CollectionEntry<'family-album'>) => a.id.localeCompare(b.id));
-  console.log('Sorted sections:', sortedSections.map((s: CollectionEntry<'family-album'>) => s.id).join(', '));
-
-  // Render each section's content
-  renderedSections = await Promise.all(
-    sortedSections.map(async (section) => {
-      console.log(`Rendering section: ${section.id}`);
-      try {
-        const { Content } = await section.render();
-        console.log(`Successfully rendered section: ${section.id}`);
-        return { Content, data: section.data };
-      } catch (error) {
-        console.error(`Error rendering section ${section.id}:`, error);
-        return null;
-      }
-    })
-  ).then(results => results.filter(Boolean) as RenderedSection[]);
-
-  console.log(`Successfully rendered ${renderedSections.length} sections`);
-
-  // Set up featured photographers
-  featuredPhotographers = photographers.filter((p) => p.category === "official" || p.category === "amateur");
-
-} catch (error) {
-  console.error("Error loading content:", error);
-  console.error("Error details:", (error as Error).message, (error as Error).stack);
-}
-
+// We'll handle the content sections directly instead of using getCollection
 ---
 
 <Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-    <section>
-      <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
+  <div class="family-album max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Introduction -->
+    <FamilyAlbumIntro />
+    
+    <!-- Photographers Grid -->
+    <PhotographersGrid />
+    
+    <!-- Exhibition Images -->
+    <ContentSection title="Exhibition Views">
       <div class="flex flex-wrap gap-8 justify-center">
-        <ExhibitionImage 
+        <Image 
           src={installPic1}
-          alt="Installation View 1"
-          caption="Installation view of the Family Album exhibition"
+          alt="Installation View 1 of the Family Album exhibition"
+          class="rounded-lg shadow-lg"
         />
-        <ExhibitionImage 
+        <Image 
           src={installPic3}
-          alt="Installation View 2"
-          caption="Another view of the Family Album exhibition"
+          alt="Installation View 2 of the Family Album exhibition"
+          class="rounded-lg shadow-lg"
         />
       </div>
-    </section>
+      <p class="text-center italic mt-4">Cleveland State University Art Gallery, March 1996.</p>
+    </ContentSection>
 
-    {renderedSections.length > 0 ? (
-      renderedSections.map(({ Content, data }) => (
-        <section class="prose max-w-none mb-12">
-          <h2 class="text-2xl font-bold mb-4">{data.title}</h2>
-          {data.description && <p class="text-lg mb-6">{data.description}</p>}
-          <div class="clearfix">
-            <Content />
-          </div>
-        </section>
-      ))
-    ) : (
-      <div class="text-center py-12">
-        <p class="text-xl text-gray-600">Loading content sections...</p>
-        <p class="text-sm text-gray-500 mt-2">If this message persists, please check the console for errors.</p>
-      </div>
-    )}
-
-    <section>
-      <h2 class="text-3xl font-light mb-8">Featured Photographers</h2>
-      {/* <PhotographerGrid photographers={featuredPhotographers} /> */}
-    </section>
+    <!-- Contraband Section -->
+    <ContrabandSection />
+    
+    <!-- Internee Photographer Section -->
+    <InterneePhotographerSection />
+    
+    <!-- Amateur Photographer Section -->
+    <AmateurPhotographerSection />
+    
+    <!-- Visitors Section -->
+    <VisitorsSection />
+    
+    <!-- Canadian Incarceration Section -->
+    <CanadianIncarcerationSection />
+    
+    <!-- Content Sections -->
+    <!-- We'll add each section here as we transform them -->
   </div>
 </Layout>
+
+<style>
+  /* Add any custom styles here */
+</style>
