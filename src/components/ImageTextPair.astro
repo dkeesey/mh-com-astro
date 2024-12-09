@@ -1,0 +1,80 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  imagePosition?: 'left' | 'right';
+  gap?: string;
+}
+
+const { 
+  src, 
+  alt, 
+  width, 
+  height, 
+  imagePosition = 'left',
+  gap = '2rem'
+} = Astro.props;
+---
+
+<div class={`image-text-container ${imagePosition}`}>
+  <img 
+    src={src} 
+    alt={alt}
+    {...width && { width }}
+    {...height && { height }}
+    class="image"
+  />
+  <div class="text">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .image-text-container {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap);
+    margin: 2rem 0;
+  }
+
+  .image-text-container.right {
+    flex-direction: row-reverse;
+  }
+
+  .image {
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .text {
+    flex: 1;
+    min-width: 0; /* Prevents text from overflowing */
+  }
+
+  /* Responsive layout for mobile */
+  @media (max-width: 640px) {
+    .image-text-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .image-text-container.right {
+      flex-direction: column;
+    }
+
+    .image {
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Set the gap from props
+  document.querySelectorAll('.image-text-container').forEach(container => {
+    const gap = container.parentElement?.getAttribute('data-gap') || '2rem';
+    container.style.setProperty('--gap', gap);
+  });
+</script>

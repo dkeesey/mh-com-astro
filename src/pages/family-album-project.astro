@@ -1,6 +1,7 @@
 ---
 import installPic1 from '@images/family-album/install-pic1.jpg';
 import installPic3 from '@images/family-album/install-pic3.jpg';
+import FloatingImage from "@components/FloatingImage.astro";
 
 import Layout from "../layouts/Layout.astro";
 import ExhibitionImage from "@components/ExhibitionImage.astro";
@@ -82,7 +83,9 @@ try {
         <section class="prose max-w-none mb-12">
           <h2 class="text-2xl font-bold mb-4">{data.title}</h2>
           {data.description && <p class="text-lg mb-6">{data.description}</p>}
-          <Content />
+          <div class="clearfix">
+            <Content />
+          </div>
         </section>
       ))
     ) : (
