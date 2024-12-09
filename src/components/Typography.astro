@@ -17,7 +17,7 @@ const styles = {
     uppercase 
     text-center 
     mb-16
-    text-${colors.primary}
+    text-fa-text-primary
   `,
   
   // Major section headers - All caps
@@ -28,42 +28,51 @@ const styles = {
     uppercase 
     text-center 
     mb-12
-    text-${colors.primary}
+    text-fa-text-primary
   `,
   
-  // Subsection headers - All caps
-  'subsection-title': `
+  // Subsection headers - Sentence case
+  'section-subtitle': `
     text-2xl 
-    font-normal 
+    font-medium 
     tracking-wide 
-    uppercase 
     mb-8
-    text-${colors.primary}
+    text-fa-text-primary
   `,
   
-  // Photographer names - Regular case with distinction
+  // Photographer names - All caps
   'photographer-name': `
-    text-2xl
+    text-xl
     font-medium
     tracking-wide
-    text-${colors.accent}
-    mb-4
+    uppercase
+    mb-2
+    text-fa-text-accent
   `,
   
   // Body text
   'body': `
-    text-lg 
-    leading-relaxed 
-    tracking-normal 
-    text-${colors.secondary}
+    text-base
+    leading-relaxed
+    mb-6
+    text-fa-text-primary
   `,
   
-  // Captions
+  // Image captions
   'caption': `
-    text-base 
-    italic 
-    tracking-normal 
-    text-gray-600
+    text-sm
+    italic
+    mt-2
+    text-fa-text-primary
+    opacity-80
+  `,
+  
+  // Links
+  'link': `
+    text-fa-interactive-link
+    hover:text-fa-interactive-hover
+    transition-colors
+    underline
   `,
   
   // Quotes

@@ -10,27 +10,19 @@ interface Props {
 const { id, title } = Astro.props;
 ---
 
-<section id={id} class="max-w-4xl mx-auto py-16 scroll-mt-16">
+<section id={id} class="max-w-4xl mx-auto py-16 scroll-mt-16 bg-fa-bg-primary text-fa-text-primary">
   {title && (
     <Typography as="h2" variant="section-title">
       {title}
     </Typography>
   )}
-  <div class="prose prose-lg max-w-none">
+  <div class="prose prose-lg max-w-none prose-invert prose-headings:text-fa-text-primary prose-p:text-fa-text-primary prose-a:text-fa-interactive-link hover:prose-a:text-fa-interactive-hover">
     <slot />
   </div>
 </section>
 
 <style>
-  .prose :global(img) {
-    @apply rounded-lg shadow-lg my-8;
-  }
-  
-  .prose :global(p) {
-    @apply mb-6;
-  }
-  
-  .prose :global(a) {
-    @apply text-blue-600 hover:text-blue-800 underline;
+  .prose {
+    @apply prose-strong:text-fa-text-accent prose-em:text-fa-text-accent;
   }
 </style>
