@@ -18,13 +18,25 @@ const { name, firstName, lastName, url } = Astro.props;
     <Image 
       src={butcamIcon}
       alt={`View ${name}'s photographs`}
-      class="rounded-sm shadow-md"
+      class="rounded-sm shadow-md hover:opacity-90 active:opacity-75"
     />
   </a>
   <a 
     href={url}
-    class="text-lg font-medium text-gray-100 hover:text-gray-300 transition-colors duration-200"
+    class="text-lg font-medium text-gray-100 transition-colors duration-200 
+           hover:text-amber-300 
+           active:text-amber-500 
+           visited:text-rose-300 
+           focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-gray-900 
+           rounded"
   >
     {name}
   </a>
 </div>
+
+<style>
+  /* Ensure visited state doesn't override hover */
+  a:visited:hover {
+    color: rgb(252 211 77); /* amber-300 */
+  }
+</style>
