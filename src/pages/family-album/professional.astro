@@ -1,5 +1,5 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
 import { Image } from 'astro:assets';
 import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
@@ -45,7 +45,7 @@ const photos = [
 ];
 ---
 
-<Layout title={title} description={description}>
+<FamilyAlbumLayout title={title} description={description}>
   <main class="max-w-4xl mx-auto px-4 py-8">
     <Breadcrumb
       items={[
@@ -95,4 +95,4 @@ const photos = [
       <PhotographersGrid />
     </div>
   </main>
-</Layout>
+</FamilyAlbumLayout>

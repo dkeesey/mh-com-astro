@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '@layouts/Layout.astro';
+import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
 
 export async function getStaticPaths() {
   const photographers = await getCollection('family-album', (entry) => {
@@ -19,8 +19,8 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={entry.data.title}>
+<FamilyAlbumLayout title={entry.data.title}>
   <main class="container mx-auto px-4 py-8">
     <Content />
   </main>
-</Layout>
+</FamilyAlbumLayout>

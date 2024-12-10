@@ -1,28 +1,28 @@
 ---
 const styles = {
   'exhibition-title': 
-    'text-5xl font-light tracking-widest uppercase text-center mb-16 text-primary',
+    'text-5xl font-light tracking-widest uppercase text-center text-fa-text-primary font-robotoCondensed',
   
   'section-title':
-    'text-3xl font-light tracking-wider uppercase text-center mb-12 text-primary',
+    'text-3xl font-light tracking-wider uppercase text-center text-fa-text-primary font-robotoCondensed',
   
   'section-subtitle':
-    'text-2xl font-medium tracking-wide mb-8 text-primary',
+    'text-2xl font-medium tracking-wide text-fa-text-primary font-robotoCondensed',
   
   'photographer-name':
-    'text-xl font-medium tracking-wide uppercase mb-2 text-accent',
+    'text-xl font-medium tracking-wide uppercase text-fa-text-accent font-robotoCondensed',
   
   'body':
-    'text-base leading-relaxed mb-6 text-primary',
+    'text-base leading-relaxed text-fa-text-secondary font-montserrat',
   
   'caption':
-    'text-sm italic mt-2 text-primary opacity-80',
+    'text-sm italic mt-2 text-fa-text-secondary opacity-80 font-montserrat',
   
   'link':
-    'text-blue-600 hover:text-blue-800 transition-colors underline',
+    'text-fa-link-default hover:text-fa-link-hover transition-colors underline',
   
   'quote':
-    'text-xl italic leading-relaxed tracking-normal text-gray-700 pl-6 border-l-4 border-accent'
+    'text-xl italic leading-relaxed tracking-normal text-fa-text-secondary pl-6 border-l-4 border-fa-text-accent font-montserrat'
 } as const;
 
 type StyleVariant = keyof typeof styles;

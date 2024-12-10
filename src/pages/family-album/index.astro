@@ -1,5 +1,5 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
 import { Image } from 'astro:assets';
 import FamilyAlbumSection from "@components/FamilyAlbumSection.astro";
 import FamilyAlbumIntro from "@components/FamilyAlbumIntro.astro";
@@ -9,7 +9,7 @@ import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 ---
 
-<Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
+<FamilyAlbumLayout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Introduction Section -->
     <FamilyAlbumIntro />
@@ -38,7 +38,7 @@ import installPic3 from '@images/family-album/installation/install-pic3.jpg';
     <!-- Ready for content sections -->
     <!-- You can paste the markdown content here and I'll help transform it into components -->
   </main>
-</Layout>
+</FamilyAlbumLayout>
 
 <style>
   /* Add any custom styles here */
