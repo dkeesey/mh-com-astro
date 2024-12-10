@@ -1,94 +1,43 @@
 ---
-const { as: Component = 'div', variant, class: className } = Astro.props;
-
-// Color palette
-const colors = {
-  primary: '#2D3648', // Deep navy
-  accent: '#644E5B', // Muted burgundy
-  secondary: '#4A5568', // Slate gray
-};
-
 const styles = {
-  // Exhibition title - All caps
-  'exhibition-title': `
-    text-5xl 
-    font-light 
-    tracking-widest 
-    uppercase 
-    text-center 
-    mb-16
-    text-fa-text-primary
-  `,
+  'exhibition-title': 
+    'text-5xl font-light tracking-widest uppercase text-center mb-16 text-primary',
   
-  // Major section headers - All caps
-  'section-title': `
-    text-3xl 
-    font-light 
-    tracking-wider 
-    uppercase 
-    text-center 
-    mb-12
-    text-fa-text-primary
-  `,
+  'section-title':
+    'text-3xl font-light tracking-wider uppercase text-center mb-12 text-primary',
   
-  // Subsection headers - Sentence case
-  'section-subtitle': `
-    text-2xl 
-    font-medium 
-    tracking-wide 
-    mb-8
-    text-fa-text-primary
-  `,
+  'section-subtitle':
+    'text-2xl font-medium tracking-wide mb-8 text-primary',
   
-  // Photographer names - All caps
-  'photographer-name': `
-    text-xl
-    font-medium
-    tracking-wide
-    uppercase
-    mb-2
-    text-fa-text-accent
-  `,
+  'photographer-name':
+    'text-xl font-medium tracking-wide uppercase mb-2 text-accent',
   
-  // Body text
-  'body': `
-    text-base
-    leading-relaxed
-    mb-6
-    text-fa-text-primary
-  `,
+  'body':
+    'text-base leading-relaxed mb-6 text-primary',
   
-  // Image captions
-  'caption': `
-    text-sm
-    italic
-    mt-2
-    text-fa-text-primary
-    opacity-80
-  `,
+  'caption':
+    'text-sm italic mt-2 text-primary opacity-80',
   
-  // Links
-  'link': `
-    text-fa-interactive-link
-    hover:text-fa-interactive-hover
-    transition-colors
-    underline
-  `,
+  'link':
+    'text-blue-600 hover:text-blue-800 transition-colors underline',
   
-  // Quotes
-  'quote': `
-    text-xl 
-    italic 
-    leading-relaxed 
-    tracking-normal 
-    text-gray-700 
-    pl-6 
-    border-l-4 
-    border-${colors.accent}
-  `,
-};
+  'quote':
+    'text-xl italic leading-relaxed tracking-normal text-gray-700 pl-6 border-l-4 border-accent'
+} as const;
 
-const combinedClass = `${styles[variant] || ''} ${className || ''}`.trim();
+type StyleVariant = keyof typeof styles;
+
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  variant: StyleVariant;
+  class?: string;
+}
+
+const { as: Component = 'div', variant, class: className = '' } = Astro.props;
+
+// Use type assertion to tell TypeScript this is a valid key
+const styleClass = styles[variant as keyof typeof styles];
+const combinedClass = `${styleClass} ${className}`.trim();
 ---
 
 <Component class={combinedClass}>

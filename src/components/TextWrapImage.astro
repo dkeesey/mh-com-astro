@@ -23,8 +23,8 @@ const {
     <img 
       src={src} 
       alt={alt}
-      {...width && { width }}
-      {...height && { height }}
+      width={width}
+      height={height}
       class="image"
     />
   </div>
@@ -93,13 +93,15 @@ const {
   // based on its height and the line height of the text
   function updateImageSpan() {
     document.querySelectorAll('.text-wrap-container').forEach(container => {
-      const image = container.querySelector('.image');
+      const imageWrapper = container.querySelector('.image-wrapper') as HTMLElement;
+      const image = container.querySelector('.image') as HTMLImageElement;
       const content = container.querySelector('.content');
-      if (image && content && window.innerWidth > 640) {
+      
+      if (image && content && imageWrapper && window.innerWidth > 640) {
         const imageHeight = image.offsetHeight;
         const lineHeight = parseInt(window.getComputedStyle(content).lineHeight);
         const rows = Math.ceil(imageHeight / lineHeight);
-        container.querySelector('.image-wrapper').style.setProperty('--rows', rows.toString());
+        imageWrapper.style.setProperty('--rows', rows.toString());
       }
     });
   }
