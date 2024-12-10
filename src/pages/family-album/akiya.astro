@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+
+// Import images
+import akiya1 from '@images/family-album/photographers/akiya/akiya1.gif';
+import akiya4 from '@images/family-album/photographers/akiya/akiya4.gif';
+import akiya3 from '@images/family-album/photographers/akiya/akiya3.gif';
+
+const title = "Family Album";
+const description = "Family Album from Heart Mountain Relocation Camp by Grace Akiya";
+
+const photos = [
+  {
+    src: akiya1,
+    alt: "Photos by Grace Akiya at Heart Mountain",
+    description: "Mrs. Grace Akiya had already purchased her box camera when she returned to the United States from Japan around 1938. Her parents had moved back to Japan when she was a child and she returned after high school to the country of her birth, the U.S., alone and without parents. She lived and worked for a concerned woman in Los Angeles. At the first warning signs of incarceration she was encouraged to move to areas of the midwest by her employer but she had a hard time beliving she would be incarcerated."
+  },
+  {
+    src: akiya4,
+    alt: "Wedding photo of Grace and Ed Akiya",
+    description: "Mrs. Grace Akiya photographed extensively in the camp, recording her friends and brothers. She married Ed Akiya when Heart Mountain first opened up as a camp and they had to be married by the justice of the peace in Cody, Wyoming, the nearest town. They went to town under guard in a guard truck for their weeding and stopped at a 5 & 10 store to pick up presents for some of their friends in the camp. Friends made the paper flowers she had on her dress. She made her wedding dress. Camp photographer, James Yonemura, took their wedding picture with a crate to sit on and the bare wooden floor of the barracks, and a sheet hung up for the backdrop."
+  },
+  {
+    src: akiya3,
+    alt: "Photos by Grace Akiya at Heart Mountain",
+    description: "Mrs. Grace Akiya was encouraged to continue photographing in the camp by her friend and former employer. She would send the film to her on the outside and it would be sent back developed and printed. The camera passed inspection when entering the camp because she did not know she had it in her duffle bag. The guards did not see on the bottom of the bag."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Family Album Project", href: "/family-album-project" },
+        { label: "Grace Akiya", href: "/family-album/akiya", current: true }
+      ]}
+    />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Heart Mountain Relocation Camp, Wyoming"
+      collection="Mrs. Grace and Mr. Ed Akiya"
+      photographer="internee, Mrs. Grace Akiya"
+      date="1938-1945"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          Grace Akiya was a remarkable photographer who documented life at Heart Mountain Relocation Camp with her box camera, 
+          which she had purchased upon returning to the United States from Japan in 1938. Despite being encouraged to move to 
+          the Midwest to avoid incarceration, she found herself at Heart Mountain where she continued her photography, secretly 
+          bringing her camera into the camp.
+        </p>
+        <p>
+          Her photography captured intimate moments of camp life, including her own wedding to Ed Akiya at the camp. The couple 
+          had to travel under guard to Cody, Wyoming for their civil ceremony, where Grace wore a self-made wedding dress adorned 
+          with paper flowers crafted by friends. Their wedding photo, taken by camp photographer James Yonemura, was staged with 
+          simple props - a wooden crate and a sheet backdrop in the barracks.
+        </p>
+        <p>
+          After the war, the Akiyas resettled in Cleveland, Ohio, where they established a dojo and became prominent figures in 
+          the judo community. Mrs. Grace Akiya went on to earn a fourth-degree black belt and continued teaching judo at the 
+          Midwest Judo Academy well into her 80s, demonstrating remarkable resilience and dedication throughout her life.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>

@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
 
 // Import images
 import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake1.jpg';
@@ -40,7 +41,13 @@ const photos = [
 
 <Layout title={title} description={description}>
   <main class="max-w-4xl mx-auto px-4 py-8">
-    <PhotographersGrid />
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Family Album Project", href: "/family-album-project" },
+        { label: "Toyo Miyatake", href: "/family-album/miyatake", current: true }
+      ]}
+    />
     
     <AlbumTitle
       title="Family Album"

@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+
+// Import images
+import amache1 from '@images/family-album/camps/amache1.gif';
+import amache2 from '@images/family-album/camps/amache2.gif';
+import amache3 from '@images/family-album/camps/amache3.gif';
+
+const title = "Family Album";
+const description = "Family Album from Granada Relocation Camp (Amache) by various internees";
+
+const photos = [
+  {
+    src: amache1,
+    alt: "Panoramic photo collage of Amache Camp",
+    description: "Photo collage became a way of photographing a panoramic photo of the camp. This is from the guard tower. Note the continuation of the guard tower on the left hand photo. Amache was located in the middle of southern Colorado farmland. The internees brought in irrigation and farmed vegetables and fruits never seen in this region before. There was alot of interaction with the small town people of Granada and the camp internees. A reversal, the town people were even allowed to shop in the Amache camp canteen on the weekends. The reunions here introduce the Granada High School history students to returning internees and their stories and memories. They go from school to school in Colorado to talk about this camp."
+  },
+  {
+    src: amache2,
+    alt: "Friends posing by barbed wire fence",
+    description: "To remember friendships made within the camps friends exchanged photos. One unique pose to the camps is leaning against the barbed wire fense."
+  },
+  {
+    src: amache3,
+    alt: "Baby on pillow photograph",
+    description: "The trusty box camera documents this uplifted baby on a pillow. It appears that the photographer is trying to block the sun with his/her hand."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Family Album Project", href: "/family-album-project" },
+        { label: "Nomura Collection", href: "/family-album/nomura", current: true }
+      ]}
+    />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Granada Relocation Camp (Amache), Colorado"
+      collection="Mrs. Tayeko and Mr. Emory Namuro"
+      photographer="various internees with a box camera"
+      date="1942-1945"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          The Amache Relocation Camp, officially known as the Granada War Relocation Center, was unique among the internment 
+          camps for its remarkable agricultural achievements and its unusual relationship with the nearby town of Granada. 
+          The internees transformed the arid Colorado landscape through irrigation, introducing new varieties of vegetables 
+          and fruits previously unknown to the region.
+        </p>
+        <p>
+          Photography at Amache captured both the harsh realities of camp life - evident in images of guard towers and 
+          barbed wire fences - and the resilient spirit of the community. Internees used creative techniques like photo 
+          collage to document their surroundings, creating panoramic views that provided a broader perspective of the camp's 
+          layout and scale.
+        </p>
+        <p>
+          The camp's legacy continues through educational initiatives, with former internees sharing their experiences 
+          with Colorado high school students. These photographs serve not only as personal mementos but as powerful 
+          historical documents that help tell the story of Amache to new generations.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>

@@ -9,6 +9,7 @@ import InterneePhotographerSection from "@components/InterneePhotographerSection
 import AmateurPhotographerSection from "@components/AmateurPhotographerSection.astro";
 import VisitorsSection from "@components/VisitorsSection.astro";
 import CanadianIncarcerationSection from "@components/CanadianIncarcerationSection.astro";
+import Breadcrumb from '@components/Breadcrumb.astro';
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 
@@ -16,48 +17,57 @@ import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 ---
 
 <Layout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
-  <div class="family-album max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Introduction -->
-    <FamilyAlbumIntro />
-    
-    <!-- Photographers Grid -->
-    <PhotographersGrid />
-    
-    <!-- Exhibition Images -->
-    <ContentSection title="Exhibition Views">
-      <div class="flex flex-wrap gap-8 justify-center">
-        <Image 
-          src={installPic1}
-          alt="Installation View 1 of the Family Album exhibition"
-          class="rounded-lg shadow-lg"
-        />
-        <Image 
-          src={installPic3}
-          alt="Installation View 2 of the Family Album exhibition"
-          class="rounded-lg shadow-lg"
-        />
-      </div>
-      <p class="text-center italic mt-4">Cleveland State University Art Gallery, March 1996.</p>
-    </ContentSection>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Family Album Project", href: "/family-album-project", current: true }
+      ]}
+    />
 
-    <!-- Contraband Section -->
-    <ContrabandSection />
-    
-    <!-- Internee Photographer Section -->
-    <InterneePhotographerSection />
-    
-    <!-- Amateur Photographer Section -->
-    <AmateurPhotographerSection />
-    
-    <!-- Visitors Section -->
-    <VisitorsSection />
-    
-    <!-- Canadian Incarceration Section -->
-    <CanadianIncarcerationSection />
-    
-    <!-- Content Sections -->
-    <!-- We'll add each section here as we transform them -->
-  </div>
+    <div class="family-album max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Introduction -->
+      <FamilyAlbumIntro />
+      
+      <!-- Photographers Grid -->
+      <PhotographersGrid />
+      
+      <!-- Exhibition Images -->
+      <ContentSection title="Exhibition Views">
+        <div class="flex flex-wrap gap-8 justify-center">
+          <Image 
+            src={installPic1}
+            alt="Installation View 1 of the Family Album exhibition"
+            class="rounded-lg shadow-lg"
+          />
+          <Image 
+            src={installPic3}
+            alt="Installation View 2 of the Family Album exhibition"
+            class="rounded-lg shadow-lg"
+          />
+        </div>
+        <p class="text-center italic mt-4">Cleveland State University Art Gallery, March 1996.</p>
+      </ContentSection>
+
+      <!-- Contraband Section -->
+      <ContrabandSection />
+      
+      <!-- Internee Photographer Section -->
+      <InterneePhotographerSection />
+      
+      <!-- Amateur Photographer Section -->
+      <AmateurPhotographerSection />
+      
+      <!-- Visitors Section -->
+      <VisitorsSection />
+      
+      <!-- Canadian Incarceration Section -->
+      <CanadianIncarcerationSection />
+      
+      <!-- Content Sections -->
+      <!-- We'll add each section here as we transform them -->
+    </div>
+  </main>
 </Layout>
 
 <style>

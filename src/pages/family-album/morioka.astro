@@ -1,0 +1,86 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+
+// Import images
+import morioka1 from '@images/family-album/photographers/morioka/morioka1.jpg';
+import morioka2 from '@images/family-album/photographers/morioka/morioka2.jpg';
+import morioka4 from '@images/family-album/photographers/morioka/morioka4.jpg';
+
+const title = "Family Album";
+const description = "Family Album from Heart Mountain Relocation Camp by June Utako Morioka";
+
+const photos = [
+  {
+    src: morioka1,
+    alt: "Portrait of a UCLA student who joined the 442nd",
+    description: "A young friend of Mrs. Morioka had enlisted in the Army and returned to camp after training to say goodbye to friends and family. He had been an 'A' student and president of many organizations at UCLA before the evacuation. He was going overseas to join the 442nd to serve his country. He felt he could make a difference. He was one of the many casualties that the 442nd and the 100th battalions suffered during the war. Many of the Hawaiian Japanese of the 100th battalion found it difficult to believe that the Japanese Americans on the mainland were in concentration camps and with them fighting for the same country that incarcerated them."
+  },
+  {
+    src: morioka2,
+    alt: "Father/daughter portrait in front of guard tower",
+    description: "When Lani Sanjek showed me this family album photo it made me realize that families saved photos of this time period and shared them with their children. Although most of the photographs are of family and friends, there seem to be some that create exceptional irony. This is the father/daughter portrait in front of the guard tower of the camp. Many other photographers show the barbed wire fense or the guard tower as part of the portrait."
+  },
+  {
+    src: morioka4,
+    alt: "Little Lani Morioka dressed for showers",
+    description: "This is little Lani Morioka dressed for the walk to the group showers."
+  }
+];
+---
+
+<Layout title={title} description={description}>
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <Breadcrumb
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Family Album Project", href: "/family-album-project" },
+        { label: "June Utako Morioka", href: "/family-album/morioka", current: true }
+      ]}
+    />
+    
+    <AlbumTitle
+      title="Family Album"
+      subtitle="Heart Mountain Relocation Camp, Wyoming"
+      collection="Lani Sanjek, daughter"
+      photographer="internee Mrs. June Utako Morioka"
+      date="1942-1943"
+    />
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">About</h2>
+      <div class="prose prose-invert max-w-none">
+        <p>
+          The photographs of June Utako Morioka from Heart Mountain Relocation Camp offer a deeply personal perspective 
+          of life during internment, preserved and shared through her daughter Lani Sanjek. Her images capture poignant 
+          moments that illustrate both the everyday realities of camp life and its profound ironies.
+        </p>
+        <p>
+          Among her most moving photographs is that of a young UCLA student who, despite his internment, chose to serve 
+          in the legendary 442nd Regimental Combat Team. This image represents the complex patriotism of Japanese Americans 
+          who fought for a country that had imprisoned their families. Tragically, he would become one of the many casualties 
+          suffered by the highly decorated unit.
+        </p>
+        <p>
+          Morioka's photography also captured the stark juxtaposition of family life against the camp's prison-like 
+          setting, exemplified in the powerful father-daughter portrait deliberately composed with a guard tower in the 
+          background. These images, preserved and shared through generations, serve as both family mementos and powerful 
+          historical documents of this period in American history.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+      <PhotoGallery photos={photos} />
+    </section>
+
+    <div class="mt-16">
+      <PhotographersGrid />
+    </div>
+  </main>
+</Layout>
