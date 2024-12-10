@@ -13,7 +13,7 @@ const { items } = Astro.props;
 ---
 
 <nav aria-label="Breadcrumb" class="mb-6">
-  <ol class="flex items-center space-x-2 text-sm">
+  <ol class="flex items-center space-x-2 text-sm font-robotoCondensed">
     {items.map((item, index) => (
       <li class="flex items-center">
         {index > 0 && (
@@ -27,7 +27,7 @@ const { items } = Astro.props;
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="mx-2 text-gray-400"
+            class="mx-2 text-fa-text-secondary"
             aria-hidden="true"
           >
             <polyline points="9 18 15 12 9 6" />
@@ -36,8 +36,8 @@ const { items } = Astro.props;
         <a
           href={item.href}
           class:list={[
-            "hover:text-gray-100 transition-colors",
-            item.current ? "text-gray-100 font-medium" : "text-gray-400",
+            "hover:text-fa-text-primary transition-colors",
+            item.current ? "text-fa-text-primary font-medium" : "text-fa-text-secondary",
           ]}
           aria-current={item.current ? "page" : undefined}
         >

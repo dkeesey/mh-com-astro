@@ -2,27 +2,30 @@
 import MainHead from "./MainHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-
-import "../styles/global.css";
+import FontLoader from "../components/FontLoader.astro";
 
 const {
   title = "Masumi Hayashi",
   description = "Masumi Hayashi's panoramic photocollage artwork dealing with the Japanese American Internment Camps",
+  classes = "",
 } = Astro.props;
 ---
 
 <html lang="en">
-  <MainHead title={title} description={description} />
-  <body class="bg-museum-beige text-museum-dark text-md font-sans">
-    <!-- scroll container -->
-    <div class="h-screen overflow-y-scroll snap-y snap-proximity">
+  <MainHead title={title} description={description}>
+    <FontLoader />
+  </MainHead>
+  <body class="bg-museum-beige text-museum-dark font-sans min-h-screen">
+    <div class={`flex flex-col min-h-screen ${classes}`}>
       <Header />
 
-      <slot> Default text for unnamed </slot>
+      <main class="flex-grow">
+        <slot> Default text for unnamed slot </slot>
 
-      <slot name="test-slot" />
+        <slot name="test-slot" />
+      </main>
 
-      <Footer />
+      <Footer class="mt-auto" />
     </div>
     <style>
       main {
