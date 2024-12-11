@@ -5,6 +5,7 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import NarrativeText from '@components/NarrativeText.astro';
 
 // Import images
 import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake1.jpg';
@@ -53,26 +54,20 @@ const photos = [
       title="Family Album"
       subtitle="Manzanar Relocation Camp, California"
       collection="Mr. Archie Miyatake"
-      photographer="Toyo Miyatake, a camp photographer, who used a number of format cameras"
+      photographer="Toyo Miyatake, camp photographer"
       date="1942-1945"
     />
     
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">About</h2>
-      <div class="prose prose-invert max-w-none">
-        <p>
-          Toyo Miyatake was a professional photographer who was incarcerated at Manzanar. Despite cameras being 
-          considered contraband, he managed to document life in the camp using various format cameras. His photographs 
-          provide a unique insider's perspective of daily life, celebrations, and the resilience of the Japanese-American 
-          community during their internment at Manzanar.
-        </p>
-      </div>
-    </section>
+    <NarrativeText title="About">
+      <p>
+        Toyo Miyatake was a professional photographer who was incarcerated at Manzanar. Despite cameras being considered contraband, he managed to document life in the camp using various format cameras. His photographs provide a unique insider's perspective of daily life, celebrations, and the resilience of the Japanese-American 
+        community during their internment at Manzanar.
+      </p>
+    </NarrativeText>
 
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+    <NarrativeText title="Photographs">
       <PhotoGallery photos={photos} />
-    </section>
+    </NarrativeText>
 
     <div class="mt-16">
       <PhotographersGrid />

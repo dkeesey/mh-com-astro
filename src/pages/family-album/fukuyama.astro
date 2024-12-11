@@ -5,6 +5,7 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import NarrativeText from '@components/NarrativeText.astro';
 
 // Import images
 import fukuyama1 from '@images/family-album/photographers/fukuyama/fukuyama1.gif';
@@ -56,30 +57,20 @@ const photos = [
       collection="The Fukuyama Family"
       date="1942-1945"
     />
-      
-      photographer="Hideharu Fukuyama"
-      subtitle="Gila River Relocation Camp, Arizona"
-      collection="The Fukuyama Family"
-      date="1942-1945"
-    />
     
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">About</h2>
-      <div class="prose prose-invert max-w-none">
-        <p>
-          Hideharu Fukuyama was an accomplished photographer before his internment, having won a Kodak award. 
-          During his time at Gila River Relocation Camp, he continued his photographic work, experimenting with 
-          various techniques including panoramic photo collages and hand-colored landscapes. While serving as the 
-          camp photographer, he documented both official events like high school activities and intimate family 
-          moments, creating a comprehensive visual record of life within the internment camp.
-        </p>
-      </div>
-    </section>
+    <NarrativeText title="About">
+      <p>
+        Hideharu Fukuyama was an accomplished photographer before his internment, having won a Kodak award. 
+        During his time at Gila River Relocation Camp, he continued his photographic work, experimenting with 
+        various techniques including panoramic photo collages and hand-colored landscapes. While serving as the 
+        camp photographer, he documented both official events like high school activities and intimate family 
+        moments, creating a comprehensive visual record of life within the internment camp.
+      </p>
+    </NarrativeText>
 
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
+    <NarrativeText title="Photographs">
       <PhotoGallery photos={photos} />
-    </section>
+    </NarrativeText>
 
     <div class="mt-16">
       <PhotographersGrid />

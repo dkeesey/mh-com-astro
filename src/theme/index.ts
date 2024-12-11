@@ -23,6 +23,7 @@ export const familyAlbumTheme = {
   fontFamily: {
     montserrat: ['Montserrat', 'sans-serif'],
     robotoCondensed: ['Roboto Condensed', 'sans-serif'],
+    inter: ['Inter', 'system-ui', 'sans-serif'],
   }
 }
 
