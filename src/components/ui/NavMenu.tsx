@@ -4,7 +4,6 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@components/ui/navigation-menu"
@@ -13,6 +12,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@components/ui/sheet"
+import { cn } from "@lib/utils"
 
 const navData = [
   {
@@ -33,48 +33,77 @@ const navData = [
   },
 ]
 
-const NavLinks = () => (
-  <>
-    {navData.map((item) => (
-      <NavigationMenuItem key={item.path}>
-        <NavigationMenuLink
-          href={item.path}
-          className={navigationMenuTriggerStyle() + " text-sm md:text-base"}
-        >
-          {item.name}
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    ))}
-  </>
-)
+const NavLinks = () => {
+  const [pathname, setPathname] = React.useState("");
 
-const MobileNav = () => (
-  <Sheet>
-    <SheetTrigger className="md:hidden">
-      <Menu className="h-6 w-6" />
-      <span className="sr-only">Toggle menu</span>
-    </SheetTrigger>
-    <SheetContent side="right" className="w-[80%] sm:w-[350px] pt-12">
-      <nav className="flex flex-col gap-6">
-        {navData.map((item) => (
-          <a
-            key={item.path}
-            href={item.path}
-            className="block px-2 py-1 text-lg font-robotoCondensed text-gray-900 hover:text-black transition-colors"
-          >
-            {item.name}
-          </a>
-        ))}
-      </nav>
-    </SheetContent>
-  </Sheet>
-)
+  React.useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  return (
+    <>
+      {navData.map((item) => (
+        <NavigationMenuItem key={item.path} className="px-4">
+          {pathname === item.path ? (
+            <span className="text-sm md:text-base text-black italic">
+              {item.name}
+            </span>
+          ) : (
+            <a
+              href={item.path}
+              className="text-sm md:text-base text-black no-underline hover:underline transition-colors [&]:text-black [&:hover]:text-black"
+            >
+              {item.name}
+            </a>
+          )}
+        </NavigationMenuItem>
+      ))}
+    </>
+  );
+}
+
+const MobileNav = () => {
+  const [pathname, setPathname] = React.useState("");
+
+  React.useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
+  return (
+    <Sheet>
+      <SheetTrigger className="md:hidden">
+        <Menu className="h-6 w-6" />
+        <span className="sr-only">Toggle menu</span>
+      </SheetTrigger>
+      <SheetContent side="right" className="w-[80%] sm:w-[350px] pt-12">
+        <nav className="flex flex-col gap-6">
+          {navData.map((item) => (
+            <div key={item.path}>
+              {pathname === item.path ? (
+                <span className="block px-2 py-1 text-lg font-robotoCondensed text-black italic">
+                  {item.name}
+                </span>
+              ) : (
+                <a
+                  href={item.path}
+                  className="block px-2 py-1 text-lg font-robotoCondensed text-black no-underline hover:underline transition-colors [&]:text-black [&:hover]:text-black"
+                >
+                  {item.name}
+                </a>
+              )}
+            </div>
+          ))}
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
+}
 
 export function NavMenu() {
   return (
     <div className="flex justify-between items-center py-4 mx-auto w-full max-w-[1440px]">
       <div className="logo ml-6 md:ml-24">
-        <a href="/" className="text-xl" aria-label="Go home">
+        <a href="/" className="text-xl text-black no-underline hover:underline [&]:text-black [&:hover]:text-black" aria-label="Go home">
           MASUMI HAYASHI
         </a>
       </div>

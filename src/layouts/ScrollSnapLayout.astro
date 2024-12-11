@@ -13,12 +13,12 @@ import { fade } from "astro:transitions";
   <body class="bg-museum-black text-fa-text-secondary font-montserrat w-screen">
     <!-- scroll container -->
     <div
-      class="overflow-y-scroll snap-y snap-mandatory h-screen"
+      class="overflow-y-scroll snap-y snap-mandatory h-screen bg-museum-black"
       transition:animate={fade({ duration: ".75s" })}
     >
       <Header classes="snap-item snap-start" />
 
-      <main>
+      <main class="bg-museum-black min-h-screen">
         <slot />
       </main>
       <Footer classes="snap-item snap-start mt-16" />
