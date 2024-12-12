@@ -112,7 +112,7 @@ export function NavMenu() {
 
   return (
     <div className="flex justify-between items-center py-4 mx-auto w-full max-w-[1440px]">
-      <div className="logo ml-6 md:ml-24">
+      <div className="logo ml-6 md:ml-24 md:pr-6">
         {pathname === "/" ? (
           <span className="text-xl italic">
             MASUMI HAYASHI
