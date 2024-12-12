@@ -103,7 +103,7 @@ const mdImageTitleParam = `l_text:futura_20_italic_line_spacing_1:${encodedImage
 const lgImageTitleParam = `l_text:futura_20_italic_line_spacing_1:${encodedImageTitle},co_white,g_south_west,x_30,y_40`;
 
 // image details
-const smImageDetails = `Artist:Dr. Masumi Hayashi%0A© ${currentYear} Dean Keesey`;
+const smImageDetails = `Artist:Dr. Masumi Hayashi%0A${currentYear} Dean Keesey`;
 const mdImageDetails = `${city}, ${state}, ${year}%0AArtist:Dr. Masumi Hayashi`;
 const lgImageDetails = `${city}, ${state}, ${year}%0AArtist: Dr. Masumi Hayashi%0A${media}`;
 
@@ -132,12 +132,12 @@ const srcsetValue = `${imageURL640} 640w, ${imageURL768} 768w, ${imageURL1024} 1
 
 <div transition:persist={name}>
   <div
-    class={`w-full flex justify-center items-center bg-museum-black ${classNames}`}
+    class={`w-full flex justify-center items-center bg-black ${classNames}`}
   >
     <img
       src={imageURL1536}
       srcset={srcsetValue}
-      class="rounded-md max-w-[95vw] max-h-[95vh] border-b-64"
+      class="rounded-md max-w-[95vw] max-h-[95vh]"
       alt={altText}
     />
   </div>
