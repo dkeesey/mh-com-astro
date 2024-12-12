@@ -46,10 +46,14 @@ const photos = [
       items={[
         { label: "Home", href: "/" },
         { label: "Family Album Project", href: "/family-album-project" },
-        { label: "Hideharu Fukuyama", href: "/family-album/fukuyama", current: true }
+        { label: "Fukuyama", href: "/family-album/fukuyama", current: true }
       ]}
     />
-    
+
+    <div class="mb-16">
+      <PhotographersGrid />
+    </div>
+
     <AlbumTitle
       title={title}
       photographer="Hideharu Fukuyama"
@@ -72,8 +76,5 @@ const photos = [
       <PhotoGallery photos={photos} />
     </NarrativeText>
 
-    <div class="mt-16">
-      <PhotographersGrid />
-    </div>
   </main>
 </FamilyAlbumLayout>

@@ -4,7 +4,9 @@ const { classes } = Astro.props;
 ---
 
 <header
-  class={`bg-white text-gray-900 shadow-md z-10 w-full font-robotoCondensed ${classes}`}
+  class={`bg-white shadow-md z-10 w-full font-robotoCondensed ${classes}`}
 >
-  <Navigation />
+  <div class="[&_a]:text-gray-900 [&_span]:text-gray-900">
+    <Navigation />
+  </div>
 </header>

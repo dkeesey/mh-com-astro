@@ -17,7 +17,9 @@ const {
   </MainHead>
   <body class="bg-fa-bg-primary text-fa-text-secondary font-montserrat min-h-screen family-album">
     <div class={`flex flex-col min-h-screen ${classes}`}>
-      <Header />
+      <div class="[&_a:not(.family-album-link)]:text-gray-900">
+        <Header />
+      </div>
       <main class="flex-grow">
         <slot> Default text for unnamed slot </slot>
       </main>

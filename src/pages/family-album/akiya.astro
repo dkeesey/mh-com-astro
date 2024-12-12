@@ -39,10 +39,14 @@ const photos = [
       items={[
         { label: "Home", href: "/" },
         { label: "Family Album Project", href: "/family-album-project" },
-        { label: "Grace Akiya", href: "/family-album/akiya", current: true }
+        { label: "Akiya", href: "/family-album/akiya", current: true }
       ]}
     />
-    
+
+    <div class="mb-16">
+      <PhotographersGrid />
+    </div>
+
     <AlbumTitle
       title="Family Album"
       subtitle="Heart Mountain Relocation Camp, Wyoming"
@@ -80,7 +84,6 @@ const photos = [
     </section>
 
     <div class="mt-16">
-      <PhotographersGrid />
     </div>
   </main>
 </FamilyAlbumLayout>

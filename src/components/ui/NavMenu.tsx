@@ -45,13 +45,13 @@ const NavLinks = () => {
       {navData.map((item) => (
         <NavigationMenuItem key={item.path} className="px-4">
           {pathname === item.path ? (
-            <span className="text-sm md:text-base text-black italic">
+            <span className="text-sm md:text-base italic">
               {item.name}
             </span>
           ) : (
             <a
               href={item.path}
-              className="text-sm md:text-base text-black no-underline hover:underline transition-colors [&]:text-black [&:hover]:text-black"
+              className="text-sm md:text-base no-underline"
             >
               {item.name}
             </a>
@@ -71,22 +71,26 @@ const MobileNav = () => {
 
   return (
     <Sheet>
-      <SheetTrigger className="md:hidden">
-        <Menu className="h-6 w-6" />
-        <span className="sr-only">Toggle menu</span>
+      <SheetTrigger asChild>
+        <button
+          className="group flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white"
+          aria-label="Toggle menu"
+        >
+          <Menu className="h-4 w-4" />
+        </button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[80%] sm:w-[350px] pt-12">
-        <nav className="flex flex-col gap-6">
+      <SheetContent className="w-full">
+        <nav className="flex flex-col gap-4">
           {navData.map((item) => (
             <div key={item.path}>
               {pathname === item.path ? (
-                <span className="block px-2 py-1 text-lg font-robotoCondensed text-black italic">
+                <span className="text-base italic">
                   {item.name}
                 </span>
               ) : (
                 <a
                   href={item.path}
-                  className="block px-2 py-1 text-lg font-robotoCondensed text-black no-underline hover:underline transition-colors [&]:text-black [&:hover]:text-black"
+                  className="text-base no-underline"
                 >
                   {item.name}
                 </a>
@@ -100,12 +104,24 @@ const MobileNav = () => {
 }
 
 export function NavMenu() {
+  const [pathname, setPathname] = React.useState("");
+
+  React.useEffect(() => {
+    setPathname(window.location.pathname);
+  }, []);
+
   return (
     <div className="flex justify-between items-center py-4 mx-auto w-full max-w-[1440px]">
       <div className="logo ml-6 md:ml-24">
-        <a href="/" className="text-xl text-black no-underline hover:underline [&]:text-black [&:hover]:text-black" aria-label="Go home">
-          MASUMI HAYASHI
-        </a>
+        {pathname === "/" ? (
+          <span className="text-xl italic">
+            MASUMI HAYASHI
+          </span>
+        ) : (
+          <a href="/" className="text-xl no-underline" aria-label="Go home">
+            MASUMI HAYASHI
+          </a>
+        )}
       </div>
       
       {/* Mobile hamburger menu */}
