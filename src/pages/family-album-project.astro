@@ -10,29 +10,44 @@ import AmateurPhotographerSection from "@components/AmateurPhotographerSection.a
 import VisitorsSection from "@components/VisitorsSection.astro";
 import CanadianIncarcerationSection from "@components/CanadianIncarcerationSection.astro";
 import Breadcrumb from '@components/Breadcrumb.astro';
+import ExhibitionInfo from '@components/ExhibitionInfo.astro';
+import TableOfContentsWrapper from '@components/TableOfContentsWrapper.astro';
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
+
+const sections = [
+  { id: 'introduction', title: 'Introduction' },
+  { id: 'exhibition-views', title: 'Exhibition Views' },
+  { id: 'contraband', title: 'Contraband' },
+  { id: 'internee-photographers', title: 'Internee Photographers' },
+  { id: 'amateur-photographers', title: 'Amateur Photographers' },
+  { id: 'visitors', title: 'Visitors' },
+  { id: 'canadian-incarceration', title: 'Canadian Incarceration' },
+  { id: 'about', title: 'About the Exhibition' },
+];
 ---
 
 <FamilyAlbumLayout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
-  <main class="max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumb
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Family Album Project", href: "/family-album-project", current: true }
-      ]}
-    />
+  <div class="relative">
+    <TableOfContentsWrapper sections={sections} />
     
-    <div class="mb-16">
-      <PhotographersGrid />
-    </div>
+    <main class="max-w-4xl mx-auto px-4 py-8 relative">
+      <div class="mb-16">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Family Album Project", href: "/family-album-project", current: true }
+          ]}
+        />
+      </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Introduction -->
-      <FamilyAlbumIntro />
+      <section id="introduction">
+        <FamilyAlbumIntro />
+      </section>
 
       <!-- Exhibition Images -->
-      <section class="mb-16">
+      <section id="exhibition-views" class="mt-16">
         <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
@@ -55,15 +70,30 @@ import installPic3 from '@images/family-album/installation/install-pic3.jpg';
       </section>
 
       <!-- Content Sections -->
-      <ContrabandSection />
-      <InterneePhotographerSection />
-      <AmateurPhotographerSection />
-      <VisitorsSection />
-      <CanadianIncarcerationSection />
-    </div>
+      <section id="contraband" class="mt-16">
+        <ContrabandSection />
+      </section>
+      <section id="internee-photographers" class="mt-16">
+        <InterneePhotographerSection />
+      </section>
+      <section id="amateur-photographers" class="mt-16">
+        <AmateurPhotographerSection />
+      </section>
+      <section id="visitors" class="mt-16">
+        <VisitorsSection />
+      </section>
+      <section id="canadian-incarceration" class="mt-16">
+        <CanadianIncarcerationSection />
+      </section>
 
-    <div class="mt-16">
-      <PhotographersGrid />
-    </div>
-  </main>
+      <div class="mt-16">
+        <PhotographersGrid />
+      </div>
+
+      <!-- Exhibition Info -->
+      <section id="about" class="mt-16">
+        <ExhibitionInfo />
+      </section>
+    </main>
+  </div>
 </FamilyAlbumLayout>
