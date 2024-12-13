@@ -33,7 +33,7 @@ export const primaryTheme = {
       'black-20': 'rgba(0, 0, 0, 0.2)',
     },
     'vintage': {
-      'paper': '#F4F1DE',      // Aged paper color
+      'paper': '#F5F4E9',      // Aged paper color - moderate warmth
       'ink': '#2F2F2F',        // Dark, slightly faded ink color
     }
   },

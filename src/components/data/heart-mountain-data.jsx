@@ -3,7 +3,7 @@ import React from 'react';
 export default function HeartMountainData() {
     return (
         <div className="max-w-4xl mx-auto">
-            <div className="p-20 bg-[#f5f5f3] shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-[#2c2c2c]/10 rounded-sm">
+            <div className="p-20 bg-[#f4f4ec] shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-[#2c2c2c]/10 rounded-sm">
                 <h3 className="font-mono text-3xl mb-12">
                     Research: Heart Mountain Relocation Camp
                 </h3>
