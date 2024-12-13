@@ -128,7 +128,7 @@ export function NavMenu() {
 
       {/* Desktop navigation */}
       <NavigationMenu className="hidden md:block mr-24">
-        <NavigationMenuList>
+        <NavigationMenuList className="flex flex-row gap-4">
           <NavLinks />
         </NavigationMenuList>
       </NavigationMenu>

@@ -20,12 +20,9 @@ const mapToArtwork = (entry: CollectionEntry<'artwork'>): Artwork => ({
   slug: entry.slug
 });
 
-const japaneseAmericanArtworks = allArtworks
-  .filter((artwork) => artwork.data.series === "Japanese-American Internment Camps")
-  .map(mapToArtwork);
-
-const japaneseCanadianArtworks = allArtworks
-  .filter((artwork) => artwork.data.series === "Japanese-Canadian Internment Camps")
+// Get artworks based on the current entry's series
+const artworks = allArtworks
+  .filter((artwork) => artwork.data.series === entry.data.series)
   .map(mapToArtwork);
 
 let CampDataComponent;
@@ -79,7 +76,7 @@ if (entry.data['data-file']) {
   <div class="bg-white w-full py-16">
     <ArtworkListByCamp 
       client:load 
-      artworks={japaneseAmericanArtworks}
+      artworks={artworks}
     />
   </div>
 

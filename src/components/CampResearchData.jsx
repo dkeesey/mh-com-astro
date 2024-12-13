@@ -1,4 +1,4 @@
-
+import { Fragment } from 'react';
 
 export default function CampResearchData({ 
     campName,
@@ -84,10 +84,10 @@ export default function CampResearchData({
                             <p className="ml-8">Of the {peakPopulation} Americans held prisoner here...</p>
                             <p className="ml-12 leading-relaxed">
                                 {Object.entries(populationOrigins).map(([location, count], index) => (
-                                    <React.Fragment key={location}>
+                                    <Fragment key={location}>
                                         {count} prisoners were from {location}
                                         {index < Object.entries(populationOrigins).length - 1 && <br />}
-                                    </React.Fragment>
+                                    </Fragment>
                                 ))}
                             </p>
                         </div>
