@@ -1,13 +1,12 @@
 ---
 interface Props {
-  title: string;
   subtitle?: string;
   collection?: string;
   photographer?: string;
   date?: string;
 }
 
-const { title, subtitle, collection, photographer, date } = Astro.props;
+const { subtitle, collection, photographer, date } = Astro.props;
 ---
 
 <div class="my-8 max-w-3xl mx-auto text-center space-y-4 font-serif">

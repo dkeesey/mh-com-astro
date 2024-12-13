@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Artwork } from '../types/artwork';
 
 // Map location names to camp names

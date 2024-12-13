@@ -1,45 +1,33 @@
 ---
-import { fade } from "astro:transitions";
-import { slide } from "astro:transitions";
 import type { Artwork } from '../types/artwork';
 
-const slideAnim = {
-  old: {
-    name: "slideDown",
-    duration: "0.3s",
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-  new: {
-    name: "slideUp",
-    duration: "0.3s",
-    // delay: `${index * 0.1 + 0.1}s`,
-    easing: "ease-out",
-    fillMode: "backwards",
-  },
-};
+interface Props {
+  name: string;
+  year?: string | number;
+  media?: string;
+  size?: string;
+  city?: string;
+  state?: string;
+  cloudinaryId: string;
+  classNames?: string;
+  figcaptionClasses?: string;
+  transition?: string;
+  altText?: string;
+}
 
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-};
-
-// artwork props: title, city, state, year, artist, cloudinaryId
 const {
-  title,
   name,
-  city,
-  state,
-  country,
   year,
-  cloudinaryId,
   media,
   size,
-  classNames,
-  sourceUrl = "www.masumihayashi.com",
-  figcaptionClasses,
-  slug,
-} = Astro.props as Artwork;
+  city,
+  state,
+  cloudinaryId,
+  classNames = "",
+  figcaptionClasses = "",
+  transition,
+  altText: providedAltText = "",
+} = Astro.props as Props;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)
 const baseURL =
@@ -48,25 +36,20 @@ const baseURL =
 const imageID = `${cloudinaryId}`;
 
 //get timestamp for current time for cloudinary cache busting
-const timestamp = new Date().getTime();
-const cacheBuster = `?_t=${timestamp}`;
+const timestamp = Date.now();
 
 const transformations = ["bo_30px_solid_black", "b_black", "c_scale"];
 
 const currentYear = new Date().getFullYear();
 
-const altText = `${title} by Dr. Masumi Hayashi`;
+const altText = providedAltText || `${name} by Dr. Masumi Hayashi`;
 
-// const copySm = ``; // consolidate copyright to image details for small screens
-const mdCopy = `${sourceUrl}%0Awww.MasumiHayashiFoundation.org%0A© ${currentYear} Dean Keesey`;
-const lgCopy = `%0A${sourceUrl}%0Awww.MasumiHayashiFoundation.org%0A© ${currentYear} Dean Keesey. All rights reserved.`;
+const mdCopy = `${"www.masumihayashi.com"}%0Awww.MasumiHayashiFoundation.org%0A${currentYear} Dean Keesey`;
+const lgCopy = `%0A${"www.masumihayashi.com"}%0Awww.MasumiHayashiFoundation.org%0A${currentYear} Dean Keesey. All rights reserved.`;
 
-// copyright details
-// const encodedCopySm = encodeURIComponent(copySm);
 const encodedmdCopy = encodeURIComponent(mdCopy);
 const encodedlgCopy = encodeURIComponent(lgCopy);
 
-// const copySmParam = `l_text:futura_16_line_spacing_12:${encodedCopySm},co_white,g_south_east,x_30,y_-20`;
 const mdCopyParam = `l_text:futura_16_line_spacing_12:${encodedmdCopy},co_white,g_south_east,x_50,y_-100`;
 const lgCopyParam = `l_text:futura_16_line_spacing_12:${encodedlgCopy},co_white,g_south_east,x_50,y_-100`;
 
