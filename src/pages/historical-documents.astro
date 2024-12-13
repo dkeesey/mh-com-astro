@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import { HistoricalDocument } from '../components/HistoricalDocument';
+import { DocumentSelector } from '../components/DocumentSelector';
+import { Button } from '@components/ui/button';
+
+const documents = {
+  'executive-order-9066': {
+    id: 'executive-order-9066',
+    title: "EXECUTIVE ORDER 9066",
+    subtitle: "Presidential Executive Order",
+    author: "Franklin D. Roosevelt",
+    date: "February 19, 1942",
+    location: "The White House",
+    content: "NOW, THEREFORE, by virtue of the authority vested in me as President of the United States, and Commander-in-Chief of the Army and Navy, I hereby authorize and direct the Secretary of War, and the Military Commanders whom he may from time to time designate, whenever he or any designated Commander deems such action necessary or desirable, to prescribe military areas in such places and of such extent as he or the appropriate Military Commander may determine, from which any or all persons may be excluded, and with respect to which, the right of any to enter, remain in, or leave shall be subject to whatever restrictions the Secretary of War or the appropriate Military Commander may impose in his discretion...",
+    source: "Franklin D. Roosevelt, The White House. Executive Order 9066. Washington, D.C. February 19, 1942."
+  },
+  'civilian-exclusion-order-5': {
+    id: 'civilian-exclusion-order-5',
+    title: "INSTRUCTIONS TO ALL PERSONS OF JAPANESE ANCESTRY",
+    subtitle: "Civilian Exclusion Order No. 5 - Northern California",
+    author: "Lt. Gen. J.L. DeWitt",
+    date: "April 1, 1942",
+    location: "Western Defense Command and Fourth Army Wartime Civil Control Administration",
+    content: "",
+    source: "Lieutenant General J.L. DeWitt, Commanding General, Western Defense Command and Fourth Army",
+    images: [
+      {
+        src: "/images/ceo-5-1.gif",
+        alt: "Civilian Exclusion Order No. 5 - Page 1",
+        caption: "Civilian Exclusion Order No. 5 (Northern California), Page 1 - Instructions to all persons of Japanese ancestry"
+      },
+      {
+        src: "/images/ceo-5-2.gif",
+        alt: "Civilian Exclusion Order No. 5 - Page 2",
+        caption: "Civilian Exclusion Order No. 5 (Northern California), Page 2 - Detailed instructions and requirements"
+      }
+    ]
+  },
+  'civilian-exclusion-order-82': {
+    id: 'civilian-exclusion-order-82',
+    title: "INSTRUCTIONS TO ALL PERSONS OF JAPANESE ANCESTRY",
+    subtitle: "Civilian Exclusion Order No. 82 - San Francisco",
+    author: "Lt. Gen. J.L. DeWitt",
+    date: "May 3, 1942",
+    location: "Western Defense Command and Fourth Army Wartime Civil Control Administration",
+    content: "",
+    source: "Lieutenant General J.L. DeWitt, Commanding General, Western Defense Command and Fourth Army",
+    images: [
+      {
+        src: "/images/ceo-82-1.jpg",
+        alt: "Civilian Exclusion Order No. 82 - Page 1",
+        caption: "Civilian Exclusion Order No. 82 (San Francisco), Page 1 - Instructions to all persons of Japanese ancestry"
+      },
+      {
+        src: "/images/ceo-82-2.jpg",
+        alt: "Civilian Exclusion Order No. 82 - Page 2",
+        caption: "Civilian Exclusion Order No. 82 (San Francisco), Page 2 - Detailed instructions and requirements"
+      }
+    ]
+  }
+};
+
+const documentsList = Object.values(documents);
+
+// Function to scroll to top smoothly
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+---
+
+<BaseLayout title="Historical Documents | Japanese American Internment">
+  <Navigation />
+  
+  <main class="min-h-screen bg-fa-bg-primary">
+    <header class="py-16 bg-black text-white">
+      <div class="max-w-4xl mx-auto px-6">
+        <h1 class="text-4xl md:text-5xl font-inter font-bold mb-4">
+          Historical Documents
+        </h1>
+        <p class="text-lg text-gray-300 max-w-2xl">
+          Primary source documents relating to the Japanese American internment during World War II.
+          Following Executive Order 9066, Lieutenant General J.L. DeWitt issued a series of Civilian Exclusion Orders 
+          targeting different geographic areas along the West Coast.
+        </p>
+      </div>
+    </header>
+
+    <section class="py-8 px-6">
+      <DocumentSelector 
+        client:load 
+        documents={documentsList}
+        activeDocument="executive-order-9066"
+      />
+    </section>
+
+    <section class="py-8 max-w-4xl mx-auto px-8">
+      <div id="executive-order-9066" class="scroll-mt-32">
+        <HistoricalDocument 
+          client:load
+          {...documents['executive-order-9066']}
+        />
+        <div class="mt-8 text-center">
+          <Button 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          >
+            Back to Top
+          </Button>
+        </div>
+      </div>
+
+      <div id="civilian-exclusion-order-5" class="scroll-mt-32 mt-16">
+        <HistoricalDocument 
+          client:load
+          {...documents['civilian-exclusion-order-5']}
+        />
+        <div class="mt-8 text-center">
+          <Button 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          >
+            Back to Top
+          </Button>
+        </div>
+      </div>
+
+      <div id="civilian-exclusion-order-82" class="scroll-mt-32 mt-16">
+        <HistoricalDocument 
+          client:load
+          {...documents['civilian-exclusion-order-82']}
+        />
+        <div class="mt-8 text-center">
+          <Button 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          >
+            Back to Top
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Add any custom styles here */
+</style>

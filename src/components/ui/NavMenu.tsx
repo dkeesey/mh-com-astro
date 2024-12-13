@@ -24,6 +24,10 @@ const navData = [
     path: "/family-album-project/",
   },
   {
+    name: "Historical Documents",
+    path: "/historical-documents/",
+  },
+  {
     name: "Artist Statement",
     path: "/artist-statement/",
   },
