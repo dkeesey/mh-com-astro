@@ -36,7 +36,7 @@ export function ArtworkListByCamp({ artworks }: ArtworkListByCampProps) {
 
   return (
     <nav className="w-full max-w-4xl mx-auto py-16 px-8">
-      <h3 className="font-robotoCondensed text-2xl mb-12 uppercase tracking-wide">
+      <h3 className="font-robotoCondensed text-gray-800 text-2xl mb-12 uppercase tracking-wide">
         Internment Camp Artworks
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">

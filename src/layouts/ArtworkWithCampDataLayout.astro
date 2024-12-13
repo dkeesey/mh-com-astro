@@ -40,7 +40,7 @@ if (entry.data['data-file']) {
 <Layout title={entry.data.title}>
   <!-- Full-width image section with black background -->
   <div class="bg-black w-full">
-    <div class="max-w-[90vw] mx-auto py-12">
+    <div class="max-w-[90vw] mx-auto py-8 sm:py-12 md:py-16">
       <a href={`/artwork/internment-camps/#${entry.slug}`}>
         <CloudinaryImage
           cloudinaryId={entry.data.cloudinaryId}
@@ -62,8 +62,8 @@ if (entry.data['data-file']) {
   </div>
 
   <!-- Research section with vintage paper background -->
-  <div class="bg-vintage-paper text-vintage-ink w-full py-4 sm:py-8 md:py-12 mt-16 sm:mt-20 md:mt-24">
-    <div class="mx-2 sm:mx-4 md:mx-6">
+  <div class="bg-vintage-paper text-vintage-ink w-full py-6 sm:py-8 md:py-12 mt-16 sm:mt-20 md:mt-24">
+    <div class="mx-4 sm:mx-6 md:mx-8">
       <div class="camp-data-container max-w-6xl mx-auto">
         {CampDataComponent && <CampDataComponent.default />}
       </div>
@@ -71,7 +71,7 @@ if (entry.data['data-file']) {
   </div>
 
   <!-- Artwork List section -->
-  <div class="bg-white w-full">
+  <div class="bg-white w-full py-16">
     <ArtworkListByCamp 
       client:load 
       artworks={japaneseAmericanArtworks}
@@ -84,31 +84,31 @@ if (entry.data['data-file']) {
     }
     
     :global(.camp-data h2) {
-      @apply text-xl sm:text-2xl md:text-3xl font-light mb-4 sm:mb-6 md:mb-8 text-center text-vintage-ink font-typewriter;
+      @apply text-xl sm:text-2xl md:text-3xl font-light mb-6 sm:mb-8 md:mb-10 text-center text-vintage-ink font-typewriter;
     }
     
     :global(.camp-data dl) {
-      @apply grid gap-y-3 sm:gap-y-4 md:gap-y-6;
+      @apply grid gap-y-4 sm:gap-y-6 md:gap-y-8;
     }
 
     :global(.camp-data dt) {
-      @apply text-sm sm:text-base md:text-lg uppercase tracking-wide mb-1 text-vintage-ink/70 font-typewriter;
+      @apply text-sm sm:text-base md:text-lg uppercase tracking-wide mb-2 text-vintage-ink/70 font-typewriter;
     }
     
     :global(.camp-data dd) {
-      @apply text-sm sm:text-base md:text-lg pl-3 sm:pl-4 md:pl-6 border-l border-vintage-ink/20 text-vintage-ink leading-normal sm:leading-relaxed;
+      @apply text-sm sm:text-base md:text-lg pl-4 sm:pl-6 md:pl-8 border-l border-vintage-ink/20 text-vintage-ink leading-normal sm:leading-relaxed;
     }
 
     :global(.camp-data p) {
-      @apply text-sm sm:text-base md:text-lg mb-3 sm:mb-4 leading-normal sm:leading-relaxed;
+      @apply text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-normal sm:leading-relaxed;
     }
 
     :global(.camp-data ul) {
-      @apply pl-3 sm:pl-4 md:pl-6 list-disc;
+      @apply pl-4 sm:pl-6 md:pl-8 list-disc;
     }
 
     :global(.camp-data li) {
-      @apply text-sm sm:text-base md:text-lg mb-2 leading-normal sm:leading-relaxed;
+      @apply text-sm sm:text-base md:text-lg mb-3 leading-normal sm:leading-relaxed;
     }
 
     .camp-data-container {
