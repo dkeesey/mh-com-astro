@@ -1,5 +1,4 @@
 ---
-import Header from "../components/Header.astro";
 import MainHead from "./MainHead.astro";
 import FontLoader from "../components/FontLoader.astro";
 ---
@@ -10,7 +9,6 @@ import FontLoader from "../components/FontLoader.astro";
   </MainHead>
   <body class="bg-black text-fa-text-secondary font-inter">
     <div class="gallery-scroll-container">
-      <Header />
       <slot />
       <button class="back-to-top" aria-label="Back to top">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -33,7 +31,7 @@ import FontLoader from "../components/FontLoader.astro";
     height: 100vh;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
-    position: relative; /* For back-to-top positioning */
+    position: relative;
   }
 
   /* Scrollbar styling */
