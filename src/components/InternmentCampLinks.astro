@@ -12,7 +12,7 @@ interface Props {
 }
 // Fetch all entries from the "artworks" collection
 const allArtPagesEntries = (await getCollection("artwork")).map((entry) => ({
-  slug: entry.data.slug,
+  slug: entry.slug,
   name: entry.data.name,
   series: entry.data.series,
 }));

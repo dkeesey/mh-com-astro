@@ -14,7 +14,7 @@ const HamburgerMenu: React.FC = () => {
 
   return (
     <>
-      <button className="hamburger" onClick={handleClick} aria-label="Menu">
+      <button className="hamburger text-primary-text-primary" onClick={handleClick} aria-label="Menu">
         <HamburgerMenuIcon />
       </button>
       <ul className={`nav-links ${isOpen ? "open" : ""} text-sm`}>

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Menu } from "lucide-react"
+import HamburgerMenuIcon from "../HamburgerMenuIcon"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -77,14 +77,14 @@ const MobileNav = () => {
     <Sheet>
       <SheetTrigger asChild>
         <button
-          className="group flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white"
+          className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary-text-primary bg-transparent"
           aria-label="Toggle menu"
         >
-          <Menu className="h-4 w-4" />
+          <HamburgerMenuIcon className="text-primary-text-primary" />
         </button>
       </SheetTrigger>
-      <SheetContent className="w-full">
-        <nav className="flex flex-col gap-4">
+      <SheetContent className="w-full bg-primary-bg-primary border-primary-text-primary">
+        <nav className="flex flex-col gap-4 text-primary-text-primary">
           {navData.map((item) => (
             <div key={item.path}>
               {pathname === item.path ? (
