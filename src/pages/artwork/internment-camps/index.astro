@@ -321,9 +321,11 @@ const pageTitle = "Japanese American Internment Camps | Artwork Series";
     </article>
 
     {/* Research and Navigation Section */}
-    <div class="bg-white py-20">
-      <HeartMountainData client:load />
-      <ArtworkNavList client:load />
+    <div class="w-full bg-white py-20">
+      <div class="max-w-none">
+        <HeartMountainData client:load />
+        <ArtworkNavList client:load />
+      </div>
     </div>
 
     <Footer />

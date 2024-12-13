@@ -22,7 +22,7 @@ export default function CampResearchData({
     className
 }) {
     return (
-        <div className={`max-w-7xl mx-auto px-12 ${className}`}>
+        <div className={`w-full max-w-[90rem] mx-auto px-12 ${className}`}>
             <div className="p-24 bg-[#f4f4ec] shadow-[0_12px_48px_rgba(0,0,0,0.18)] border border-[#2c2c2c]/10 rounded-sm">
                 <h3 className="font-typewriter text-3xl lg:text-4xl mb-16">
                     Research: {campName} Relocation Camp
