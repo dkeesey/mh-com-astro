@@ -10,24 +10,11 @@ import { fade } from "astro:transitions";
   <MainHead>
     <FontLoader />
   </MainHead>
-  <body class="bg-black text-fa-text-secondary font-inter w-screen">
-    <!-- scroll container -->
-    <div
-      class="overflow-y-scroll snap-y snap-mandatory h-screen bg-black"
-      transition:animate={fade({ duration: ".75s" })}
-    >
-      <Header classes="snap-item snap-start" />
-
-      <main class="bg-black min-h-screen">
-        <slot />
-      </main>
-      <Footer classes="snap-item snap-start mt-16" />
-    </div>
-
-    <style>
-      footer {
-        @apply fixed bottom-0 h-16; /* Adjust the h-16 value based on your footer's height */
-      }
-    </style>
+  <body class="bg-black text-fa-text-secondary font-inter">
+    <Header />
+    <main class="bg-black">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

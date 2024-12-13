@@ -1,0 +1,38 @@
+---
+import Header from "../components/Header.astro";
+import MainHead from "./MainHead.astro";
+import FontLoader from "../components/FontLoader.astro";
+---
+
+<html lang="en">
+  <MainHead>
+    <FontLoader />
+  </MainHead>
+  <body class="bg-black text-fa-text-secondary font-inter">
+    <div class="h-[100dvh] overflow-y-scroll snap-y snap-mandatory scroll-container">
+      <div class="snap-start">
+        <Header />
+      </div>
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
+
+<style>
+  div::-webkit-scrollbar {
+    width: 8px;
+  }
+  div::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  div::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+  div {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+</style>
