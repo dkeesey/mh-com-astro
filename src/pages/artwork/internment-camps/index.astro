@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import CloudinaryImage from "../../../components/CloudinaryImage.astro";
 import GalleryLayout from "../../../layouts/GalleryLayout.astro";
 import HeartMountainData from '../../../components/data/heart-mountain-data';
-import ArtworkNavList from '../../../components/ArtworkNavList';
+import { ArtworkListByCamp } from '../../../components/ArtworkListByCamp';
 import Footer from '../../../components/Footer.astro';
 
 // Define the Artwork interface
@@ -324,7 +324,16 @@ const pageTitle = "Japanese American Internment Camps | Artwork Series";
     <div class="w-full bg-white py-20">
       <div class="max-w-none">
         <HeartMountainData client:load />
-        <ArtworkNavList client:load />
+        <ArtworkListByCamp 
+          client:load 
+          artworks={japaneseAmericanArtworks.map(artwork => ({
+            slug: artwork.data.slug,
+            title: artwork.data.title,
+            name: artwork.data.name,
+            city: artwork.data.city,
+            state: artwork.data.state,
+          }))} 
+        />
       </div>
     </div>
 

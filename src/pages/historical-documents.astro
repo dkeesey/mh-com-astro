@@ -184,7 +184,7 @@ const scrollToTop = () => {
   document.addEventListener('DOMContentLoaded', () => {
     const backToTopButtons = document.querySelectorAll('button');
     backToTopButtons.forEach(button => {
-      if (button.textContent.trim() === 'Back to Top') {
+      if (button?.textContent?.trim() === 'Back to Top') {
         button.addEventListener('click', () => {
           window.scrollTo({
             top: 0,

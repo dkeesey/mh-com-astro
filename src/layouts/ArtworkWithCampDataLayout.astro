@@ -1,9 +1,22 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Navigation from '../components/Navigation.astro';
+import Layout from './Layout.astro';
 import CloudinaryImage from "../components/CloudinaryImage.astro";
+import { getCollection } from "astro:content";
+import { ArtworkListByCamp } from '../components/ArtworkListByCamp';
 
 const { entry } = Astro.props;
+
+// Get all artworks for the navigation
+const allArtworks = await getCollection("artwork");
+const japaneseAmericanArtworks = allArtworks
+  .filter(artwork => artwork.data.series === "Japanese-American Internment Camps")
+  .map(artwork => ({
+    slug: artwork.data.slug,
+    title: artwork.data.title,
+    name: artwork.data.name,
+    city: artwork.data.city,
+    state: artwork.data.state,
+  }));
 
 let CampDataComponent;
 if (entry.data['data-file']) {
@@ -14,10 +27,7 @@ if (entry.data['data-file']) {
 }
 ---
 
-<BaseLayout title={entry.data.title}>
-  <!-- Navigation -->
-  <Navigation />
-
+<Layout title={entry.data.title}>
   <!-- Full-width image section with black background -->
   <div class="bg-black w-full">
     <div class="max-w-[90vw] mx-auto py-12">
@@ -41,8 +51,6 @@ if (entry.data['data-file']) {
     </div>
   </div>
 
-
-
   <!-- Research section with vintage paper background -->
   <div class="bg-vintage-paper text-vintage-ink w-full py-16">
     <div class="max-w-6xl mx-auto px-4">
@@ -50,6 +58,14 @@ if (entry.data['data-file']) {
         {CampDataComponent && <CampDataComponent.default />}
       </div>
     </div>
+  </div>
+
+  <!-- Artwork List section -->
+  <div class="bg-white w-full">
+    <ArtworkListByCamp 
+      client:load 
+      artworks={japaneseAmericanArtworks}
+    />
   </div>
 
   <style>
@@ -107,4 +123,4 @@ if (entry.data['data-file']) {
       }
     }
   </style>
-</BaseLayout>
+</Layout>
