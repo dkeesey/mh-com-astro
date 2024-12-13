@@ -65,32 +65,48 @@ import FontLoader from "@components/FontLoader.astro";
 </style>
 
 <script>
-  // Back to top functionality
-  const backToTop = document.querySelector('.back-to-top');
-  const container = document.querySelector('.gallery-scroll-container');
+  function initializeBackToTop() {
+    const backToTop = document.querySelector('.back-to-top');
+    const container = document.querySelector('.gallery-scroll-container');
 
-  if (backToTop && container) {
-    // Show/hide button based on scroll position
-    const updateButtonVisibility = () => {
-      if (container.scrollTop > 100) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    };
+    if (backToTop && container) {
+      // Show/hide button based on scroll position
+      const updateButtonVisibility = () => {
+        if (container.scrollTop > 100) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      };
 
-    // Initial check
-    updateButtonVisibility();
+      // Initial check
+      updateButtonVisibility();
 
-    // Update on scroll
-    container.addEventListener('scroll', updateButtonVisibility);
+      // Update on scroll
+      container.addEventListener('scroll', updateButtonVisibility);
 
-    // Scroll to top with smooth behavior
-    backToTop.addEventListener('click', () => {
-      container.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+      // Scroll to top with smooth behavior
+      backToTop.addEventListener('click', () => {
+        container.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
       });
-    });
+    }
   }
+
+  // Initialize on page load
+  initializeBackToTop();
+
+  // Initialize when navigating back
+  window.addEventListener('popstate', () => {
+    setTimeout(initializeBackToTop, 100);
+  });
+
+  // Also initialize when the page becomes visible again
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      setTimeout(initializeBackToTop, 100);
+    }
+  });
 </script>
