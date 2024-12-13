@@ -10,15 +10,15 @@ import { fade } from "astro:transitions";
   <MainHead>
     <FontLoader />
   </MainHead>
-  <body class="bg-museum-black text-fa-text-secondary font-inter w-screen">
+  <body class="bg-black text-fa-text-secondary font-inter w-screen">
     <!-- scroll container -->
     <div
-      class="overflow-y-scroll snap-y snap-mandatory h-screen bg-museum-black"
+      class="overflow-y-scroll snap-y snap-mandatory h-screen bg-black"
       transition:animate={fade({ duration: ".75s" })}
     >
       <Header classes="snap-item snap-start" />
 
-      <main class="bg-museum-black min-h-screen">
+      <main class="bg-black min-h-screen">
         <slot />
       </main>
       <Footer classes="snap-item snap-start mt-16" />
