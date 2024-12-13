@@ -1,6 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Navigation from '../components/Navigation.astro';
+import Layout from '../layouts/Layout.astro';
 import { HistoricalDocument } from '../components/HistoricalDocument';
 import { DocumentSelector } from '../components/DocumentSelector';
 import { Button } from '@components/ui/button';
@@ -10,7 +9,7 @@ const documents = {
     id: 'executive-order-9066',
     title: "EXECUTIVE ORDER 9066",
     subtitle: "Presidential Executive Order",
-    author: "Franklin D. Roosevelt",
+    author: "President Franklin D. Roosevelt",
     date: "February 19, 1942",
     location: "The White House",
     content: "NOW, THEREFORE, by virtue of the authority vested in me as President of the United States, and Commander-in-Chief of the Army and Navy, I hereby authorize and direct the Secretary of War, and the Military Commanders whom he may from time to time designate, whenever he or any designated Commander deems such action necessary or desirable, to prescribe military areas in such places and of such extent as he or the appropriate Military Commander may determine, from which any or all persons may be excluded, and with respect to which, the right of any to enter, remain in, or leave shall be subject to whatever restrictions the Secretary of War or the appropriate Military Commander may impose in his discretion...",
@@ -64,7 +63,7 @@ const documents = {
     id: 'presidential-apology',
     title: "Letter of Apology to Japanese Americans",
     subtitle: "Presidential Letter of Apology",
-    author: "William J. Clinton",
+    author: "President William J. Clinton",
     date: "October 1, 1993",
     location: "The White House",
     content: "",
@@ -87,9 +86,7 @@ const scrollToTop = () => {
 };
 ---
 
-<BaseLayout title="Historical Documents | Japanese American Internment">
-  <Navigation />
-  
+<Layout title="Historical Documents | Japanese American Internment">
   <main class="min-h-screen bg-fa-bg-primary">
     <header class="py-16 bg-black text-white">
       <div class="max-w-4xl mx-auto px-6">
@@ -170,7 +167,7 @@ const scrollToTop = () => {
       </div>
     </section>
   </main>
-</BaseLayout>
+</Layout>
 
 <script>
   // Prevent default hash jump behavior

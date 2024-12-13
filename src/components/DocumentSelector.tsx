@@ -15,6 +15,7 @@ interface DocumentSelectorProps {
 
 export function DocumentSelector({ documents, activeDocument: initialActive }: DocumentSelectorProps) {
   const [activeDocument, setActiveDocument] = useState(initialActive);
+  const [hoveredDocument, setHoveredDocument] = useState<string | null>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -31,6 +32,7 @@ export function DocumentSelector({ documents, activeDocument: initialActive }: D
 
   const handleSelect = (id: string) => {
     setActiveDocument(id);
+    setHoveredDocument(null);
     // Update URL hash
     window.location.hash = id;
     // Smooth scroll to the element
@@ -40,6 +42,16 @@ export function DocumentSelector({ documents, activeDocument: initialActive }: D
     }
   };
 
+  const getButtonStyle = (docId: string) => {
+    const isActive = activeDocument === docId && !hoveredDocument;
+    const isHovered = hoveredDocument === docId;
+    
+    if (isActive || isHovered) {
+      return 'bg-[#f8f7f3] text-black border-black shadow-lg';
+    }
+    return 'bg-fa-bg-primary text-[#f8f7f3] border-[#f8f7f3]';
+  };
+
   return (
     <nav className="w-full max-w-3xl mx-auto mb-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -47,12 +59,12 @@ export function DocumentSelector({ documents, activeDocument: initialActive }: D
           <button
             key={doc.id}
             onClick={() => handleSelect(doc.id)}
+            onMouseEnter={() => setHoveredDocument(doc.id)}
+            onMouseLeave={() => setHoveredDocument(null)}
             className={`
               p-4 text-left border rounded-lg transition-all
-              ${activeDocument === doc.id 
-                ? 'bg-[#f8f7f3] text-black border-black shadow-lg' 
-                : 'bg-fa-bg-primary text-[#f8f7f3] border-[#f8f7f3] hover:border-[#f8f7f3] hover:shadow-md'
-              }
+              hover:border-black
+              ${getButtonStyle(doc.id)}
             `}
           >
             <h3 className="font-inter font-medium text-sm mb-1">{doc.title}</h3>
