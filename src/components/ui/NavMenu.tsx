@@ -48,7 +48,7 @@ const NavLinks = () => {
           ) : (
             <a
               href={item.path}
-              className="text-sm md:text-base no-underline"
+              className="text-sm md:text-base no-underline transition-colors duration-500 hover:text-primary-bg-primary/50"
             >
               {item.name}
             </a>
@@ -70,24 +70,27 @@ const MobileNav = () => {
     <Sheet>
       <SheetTrigger asChild>
         <button
-          className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary-text-primary bg-transparent"
+          className="group flex h-10 w-10 items-center justify-center rounded-full border-primary-bg-primary bg-primary-text-primary transition-all duration-500 hover:border-primary-bg-primary/50 hover:bg-primary-bg-primary/50 focus:border-primary-bg-primary/50 focus:bg-primary-bg-primary/50 focus:outline-none"
           aria-label="Toggle menu"
         >
-          <HamburgerMenuIcon className="text-primary-text-primary" />
+          <HamburgerMenuIcon className="text-primary-bg-primary/80 transition-colors duration-500 group-hover:text-primary-text-primary group-focus:text-primary-text-primary" />
         </button>
       </SheetTrigger>
-      <SheetContent className="w-full bg-primary-bg-primary border-primary-text-primary">
-        <nav className="flex flex-col gap-4 text-primary-text-primary">
+      <SheetContent 
+        side="right"
+        className="w-[80%] bg-primary-text-primary text-black border-l border-primary-text-primary data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right"
+      >
+        <nav className="flex flex-col gap-4 p-6 font-roboto-condensed">
           {navData.map((item) => (
             <div key={item.path}>
               {pathname === item.path ? (
-                <span className="text-base italic">
+                <span className="text-lg italic text-black">
                   {item.name}
                 </span>
               ) : (
                 <a
                   href={item.path}
-                  className="text-base no-underline"
+                  className="text-lg text-black/80 no-underline transition-colors duration-500 hover:text-black/60"
                 >
                   {item.name}
                 </a>
