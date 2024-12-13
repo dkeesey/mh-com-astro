@@ -17,8 +17,9 @@ export const primaryTheme = {
       },
       'bg': {
         'primary': '#000000',      // Main background
-        'secondary': '#1a1a1a',    // Slightly lighter background for contrast
+        'secondary': 'rgba(36 36 36 / 100%)',    // Slightly lighter background for contrast
         'densho': '#5c5823',       // Densho brand color
+        'tertiary': 'rgba(52 52 52 / 100%)',     // Slightly darker for additional depth
       }
     }
   },
