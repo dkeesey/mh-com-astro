@@ -2,17 +2,22 @@
 import type { Artwork } from '../types/artwork';
 
 interface Props {
-  name: string;
   cloudinaryId: string;
+  name?: string;
   year?: string | number;
   media?: string;
   size?: string;
   city?: string;
   state?: string;
+  country?: string;
   classNames?: string;
+  className?: string;
   figcaptionClasses?: string;
   transition?: string;
   altText?: string;
+  alt?: string;
+  title?: string;
+  slug?: string;
 }
 
 const {
@@ -23,10 +28,15 @@ const {
   size,
   city,
   state,
+  country,
   classNames = "",
+  className = "",
   figcaptionClasses = "",
   transition,
   altText: providedAltText = "",
+  alt,
+  title,
+  slug,
 } = Astro.props as Props;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)
