@@ -12,12 +12,6 @@ interface Props {
   entries: CampEntry[];
 }
 
-const entries = (await getCollection("artwork")).map((entry: CollectionEntry<"artwork">) => ({
-  slug: entry.slug,
-  name: entry.data.name,
-  series: entry.data.series,
-}));
-
 const { entries: propsEntries } = Astro.props as Props;
 
 ---

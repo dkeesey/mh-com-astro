@@ -9,12 +9,8 @@ interface Props {
   state?: string;
   country?: string;
   classNames?: string;
-  className?: string;
   figcaptionClasses?: string;
-  altText?: string;
-  title?: string;
-  alt?: string;
-  slug?: string;
+  altTag?: string;
 }
 
 const {
@@ -27,12 +23,8 @@ const {
   state,
   country,
   classNames = "",
-  className = "",
   figcaptionClasses = "",
-  altText: providedAltText = "",
-  title,
-  alt,
-  slug,
+  altTag = "",
 } = Astro.props as Props;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)
@@ -45,7 +37,7 @@ const transformations = ["bo_30px_solid_black", "b_black", "c_scale"];
 
 const currentYear = new Date().getFullYear();
 
-const altText = providedAltText || `${name} by Dr. Masumi Hayashi`;
+const altText = altTag || `${name} by Dr. Masumi Hayashi`;
 
 const mdCopy = `${"www.masumihayashi.com"}%0Awww.MasumiHayashiFoundation.org%0A${currentYear} Dean Keesey`;
 const lgCopy = `%0A${"www.masumihayashi.com"}%0Awww.MasumiHayashiFoundation.org%0A${currentYear} Dean Keesey. All rights reserved.`;
@@ -74,8 +66,8 @@ const lgImageTitleParam = `l_text:futura_20_italic_line_spacing_1:${encodedImage
 
 // image details
 const smImageDetails = `Artist:Dr. Masumi Hayashi%0A${currentYear} Dean Keesey`;
-const mdImageDetails = `${city}, ${state}, ${year}%0AArtist:Dr. Masumi Hayashi`;
-const lgImageDetails = `${city}, ${state}, ${year}%0AArtist: Dr. Masumi Hayashi%0A${media}`;
+const mdImageDetails = `${city}, ${state}, ${country}, ${year}%0AArtist:Dr. Masumi Hayashi`;
+const lgImageDetails = `${city}, ${state}, ${country}, ${year}%0AArtist: Dr. Masumi Hayashi%0A${media}`;
 
 const encodedSmImageDetails = encodeImageDetails(smImageDetails);
 const encodedMdImageDetails = encodeImageDetails(mdImageDetails);

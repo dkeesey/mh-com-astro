@@ -3,7 +3,6 @@ import HamburgerMenuIcon from "../HamburgerMenuIcon"
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from "@radix-ui/react-navigation-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet"
