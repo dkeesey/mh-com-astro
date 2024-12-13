@@ -9,29 +9,31 @@ import FontLoader from "../components/FontLoader.astro";
     <FontLoader />
   </MainHead>
   <body class="bg-black text-fa-text-secondary font-inter">
-    <div class="h-[100dvh] overflow-y-scroll snap-y snap-mandatory scroll-container">
+    <div class="snap-y snap-mandatory">
       <div class="snap-start">
         <Header />
       </div>
-      <main>
-        <slot />
-      </main>
+      <slot />
     </div>
   </body>
 </html>
 
 <style>
-  div::-webkit-scrollbar {
+  body {
+    overflow-y: auto;
+    height: 100vh;
+  }
+  body::-webkit-scrollbar {
     width: 8px;
   }
-  div::-webkit-scrollbar-track {
+  body::-webkit-scrollbar-track {
     background: transparent;
   }
-  div::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
   }
-  div {
+  body {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
