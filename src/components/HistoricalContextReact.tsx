@@ -106,16 +106,16 @@ export const HistoricalContextReact = () => {
           </h2>
 
           <div className="prose prose-lg mx-auto font-inter">
-            {sections[activeSection].image && (
+            {sections[activeSection]?.image && (
               <figure className="mb-6">
                 <img
-                  src={sections[activeSection].image.src}
-                  alt={sections[activeSection].image.alt}
+                  src={sections[activeSection]?.image?.src ?? ''}
+                  alt={sections[activeSection]?.image?.alt ?? ''}
                   className="w-full h-auto rounded-lg shadow-md"
                 />
-                {sections[activeSection].image.caption && (
+                {sections[activeSection]?.image?.caption && (
                   <figcaption className="text-sm text-center mt-2 text-fa-text-secondary">
-                    {sections[activeSection].image.caption}
+                    {sections[activeSection]?.image?.caption}
                   </figcaption>
                 )}
               </figure>
