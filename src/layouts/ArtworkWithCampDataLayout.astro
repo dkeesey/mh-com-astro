@@ -62,9 +62,9 @@ if (entry.data['data-file']) {
   </div>
 
   <!-- Research section with vintage paper background -->
-  <div class="bg-vintage-paper text-vintage-ink w-full py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="camp-data-container font-typewriter">
+  <div class="bg-vintage-paper text-vintage-ink w-full py-4 sm:py-8 md:py-12 mt-16 sm:mt-20 md:mt-24">
+    <div class="mx-2 sm:mx-4 md:mx-6">
+      <div class="camp-data-container max-w-6xl mx-auto">
         {CampDataComponent && <CampDataComponent.default />}
       </div>
     </div>
@@ -80,57 +80,45 @@ if (entry.data['data-file']) {
 
   <style>
     :global(.camp-data) {
-      @apply max-w-3xl mx-auto;
+      @apply w-full mx-auto;
     }
     
     :global(.camp-data h2) {
-      @apply text-3xl font-light mb-12 text-center text-vintage-ink font-typewriter;
+      @apply text-xl sm:text-2xl md:text-3xl font-light mb-4 sm:mb-6 md:mb-8 text-center text-vintage-ink font-typewriter;
     }
     
     :global(.camp-data dl) {
-      @apply grid gap-y-6;
+      @apply grid gap-y-3 sm:gap-y-4 md:gap-y-6;
     }
 
     :global(.camp-data dt) {
-      @apply text-lg uppercase tracking-wide mb-1 text-vintage-ink/70 font-typewriter;
+      @apply text-sm sm:text-base md:text-lg uppercase tracking-wide mb-1 text-vintage-ink/70 font-typewriter;
     }
     
     :global(.camp-data dd) {
-      @apply text-lg pl-8 border-l-2 border-vintage-ink/20 text-vintage-ink;
+      @apply text-sm sm:text-base md:text-lg pl-3 sm:pl-4 md:pl-6 border-l border-vintage-ink/20 text-vintage-ink leading-normal sm:leading-relaxed;
+    }
+
+    :global(.camp-data p) {
+      @apply text-sm sm:text-base md:text-lg mb-3 sm:mb-4 leading-normal sm:leading-relaxed;
     }
 
     :global(.camp-data ul) {
-      @apply space-y-1 mt-2;
+      @apply pl-3 sm:pl-4 md:pl-6 list-disc;
     }
 
     :global(.camp-data li) {
-      @apply text-lg pl-4 text-vintage-ink;
+      @apply text-sm sm:text-base md:text-lg mb-2 leading-normal sm:leading-relaxed;
     }
 
-    :global(.camp-data br + br) {
-      @apply content-[''] block mt-2;
+    .camp-data-container {
+      @apply shadow-md sm:shadow-lg;
     }
 
-    .camp-data {
-      dt {
-        @apply inline-block font-bold uppercase tracking-wide mr-2;
-      }
-
-      dd {
-        @apply inline-block;
-        
-        &.multiline {
-          @apply block mt-2 mb-6 ml-8;
-        }
-      }
-
-      ul {
-        @apply list-disc ml-8 mt-2;
-      }
-
-      h2 {
-        @apply text-2xl mb-6 text-center;
-      }
+    /* Optimize line length for readability */
+    :global(.camp-data dd),
+    :global(.camp-data p) {
+      @apply max-w-prose;
     }
   </style>
 </Layout>

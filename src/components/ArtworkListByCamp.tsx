@@ -42,9 +42,9 @@ export function ArtworkListByCamp({ artworks }: ArtworkListByCampProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
         {sortedCampNames.map((campName) => (
           <div key={campName} className="space-y-4">
-            <h4 className="font-robotoCondensed text-xl text-gray-700">
+            {/* <h4 className="font-robotoCondensed text-xl text-gray-700">
               {campName}
-            </h4>
+            </h4> */}
             <ul className="space-y-3">
               {artworksByCamp[campName].map((artwork) => (
                 <li key={artwork.slug}>

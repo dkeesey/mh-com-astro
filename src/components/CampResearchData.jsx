@@ -22,14 +22,14 @@ export default function CampResearchData({
     className
 }) {
     return (
-        <div className={`w-full max-w-[90rem] mx-auto px-12 ${className}`}>
-            <div className="p-24 bg-[#f4f4ec] shadow-[0_12px_48px_rgba(0,0,0,0.18)] border border-[#2c2c2c]/10 rounded-sm">
-                <h3 className="font-typewriter text-3xl lg:text-4xl mb-16">
+        <div className={`w-full mx-auto ${className}`}>
+            <div className="p-8 sm:p-12 md:p-16 bg-[#f4f4ec] shadow-md border border-[#2c2c2c]/10 rounded-sm">
+                <h3 className="font-typewriter text-2xl sm:text-3xl md:text-4xl mb-6 sm:mb-8 md:mb-12">
                     Research: {campName} Relocation Camp
                 </h3>
-                <div className="font-typewriter text-black space-y-8 [&>*]:leading-relaxed text-base lg:text-lg">
+                <div className="font-typewriter text-black space-y-4 sm:space-y-6 md:space-y-8 [&>*]:leading-relaxed text-base sm:text-lg">
                     {/* Basic Info Section */}
-                    <div className="space-y-6 mb-12">
+                    <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                         {location && (
                             <p><span className="font-typewriter uppercase">Location:</span> {location}</p>
                         )}
@@ -42,7 +42,7 @@ export default function CampResearchData({
                     </div>
 
                     {/* Population Section */}
-                    <div className="space-y-6 mb-12">
+                    <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                         {peakPopulation && (
                             <p><span className="font-typewriter uppercase">Peak population:</span> {peakPopulation}</p>
                         )}
@@ -56,7 +56,7 @@ export default function CampResearchData({
 
                     {/* Closing Dates Section */}
                     {closingDates && (
-                        <div className="space-y-6 mb-12">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Closing Dates:</span></p>
                             {typeof closingDates === 'string' ? (
                                 <p className="ml-8">{closingDates}</p>
@@ -72,14 +72,14 @@ export default function CampResearchData({
 
                     {/* Climate Section */}
                     {climate && (
-                        <div className="mb-12">
+                        <div className="mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Climate:</span> {climate}</p>
                         </div>
                     )}
 
                     {/* Population Origins Section */}
                     {populationOrigins && (
-                        <div className="space-y-6 mb-12">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Population Origins:</span></p>
                             <p className="ml-8">Of the {peakPopulation} Americans held prisoner here...</p>
                             <p className="ml-12 leading-relaxed">
@@ -95,7 +95,7 @@ export default function CampResearchData({
 
                     {/* Assembly Centers Section */}
                     {assemblyCenters && (
-                        <div className="space-y-6 mb-12">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Via "Assembly Centers":</span></p>
                             <p className="ml-8">
                                 {Object.entries(assemblyCenters).map(([center, count], index, arr) => (
@@ -110,7 +110,7 @@ export default function CampResearchData({
 
                     {/* Administration Section */}
                     {administration && (
-                        <div className="space-y-6 mb-12">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             {administration.projectDirectors && (
                                 <p><span className="font-typewriter uppercase">Project Director(s):</span> {Array.isArray(administration.projectDirectors) ? administration.projectDirectors.join(', ') : administration.projectDirectors}</p>
                             )}
@@ -125,7 +125,7 @@ export default function CampResearchData({
 
                     {/* Statistics Section */}
                     {statistics && (
-                        <div className="space-y-6 mb-12">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             {Object.entries(statistics).map(([stat, value]) => (
                                 <p key={stat}><span className="font-typewriter uppercase">{stat}:</span> {value}</p>
                             ))}
@@ -134,14 +134,14 @@ export default function CampResearchData({
 
                     {/* Industry Section */}
                     {industry && (
-                        <div className="mb-12">
+                        <div className="mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Industry:</span> {industry}</p>
                         </div>
                     )}
 
                     {/* History Section */}
                     {history && (
-                        <div className="space-y-8 mb-12">
+                        <div className="space-y-4 sm:space-y-6 md:space-y-8 mb-6 sm:mb-8">
                             {Array.isArray(history) ? (
                                 history.map((paragraph, index) => (
                                     <p key={index}>{index === 0 ? <><span className="font-typewriter uppercase">History: </span>{paragraph}</> : paragraph}</p>
@@ -154,14 +154,14 @@ export default function CampResearchData({
 
                     {/* Description Section */}
                     {description && (
-                        <div className="mb-12">
+                        <div className="mb-6 sm:mb-8">
                             <p>{description}</p>
                         </div>
                     )}
 
                     {/* Additional Info Section */}
                     {additionalInfo && (
-                        <div className="mb-12">
+                        <div className="mb-6 sm:mb-8">
                             {typeof additionalInfo === 'string' ? (
                                 <p>{additionalInfo}</p>
                             ) : (
@@ -174,7 +174,7 @@ export default function CampResearchData({
 
                     {/* Sources Section */}
                     {sources && (
-                        <div className="space-y-8">
+                        <div className="space-y-4 sm:space-y-6 md:space-y-8">
                             {Array.isArray(sources) ? (
                                 sources.map((source, index) => (
                                     <p key={index}>
