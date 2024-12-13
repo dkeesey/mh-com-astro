@@ -1,6 +1,6 @@
 ---
 import MainHead from "./MainHead.astro";
-import FontLoader from "../components/FontLoader.astro";
+import FontLoader from "@components/FontLoader.astro";
 ---
 
 <html lang="en">
@@ -10,10 +10,14 @@ import FontLoader from "../components/FontLoader.astro";
   <body class="bg-black text-fa-text-secondary font-inter">
     <div class="gallery-scroll-container">
       <slot />
-      <button class="back-to-top" aria-label="Back to top">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button 
+        class="back-to-top fixed bottom-8 right-8 flex items-center gap-2 border-2 border-white rounded-full bg-black/80 text-white hover:bg-black/90 hover:text-white hover:border-white/60 hover:-translate-y-1 transition-all duration-300 z-[9999] pointer-events-none invisible px-4 py-2" 
+        aria-label="Back to top"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 15l-6-6-6 6"/>
         </svg>
+        <span class="text-white">Back to Top</span>
       </button>
     </div>
   </body>
@@ -53,28 +57,10 @@ import FontLoader from "../components/FontLoader.astro";
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
 
-  /* Back to top button */
-  .back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 50;
-  }
-
   .back-to-top.visible {
     opacity: 1;
+    visibility: visible !important;
+    pointer-events: auto;
   }
 </style>
 
@@ -84,14 +70,22 @@ import FontLoader from "../components/FontLoader.astro";
   const container = document.querySelector('.gallery-scroll-container');
 
   if (backToTop && container) {
-    container.addEventListener('scroll', () => {
-      if (container.scrollTop > window.innerHeight / 2) {
+    // Show/hide button based on scroll position
+    const updateButtonVisibility = () => {
+      if (container.scrollTop > 100) {
         backToTop.classList.add('visible');
       } else {
         backToTop.classList.remove('visible');
       }
-    });
+    };
 
+    // Initial check
+    updateButtonVisibility();
+
+    // Update on scroll
+    container.addEventListener('scroll', updateButtonVisibility);
+
+    // Scroll to top with smooth behavior
     backToTop.addEventListener('click', () => {
       container.scrollTo({
         top: 0,
