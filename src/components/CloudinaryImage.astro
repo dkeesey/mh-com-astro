@@ -1,6 +1,7 @@
 ---
 import { fade } from "astro:transitions";
 import { slide } from "astro:transitions";
+import type { Artwork } from '../types/artwork';
 
 const slideAnim = {
   old: {
@@ -38,24 +39,7 @@ const {
   sourceUrl = "www.masumihayashi.com",
   figcaptionClasses,
   slug,
-} = Astro.props;
-
-interface ArtworkProps {
-  title: string;
-  name: string;
-  city: string;
-  state: string;
-  country: string;
-  year: string;
-  cloudinaryId: string;
-  media: string;
-  size: string;
-  slug: string;
-  classNames?: string;
-  sourceUrl?: string;
-  figcaptionClasses?: string;
-  transition?: string;
-}
+} = Astro.props as Artwork;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)
 const baseURL =

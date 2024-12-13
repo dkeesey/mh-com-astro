@@ -3,20 +3,33 @@ import Layout from './Layout.astro';
 import CloudinaryImage from "../components/CloudinaryImage.astro";
 import { getCollection } from "astro:content";
 import { ArtworkListByCamp } from '../components/ArtworkListByCamp';
+import type { Artwork } from '../types/artwork';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'artwork'>;
+}
 
 const { entry } = Astro.props;
 
 // Get all artworks for the navigation
 const allArtworks = await getCollection("artwork");
+
+const mapToArtwork = (data: CollectionEntry<'artwork'>['data']): Artwork => ({
+  slug: data.slug,
+  title: data.title,
+  name: data.name,
+  city: data.city,
+  state: data.state
+});
+
 const japaneseAmericanArtworks = allArtworks
-  .filter(artwork => artwork.data.series === "Japanese-American Internment Camps")
-  .map(artwork => ({
-    slug: artwork.data.slug,
-    title: artwork.data.title,
-    name: artwork.data.name,
-    city: artwork.data.city,
-    state: artwork.data.state,
-  }));
+  .filter((artwork) => artwork.data.series === "Japanese-American Internment Camps")
+  .map(({ data }) => mapToArtwork(data));
+
+const japaneseCanadianArtworks = allArtworks
+  .filter((artwork) => artwork.data.series === "Japanese-Canadian Internment Camps")
+  .map(({ data }) => mapToArtwork(data));
 
 let CampDataComponent;
 if (entry.data['data-file']) {

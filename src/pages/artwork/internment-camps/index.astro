@@ -356,7 +356,7 @@ const pageTitle = "Japanese American Internment Camps | Artwork Series";
       <HeartMountainData client:load />
       <ArtworkListByCamp 
         client:load 
-        artworks={japaneseAmericanArtworks.map(artwork => ({
+        artworks={japaneseAmericanArtworks.map((artwork: Artwork) => ({
           slug: artwork.data.slug,
           title: artwork.data.title,
           name: artwork.data.name,

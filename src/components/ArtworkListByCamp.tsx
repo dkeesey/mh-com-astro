@@ -1,20 +1,5 @@
 import React from 'react';
-
-interface Artwork {
-  slug: string;
-  title: string;
-  name: string;
-  city: string;
-  state: string;
-}
-
-interface CampArtworks {
-  [key: string]: Artwork[];
-}
-
-interface ArtworkListByCampProps {
-  artworks: Artwork[];
-}
+import type { Artwork } from '../types/artwork';
 
 // Map location names to camp names
 const CAMP_NAME_MAP: { [key: string]: string } = {
@@ -25,6 +10,14 @@ const CAMP_NAME_MAP: { [key: string]: string } = {
   'Jerome County': 'Minidoka',
   'Park County': 'Heart Mountain'
 };
+
+interface CampArtworks {
+  [key: string]: Artwork[];
+}
+
+interface ArtworkListByCampProps {
+  artworks: Artwork[];
+}
 
 export function ArtworkListByCamp({ artworks }: ArtworkListByCampProps) {
   // Group artworks by camp name (city)
