@@ -3,12 +3,12 @@ import type { Artwork } from '../types/artwork';
 
 interface Props {
   name: string;
+  cloudinaryId: string;
   year?: string | number;
   media?: string;
   size?: string;
   city?: string;
   state?: string;
-  cloudinaryId: string;
   classNames?: string;
   figcaptionClasses?: string;
   transition?: string;
@@ -17,12 +17,12 @@ interface Props {
 
 const {
   name,
+  cloudinaryId,
   year,
   media,
   size,
   city,
   state,
-  cloudinaryId,
   classNames = "",
   figcaptionClasses = "",
   transition,

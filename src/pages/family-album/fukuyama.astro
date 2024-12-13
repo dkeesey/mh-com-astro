@@ -1,6 +1,5 @@
 ---
 import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
-import { Image } from 'astro:assets';
 import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
@@ -55,10 +54,9 @@ const photos = [
     </div>
 
     <AlbumTitle
-      title={title}
-      photographer="Hideharu Fukuyama"
       subtitle="Gila River Relocation Camp, Arizona"
       collection="The Fukuyama Family"
+      photographer="Hideharu Fukuyama"
       date="1942-1945"
     />
     

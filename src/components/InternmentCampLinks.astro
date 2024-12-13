@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 interface CampEntry {
   slug: string;
@@ -11,7 +11,7 @@ interface Props {
   entries: CampEntry[];
 }
 // Fetch all entries from the "artworks" collection
-const allArtPagesEntries = (await getCollection("artwork")).map((entry) => ({
+const allArtPagesEntries = (await getCollection("artwork")).map((entry: CollectionEntry<"artwork">) => ({
   slug: entry.slug,
   name: entry.data.name,
   series: entry.data.series,

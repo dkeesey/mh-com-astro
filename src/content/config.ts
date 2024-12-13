@@ -6,6 +6,7 @@ export const collections = {
       // Core identification
       title: z.string(),
       name: z.string(),
+      cloudinaryId: z.string(), // Required for CloudinaryImage component
 
       // Location information
       city: z.string(),
@@ -19,7 +20,6 @@ export const collections = {
       series: z.string(),
 
       // Display/rendering properties
-      cloudinaryId: z.string().optional(),
       sourceUrl: z.string().optional(),
       classNames: z.string().optional(),
       figcaptionClasses: z.string().optional(),
