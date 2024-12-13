@@ -5,10 +5,10 @@ import { Facebook, Instagram, Youtube } from 'lucide-react';
 <footer class="w-full text-white font-robotoCondensed">
   <!-- Main Navigation Section -->
   <div class="bg-primary-bg-primary">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+    <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Left Column - Branding & Newsletter -->
-        <div class="space-y-8">
+        <div class="lg:col-span-3 lg:col-start-3 space-y-8">
           <div>
             <h2 class="font-robotoCondensed text-2xl font-medium text-white uppercase tracking-wider">Masumi Hayashi</h2>
           </div>
@@ -55,7 +55,7 @@ import { Facebook, Instagram, Youtube } from 'lucide-react';
         </div>
 
         <!-- Navigation Links in 3 columns -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-6">
           <div class="columns-1 sm:columns-2 md:columns-3 gap-8 [&>*]:break-inside-avoid-column">
             <div class="mb-6">
               <h3 class="font-medium text-white mb-4 uppercase">American Concentration Camps</h3>
@@ -108,21 +108,34 @@ import { Facebook, Instagram, Youtube } from 'lucide-react';
 
   <!-- Attribution Section -->
   <div class="bg-primary-bg-secondary">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-        <div class="md:col-span-2">
-          <a href="https://encyclopedia.densho.org/Civil_Liberties_Public_Education_Fund" class="flex items-center cursor-pointer no-underline hover:no-underline" target="_blank" rel="noopener noreferrer">
-            <div class="bg-primary-bg-densho inline-block p-2 rounded mr-4">
+    <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 text-sm">
+        <div class="lg:col-span-8 lg:col-start-3 space-y-6">
+          <!-- CLPEF Attribution -->
+          <a href="https://encyclopedia.densho.org/Civil_Liberties_Public_Education_Fund" 
+             class="flex flex-col sm:flex-row items-center justify-center gap-4 cursor-pointer no-underline hover:no-underline" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            <div class="bg-primary-bg-densho p-2 rounded">
               <img src="/images/densho-logo-white.png" alt="Densho Logo" class="h-6" />
             </div>
-            <p class="m-0 text-lg">Funding for original website provided by <span class="text-primary-interactive-link hover:text-primary-interactive-hover">Civil Liberties Public Education Fund</span>.</p>
+            <p class="m-0 text-lg text-center sm:text-left">
+              Funding for original website provided by <span class="text-primary-interactive-link hover:text-primary-interactive-hover">Civil Liberties Public Education Fund</span>.
+            </p>
           </a>
-        </div>
-        <div class="md:col-span-2">
-          <a href="https://www.janm.org/" class="block cursor-pointer no-underline hover:no-underline" target="_blank" rel="noopener noreferrer">
+
+          <!-- JANM Attribution -->
+          <a href="https://www.janm.org/" 
+             class="flex flex-col items-center cursor-pointer no-underline hover:no-underline" 
+             target="_blank" 
+             rel="noopener noreferrer">
             <img src="/images/janm-logo.svg" alt="Japanese American National Museum Logo" class="h-12 mb-2 opacity-90" />
-            <p class="text-primary-text-secondary">Additional support from Japanese American National Museum.</p>
+            <p class="text-primary-text-secondary">
+              Additional support from Japanese American National Museum
+            </p>
           </a>
+
+
         </div>
       </div>
     </div>
@@ -131,7 +144,7 @@ import { Facebook, Instagram, Youtube } from 'lucide-react';
   <!-- Copyright Section -->
   <div class="bg-primary-bg-primary border-t border-gray-700">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0 text-sm text-primary-text-secondary">
+      <div class="flex flex-col justify-around items-center space-y-2 sm:space-y-0 text-sm text-primary-text-secondary">
         <p class="m-0">&copy; 1998-2024 Estate of Masumi Hayashi, administered by Dean Akira Keesey. All rights reserved.</p>
         <p class="m-0">Site modernization by Dean Akira Keesey, 2024.</p>
       </div>
