@@ -7,11 +7,14 @@ interface Props {
   size?: string;
   city?: string;
   state?: string;
+  country?: string;
   classNames?: string;
+  className?: string;
   figcaptionClasses?: string;
   altText?: string;
   title?: string;
   alt?: string;
+  slug?: string;
 }
 
 const {
@@ -22,11 +25,14 @@ const {
   size,
   city,
   state,
+  country,
   classNames = "",
+  className = "",
   figcaptionClasses = "",
   altText: providedAltText = "",
   title,
   alt,
+  slug,
 } = Astro.props as Props;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)

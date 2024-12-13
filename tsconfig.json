@@ -11,7 +11,8 @@
       "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"],
       "@lib/*": ["src/lib/*"],
-      "@radix/*": ["node_modules/@radix-ui/*"]
+      "@radix/*": ["node_modules/@radix-ui/*"],
+      "@types/*": ["src/types/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
