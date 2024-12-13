@@ -95,15 +95,18 @@ export default function CampResearchData({
 
                     {/* Assembly Centers Section */}
                     {assemblyCenters && (
-                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                        <div className="mb-6 sm:mb-8">
                             <p><span className="font-typewriter uppercase">Via "Assembly Centers":</span></p>
                             <p className="ml-8">
-                                {Object.entries(assemblyCenters).map(([center, count], index, arr) => (
-                                    <span key={center}>
-                                        {center} ({count})
-                                        {index < arr.length - 1 && ', '}
-                                    </span>
-                                ))}
+                                {typeof assemblyCenters === 'string' 
+                                    ? assemblyCenters 
+                                    : Object.entries(assemblyCenters).map(([center, count], index, arr) => (
+                                        <span key={center}>
+                                            {center} ({count})
+                                            {index < arr.length - 1 && ', '}
+                                        </span>
+                                    ))
+                                }
                             </p>
                         </div>
                     )}
