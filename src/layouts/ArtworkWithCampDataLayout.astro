@@ -1,24 +1,26 @@
 ---
-import Layout from "./Layout.astro";
+import BaseLayout from './BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
 import CloudinaryImage from "../components/CloudinaryImage.astro";
 
 const { entry } = Astro.props;
 
-// Log the entry data to see what we're working with
-console.log("Entry data:", entry.data);
-
 let CampDataComponent;
-if (entry.data.campDataFile) {
+if (entry.data['data-file']) {
   // Dynamically import the camp data component
-  CampDataComponent = await import(`../components/data/${entry.data.campDataFile}.jsx`);
+  CampDataComponent = await import(`../components/data/${entry.data['data-file']}.jsx`);
 } else {
-  console.warn(`No campDataFile specified for ${entry.data.slug}`);
+  console.warn(`No data-file specified for ${entry.data.slug}`);
 }
 ---
 
-<Layout title={entry.data.title} description={entry.data.altTag}>
-  <article class="bg-black">
-    <section class="pt-16">
+<BaseLayout title={entry.data.title}>
+  <!-- Navigation -->
+  <Navigation />
+
+  <!-- Full-width image section with black background -->
+  <div class="bg-black w-full">
+    <div class="max-w-[90vw] mx-auto py-12">
       <a href={`/artwork/internment-camps/#${entry.data.slug}`}>
         <CloudinaryImage
           cloudinaryId={entry.data.cloudinaryId}
@@ -33,24 +35,76 @@ if (entry.data.campDataFile) {
           size={entry.data.size}
           inventory={entry.data.inventory}
           slug={entry.data.slug}
-          figcaptionClasses="text-museum-white bg-black"
+          figcaptionClasses="text-museum-white bg-black text-center"
         />
       </a>
+    </div>
+  </div>
 
 
-    <!-- Camp data section -->
-      {CampDataComponent && <CampDataComponent.default />}
-    </section>
 
-    <slot />
-  </article>
-</Layout>
+  <!-- Research section with vintage paper background -->
+  <div class="bg-vintage-paper text-vintage-ink w-full py-16">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="camp-data-container font-typewriter">
+        {CampDataComponent && <CampDataComponent.default />}
+      </div>
+    </div>
+  </div>
 
-<style>
-  .camp-data {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-  }
-</style>
+  <style>
+    :global(.camp-data) {
+      @apply max-w-3xl mx-auto;
+    }
+    
+    :global(.camp-data h2) {
+      @apply text-3xl font-light mb-12 text-center text-vintage-ink font-typewriter;
+    }
+    
+    :global(.camp-data dl) {
+      @apply grid gap-y-6;
+    }
+
+    :global(.camp-data dt) {
+      @apply text-lg uppercase tracking-wide mb-1 text-vintage-ink/70 font-typewriter;
+    }
+    
+    :global(.camp-data dd) {
+      @apply text-lg pl-8 border-l-2 border-vintage-ink/20 text-vintage-ink;
+    }
+
+    :global(.camp-data ul) {
+      @apply space-y-1 mt-2;
+    }
+
+    :global(.camp-data li) {
+      @apply text-lg pl-4 text-vintage-ink;
+    }
+
+    :global(.camp-data br + br) {
+      @apply content-[''] block mt-2;
+    }
+
+    .camp-data {
+      dt {
+        @apply inline-block font-bold uppercase tracking-wide mr-2;
+      }
+
+      dd {
+        @apply inline-block;
+        
+        &.multiline {
+          @apply block mt-2 mb-6 ml-8;
+        }
+      }
+
+      ul {
+        @apply list-disc ml-8 mt-2;
+      }
+
+      h2 {
+        @apply text-2xl mb-6 text-center;
+      }
+    }
+  </style>
+</BaseLayout>

@@ -21,12 +21,27 @@ export const primaryTheme = {
         'densho': '#5c5823',       // Densho brand color
         'tertiary': 'rgba(52 52 52 / 100%)',     // Slightly darker for additional depth
       }
+    },
+    'museum': {
+      'white': '#FFFFFF',
+      'white-70': 'rgba(255, 255, 255, 0.7)',
+      'white-50': 'rgba(255, 255, 255, 0.5)',
+      'white-20': 'rgba(255, 255, 255, 0.2)',
+      'black': '#000000',
+      'black-70': 'rgba(0, 0, 0, 0.7)',
+      'black-50': 'rgba(0, 0, 0, 0.5)',
+      'black-20': 'rgba(0, 0, 0, 0.2)',
+    },
+    'vintage': {
+      'paper': '#F4F1DE',      // Aged paper color
+      'ink': '#2F2F2F',        // Dark, slightly faded ink color
     }
   },
   fontFamily: {
     montserrat: ['Montserrat', 'sans-serif'],
     robotoCondensed: ['Roboto Condensed', 'sans-serif'],
     inter: ['Inter', 'system-ui', 'sans-serif'],
+    'typewriter': ['Courier Prime', 'Courier', 'monospace'],
   }
 }
 
