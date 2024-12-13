@@ -29,7 +29,6 @@ export interface ArtworkData {
   'content-type'?: string;
   image?: string;
   altTag?: string;
-  inventory?: string;
 }
 
 // The full Artwork type including the generated slug
