@@ -38,10 +38,15 @@ export const primaryTheme = {
     }
   },
   fontFamily: {
+    // Original fonts - keep these for existing components
     montserrat: ['Montserrat', 'sans-serif'],
     robotoCondensed: ['Roboto Condensed', 'sans-serif'],
     inter: ['Inter', 'system-ui', 'sans-serif'],
     'typewriter': ['Courier Prime', 'Courier', 'monospace'],
+    
+    // Historical document fonts
+    'historical-heading': ['Franklin Gothic Condensed', 'Bureau Gothic', 'Arial Narrow', 'sans-serif'],
+    'historical-body': ['Courier Prime', 'Courier', 'serif'],
   }
 }
 
@@ -70,6 +75,11 @@ export const familyAlbumTheme = {
     montserrat: ['Montserrat', 'sans-serif'],
     robotoCondensed: ['Roboto Condensed', 'sans-serif'],
     inter: ['Inter', 'system-ui', 'sans-serif'],
+    'typewriter': ['Courier Prime', 'Courier', 'monospace'],
+    
+    // Historical document fonts
+    'historical-heading': ['Franklin Gothic Condensed', 'Bureau Gothic', 'Arial Narrow', 'sans-serif'],
+    'historical-body': ['Courier Prime', 'Courier', 'serif'],
   }
 }
 

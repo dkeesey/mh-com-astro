@@ -3,6 +3,9 @@
 import { getCollection } from "astro:content";
 import CloudinaryImage from "../../../components/CloudinaryImage.astro";
 import GalleryLayout from "../../../layouts/GalleryLayout.astro";
+import HeartMountainData from '../../../components/data/heart-mountain-data';
+import ArtworkNavList from '../../../components/ArtworkNavList';
+import Footer from '../../../components/Footer.astro';
 
 // Define the Artwork interface
 interface Artwork {
@@ -32,6 +35,8 @@ const japaneseAmericanArtworks = allEntries.filter(
 const japaneseCanadianArtworks = allEntries.filter(
   (entry: { data: { series: string } }) => entry.data.series === "Japanese-Canadian Internment Camps"
 );
+
+const pageTitle = "Japanese American Internment Camps | Artwork Series";
 ---
 
 <style>
@@ -240,125 +245,87 @@ const japaneseCanadianArtworks = allEntries.filter(
   }
 </script>
 
-<GalleryLayout>
-  <div class="mobile-orientation text-white">
-    📱 Rotate phone for best viewing experience
-  </div>
-
-  <button 
-    class="back-to-top" 
-    aria-label="Back to top"
-    title="Back to top"
-  >
-    <span>Back to top</span>
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-    </svg>
-  </button>
-
-  <section class="title-section">
-    <h1 class="text-museum-white text-center text-4xl md:text-5xl font-bold mb-8">
-      Japanese-American Internment Camps
-    </h1>
-    <p class="text-museum-white text-center text-lg opacity-80 mb-16">
-      A collection of artworks documenting the Japanese-American internment camps of World War II
-    </p>
-    <div class="scroll-indicator">
-      <span>Scroll to view artwork</span>
-      <svg
-        class="animate-bounce w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 14l-7 7m0 0l-7-7m7 7V3"
-        ></path>
-      </svg>
-    </div>
-    {japaneseAmericanArtworks[0] && (
-      <div class="preview-image">
-        <CloudinaryImage
-          cloudinaryId={japaneseAmericanArtworks[0].data.cloudinaryId}
-          title={japaneseAmericanArtworks[0].data.title}
-          className="w-full h-full object-cover opacity-30"
-        />
+<GalleryLayout title={pageTitle}>
+  <main class="min-h-screen">
+    {/* Gallery Section */}
+    <article class="gallery-section">
+      <div class="mobile-orientation text-white">
+        📱 Rotate phone for best viewing experience
       </div>
-    )}
-  </section>
 
-  {
-    japaneseAmericanArtworks.map((artwork: Artwork) => (
-      <section>
-        <a href={`/artwork/internment-camps/${artwork.data.slug}`} class="artwork-link">
-          <div class="artwork-container">
+      <button 
+        class="back-to-top" 
+        aria-label="Back to top"
+        title="Back to top"
+      >
+        <span>Back to top</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+      </button>
+
+      <section class="title-section">
+        <h1 class="text-museum-white text-center text-4xl md:text-5xl font-bold mb-8">
+          Japanese-American Internment Camps
+        </h1>
+        <p class="text-museum-white text-center text-lg opacity-80 mb-16">
+          A collection of artworks documenting the Japanese-American internment camps of World War II
+        </p>
+        <div class="scroll-indicator">
+          <span>Scroll to view artwork</span>
+          <svg class="animate-bounce w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
+        {japaneseAmericanArtworks[0] && (
+          <div class="preview-image">
             <CloudinaryImage
-              cloudinaryId={artwork.data.cloudinaryId}
-              title={artwork.data.title}
-              name={artwork.data.name}
-              city={artwork.data.city}
-              state={artwork.data.state}
-              country={artwork.data.country}
-              media={artwork.data.media}
-              year={artwork.data.year}
-              size={artwork.data.size}
-              alt={artwork.data.alt}
-              figcaptionClasses="text-museum-white"
-              className="w-full h-auto max-h-[90vh] object-contain"
+              cloudinaryId={japaneseAmericanArtworks[0].data.cloudinaryId}
+              title={japaneseAmericanArtworks[0].data.title}
+              className="w-full h-full object-cover opacity-30"
             />
-            <div class="artwork-indicator" aria-label="View artwork details">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
-            </div>
           </div>
-        </a>
+        )}
       </section>
-    ))
-  }
 
-  <section>
-    <h1 class="text-museum-white text-center text-3xl">
-      Japanese-Canadian Internment Camps
-    </h1>
-  </section>
-
-  {
-    japaneseCanadianArtworks.map((artwork: Artwork) => (
-      <section>
-        <a href={`/artwork/internment-camps/${artwork.data.slug}`} class="artwork-link">
-          <div class="artwork-container">
-            <CloudinaryImage
-              cloudinaryId={artwork.data.cloudinaryId}
-              title={artwork.data.title}
-              name={artwork.data.name}
-              city={artwork.data.city}
-              state={artwork.data.state}
-              country={artwork.data.country}
-              media={artwork.data.media}
-              year={artwork.data.year}
-              size={artwork.data.size}
-              alt={artwork.data.alt}
-              figcaptionClasses="text-museum-white"
-              className="w-full h-auto max-h-[90vh] object-contain"
-            />
-            <div class="artwork-indicator" aria-label="View artwork details">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
+      {japaneseAmericanArtworks.map((artwork: Artwork) => (
+        <section>
+          <a href={`/artwork/internment-camps/${artwork.data.slug}`} class="artwork-link">
+            <div class="artwork-container">
+              <CloudinaryImage
+                cloudinaryId={artwork.data.cloudinaryId}
+                title={artwork.data.title}
+                name={artwork.data.name}
+                city={artwork.data.city}
+                state={artwork.data.state}
+                country={artwork.data.country}
+                media={artwork.data.media}
+                year={artwork.data.year}
+                size={artwork.data.size}
+                alt={artwork.data.alt}
+                figcaptionClasses="text-museum-white"
+                className="w-full h-auto max-h-[90vh] object-contain"
+              />
+              <div class="artwork-indicator" aria-label="View artwork details">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <line x1="11" y1="8" x2="11" y2="14"></line>
+                  <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+              </div>
             </div>
-          </div>
-        </a>
-      </section>
-    ))
-  }
+          </a>
+        </section>
+      ))}
+    </article>
+
+    {/* Research and Navigation Section */}
+    <div class="bg-white py-20">
+      <HeartMountainData client:load />
+      <ArtworkNavList client:load />
+    </div>
+
+    <Footer />
+  </main>
 </GalleryLayout>
