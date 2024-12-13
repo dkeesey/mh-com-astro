@@ -59,6 +59,23 @@ const documents = {
         caption: "Civilian Exclusion Order No. 82 (San Francisco), Page 2 - Detailed instructions and requirements"
       }
     ]
+  },
+  'presidential-apology': {
+    id: 'presidential-apology',
+    title: "Letter of Apology to Japanese Americans",
+    subtitle: "Presidential Letter of Apology",
+    author: "William J. Clinton",
+    date: "October 1, 1993",
+    location: "The White House",
+    content: "",
+    source: "William J. Clinton, The White House. Letter of Apology to Japanese Americans. Washington, D.C. October 1, 1993.",
+    images: [
+      {
+        src: "/images/president-clinton-apology.gif",
+        alt: "President Clinton's Letter of Apology to Japanese Americans",
+        caption: "Official letter of apology from President Bill Clinton to Japanese Americans who were incarcerated during World War II"
+      }
+    ]
   }
 };
 
@@ -104,7 +121,6 @@ const scrollToTop = () => {
         <div class="mt-8 text-center">
           <Button 
             className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
           >
             Back to Top
           </Button>
@@ -119,7 +135,6 @@ const scrollToTop = () => {
         <div class="mt-8 text-center">
           <Button 
             className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
           >
             Back to Top
           </Button>
@@ -134,7 +149,20 @@ const scrollToTop = () => {
         <div class="mt-8 text-center">
           <Button 
             className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          >
+            Back to Top
+          </Button>
+        </div>
+      </div>
+
+      <div id="presidential-apology" class="scroll-mt-32 mt-16">
+        <HistoricalDocument 
+          client:load
+          {...documents['presidential-apology']}
+        />
+        <div class="mt-8 text-center">
+          <Button 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
           >
             Back to Top
           </Button>
@@ -143,6 +171,33 @@ const scrollToTop = () => {
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  // Prevent default hash jump behavior
+  if (window.location.hash) {
+    window.addEventListener('load', () => {
+      const element = document.getElementById(window.location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  // Handle all back to top buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const backToTopButtons = document.querySelectorAll('button');
+    backToTopButtons.forEach(button => {
+      if (button.textContent.trim() === 'Back to Top') {
+        button.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
+  });
+</script>
 
 <style>
   /* Add any custom styles here */

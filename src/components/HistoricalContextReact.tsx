@@ -22,7 +22,7 @@ export const HistoricalContextReact = () => {
   const sections: Section[] = [
     {
       title: "Executive Order 9066",
-      content: `Two months after Pearl Harbor, President Franklin D. Roosevelt signed Executive Order 9066, 
+      content: `Two months after Pearl Harbor, President Franklin D. Roosevelt signed Executive Order 9066 on February 19, 1942, 
       authorizing the removal of any or all people from military areas "as deemed necessary or desirable." 
       This order led to the forced relocation and incarceration of approximately 120,000 Japanese Americans, 
       two-thirds of whom were U.S. citizens.`,

@@ -56,7 +56,7 @@ export function HistoricalDocument({ title, date, location, content, source, ima
           </div>
           
           {/* Main content */}
-          <div className="relative font-typewriter leading-relaxed text-lg space-y-6">
+          <div className="relative font-typewriter leading-relaxed text-lg space-y-6 mx-12">
             {content.split('\n\n').map((paragraph, index) => (
               <p key={index} className="indent-8">
                 {paragraph}
@@ -68,9 +68,11 @@ export function HistoricalDocument({ title, date, location, content, source, ima
 
       {/* Signature Section */}
       {title === "Executive Order 9066" && (
-        <div className="mt-12 space-y-2 text-right font-typewriter">
+        <div className="mt-12 space-y-2 text-right font-typewriter mr-12">
           <p className="text-xl">FRANKLIN D. ROOSEVELT</p>
           <p className="text-[#2c2c2c]/80">President of the United States</p>
+          <p className="text-[#2c2c2c]/80">The White House,</p>
+          <p className="text-[#2c2c2c]/80">February 19, 1942</p>
         </div>
       )}
 

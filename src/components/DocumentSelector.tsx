@@ -31,7 +31,13 @@ export function DocumentSelector({ documents, activeDocument: initialActive }: D
 
   const handleSelect = (id: string) => {
     setActiveDocument(id);
+    // Update URL hash
     window.location.hash = id;
+    // Smooth scroll to the element
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
