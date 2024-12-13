@@ -7,17 +7,6 @@ interface Photo {
   caption: string;
 }
 
-interface Frontmatter {
-  name: string;
-  birthYear?: string;
-  birthPlace?: string;
-  deathYear?: string;
-  deathPlace?: string;
-  camp: string;
-  image?: string;
-  photos?: Photo[];
-}
-
 const { frontmatter } = Astro.props;
 ---
 
