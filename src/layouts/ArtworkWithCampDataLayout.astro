@@ -15,28 +15,25 @@ const { entry } = Astro.props;
 // Get all artworks for the navigation
 const allArtworks = await getCollection("artwork");
 
-const mapToArtwork = (data: CollectionEntry<'artwork'>['data']): Artwork => ({
-  slug: data.slug,
-  title: data.title,
-  name: data.name,
-  city: data.city,
-  state: data.state
+const mapToArtwork = (entry: CollectionEntry<'artwork'>): Artwork => ({
+  ...entry.data,
+  slug: entry.slug
 });
 
 const japaneseAmericanArtworks = allArtworks
   .filter((artwork) => artwork.data.series === "Japanese-American Internment Camps")
-  .map(({ data }) => mapToArtwork(data));
+  .map(mapToArtwork);
 
 const japaneseCanadianArtworks = allArtworks
   .filter((artwork) => artwork.data.series === "Japanese-Canadian Internment Camps")
-  .map(({ data }) => mapToArtwork(data));
+  .map(mapToArtwork);
 
 let CampDataComponent;
 if (entry.data['data-file']) {
   // Dynamically import the camp data component
   CampDataComponent = await import(`../components/data/${entry.data['data-file']}.jsx`);
 } else {
-  console.warn(`No data-file specified for ${entry.data.slug}`);
+  console.warn(`No data-file specified for ${entry.slug}`);
 }
 ---
 
@@ -44,7 +41,7 @@ if (entry.data['data-file']) {
   <!-- Full-width image section with black background -->
   <div class="bg-black w-full">
     <div class="max-w-[90vw] mx-auto py-12">
-      <a href={`/artwork/internment-camps/#${entry.data.slug}`}>
+      <a href={`/artwork/internment-camps/#${entry.slug}`}>
         <CloudinaryImage
           cloudinaryId={entry.data.cloudinaryId}
           alt={entry.data.altTag}
@@ -57,7 +54,7 @@ if (entry.data['data-file']) {
           year={entry.data.year}
           size={entry.data.size}
           inventory={entry.data.inventory}
-          slug={entry.data.slug}
+          slug={entry.slug}
           figcaptionClasses="text-museum-white bg-black text-center"
         />
       </a>

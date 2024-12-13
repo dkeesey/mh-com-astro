@@ -1,6 +1,39 @@
 import { defineCollection, z } from 'astro:content';
 
 export const collections = {
+  'artwork': defineCollection({
+    schema: z.object({
+      // Core identification
+      title: z.string(),
+      name: z.string(),
+
+      // Location information
+      city: z.string(),
+      state: z.string(),
+      country: z.string().optional(),
+
+      // Artwork details
+      year: z.union([z.string(), z.number()]).optional(),
+      media: z.string().optional(),
+      size: z.string().optional(),
+      series: z.string(),
+
+      // Display/rendering properties
+      cloudinaryId: z.string().optional(),
+      sourceUrl: z.string().optional(),
+      classNames: z.string().optional(),
+      figcaptionClasses: z.string().optional(),
+      transition: z.string().optional(),
+
+      // Additional content collection specific fields
+      'data-file': z.string().optional(),
+      'content-type': z.string().optional(),
+      image: z.string().optional(),
+      altTag: z.string().optional(),
+      inventory: z.string().optional(),
+    })
+  }),
+
   'family-album': defineCollection({
     schema: z.object({
       title: z.string(),

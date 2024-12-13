@@ -9,27 +9,42 @@ import FontLoader from "../components/FontLoader.astro";
     <FontLoader />
   </MainHead>
   <body class="bg-black text-fa-text-secondary font-inter">
-    <Header />
-    <slot />
+    <div class="gallery-scroll-container">
+      <Header />
+      <slot />
+    </div>
   </body>
 </html>
 
 <style>
   body {
-    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
     height: 100vh;
   }
-  body::-webkit-scrollbar {
+
+  .gallery-scroll-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+  }
+
+  /* Scrollbar styling */
+  .gallery-scroll-container::-webkit-scrollbar {
     width: 8px;
   }
-  body::-webkit-scrollbar-track {
+
+  .gallery-scroll-container::-webkit-scrollbar-track {
     background: transparent;
   }
-  body::-webkit-scrollbar-thumb {
+
+  .gallery-scroll-container::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
   }
-  body {
+
+  .gallery-scroll-container {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
