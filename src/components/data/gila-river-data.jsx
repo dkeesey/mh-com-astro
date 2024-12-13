@@ -1,4 +1,3 @@
-import React from 'react';
 import CampResearchData from '../CampResearchData';
 
 export default function GilaRiverData() {

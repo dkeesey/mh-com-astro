@@ -3,17 +3,6 @@
 const { title, city, state, year, cloudinaryId, media, size, classNames } =
   Astro.props;
 
-interface ArtworkProps {
-  title: string;
-  city: string;
-  state: string;
-  year: string;
-  cloudinaryId: string;
-  media: string;
-  size: string;
-  classNames?: string;
-}
-
 // The JavaScript part (place this in the script section at the top of your Astro file)
 const baseURL =
   "https://res.cloudinary.com/masumi-hayashi-foundation/image/upload";
@@ -61,7 +50,7 @@ const mdImageTitleParam = `l_text:futura_20_italic_line_spacing_1:${encodedImage
 const lgImageTitleParam = `l_text:futura_22_italic_line_spacing_1:${encodedImageTitle},co_white,g_south_west,x_30,y_40`;
 
 // image details
-const smImageDetails = `Artist:Dr. Masumi Hayashi%0A© ${currentYear} Dean Keesey`;
+const smImageDetails = `Artist:Dr. Masumi Hayashi%0A${currentYear} Dean Keesey`;
 const mdImageDetails = `${city}, ${state}, ${year}%0AArtist:Dr. Masumi Hayashi`;
 const lgImageDetails = `${city}, ${state}, ${year}%0AArtist: Dr. Masumi Hayashi%0A${media}`;
 

@@ -31,6 +31,7 @@ export default function GranadaData() {
                 "Inadequate sanitation and sewage facilities coupled with the wind, dust, and heat, led to outbreaks of diarrhea, tuberculosis, 'Valley Fever', and other less serious disorders.",
                 "When Eleanor Roosevelt was to visit one of the camps in the Spring of 1943, Granada was the one chosen, undoubtably because it had the best appearance."
             ]}
+            climate="High desert: summer temperatures reached 100 degrees. The average daily high temperatures for July, August, and September 1942 were 90.6, 85.0, and 79.7 degrees, respectively. Duststorms were a frequent problem here."
             administration={{
                 directors: "John J. McCloy, Eastburn Smith, Robert B. Cozzens, L.H. Bennett, and Douglas M.Todd.",
                 analysts: "James H. Barnett and G.Gordon Brown.",
@@ -42,8 +43,7 @@ export default function GranadaData() {
             }}
             industry="A camouflage net factory operated from Fall 1942, to May 1943; a model warship factory produced 900 models for the navy."
             history="Granada was on Pima Indian Reservation land. The WRA director Milton Eisenhower refused to relinquish administrative control of the camp to the Office of Indian Affairs, probably because of the potential for profitable agricultural enterprise here. Much of the administration staff at Granada came from OIA personnel."
-            climate="High desert: summer temperatures reached 100 degrees. The average daily high temperatures for July, August, and September 1942 were 90.6, 85.0, and 79.7 degrees, respectively. Duststorms were a frequent problem here."
-            source="<em>Japanese American History: An A to Z Reference, 1868 to the Present</em>, by Brian Niiya. New York: Facts on File, 1993. This information is provided with the permission from the Japanese American National Museum and Brian Niiya, 1997."
+            source="Japanese American History: An A to Z Reference, 1868 to the Present, by Brian Niiya. New York: Facts on File, 1993. This information is provided with the permission from the Japanese American National Museum and Brian Niiya, 1997."
         />
     );
 }

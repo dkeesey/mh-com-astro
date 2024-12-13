@@ -1,13 +1,12 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-const { title, description } = Astro.props;
+const { title = "Masumi Hayashi", description = "Masumi Hayashi Foundation" } = Astro.props;
 ---
 
 <head>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBJM0849KH"
-  ></script>
-  <script type="text/javascript">
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-PBJM0849KH"></script>
+  <script is:inline type="text/javascript">
     window.dataLayer = window.dataLayer || [];
     function gtag() {
       dataLayer.push(arguments);
@@ -18,7 +17,7 @@ const { title, description } = Astro.props;
   </script>
   <meta charset="utf-8" />
   <slot name="head" />  <!-- Make sure this line exists -->
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <ViewTransitions />

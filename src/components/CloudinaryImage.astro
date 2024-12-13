@@ -1,6 +1,4 @@
 ---
-import type { Artwork } from '../types/artwork';
-
 interface Props {
   cloudinaryId: string;
   name?: string;
@@ -9,16 +7,11 @@ interface Props {
   size?: string;
   city?: string;
   state?: string;
-  country?: string;
   classNames?: string;
-  className?: string;
   figcaptionClasses?: string;
-  transition?: string;
   altText?: string;
-  alt?: string;
   title?: string;
-  slug?: string;
-  inventory?: string;
+  alt?: string;
 }
 
 const {
@@ -29,16 +22,11 @@ const {
   size,
   city,
   state,
-  country,
   classNames = "",
-  className = "",
   figcaptionClasses = "",
-  transition,
   altText: providedAltText = "",
-  alt,
   title,
-  slug,
-  inventory,
+  alt,
 } = Astro.props as Props;
 
 // The JavaScript part (place this in the script section at the top of your Astro file)
@@ -46,9 +34,6 @@ const baseURL =
   "https://res.cloudinary.com/masumi-hayashi-foundation/image/upload";
 
 const imageID = `${cloudinaryId}`;
-
-//get timestamp for current time for cloudinary cache busting
-const timestamp = Date.now();
 
 const transformations = ["bo_30px_solid_black", "b_black", "c_scale"];
 

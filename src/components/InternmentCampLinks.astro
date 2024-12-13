@@ -1,5 +1,6 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 interface CampEntry {
   slug: string;
@@ -10,21 +11,22 @@ interface CampEntry {
 interface Props {
   entries: CampEntry[];
 }
-// Fetch all entries from the "artworks" collection
-const allArtPagesEntries = (await getCollection("artwork")).map((entry: CollectionEntry<"artwork">) => ({
+
+const entries = (await getCollection("artwork")).map((entry: CollectionEntry<"artwork">) => ({
   slug: entry.slug,
   name: entry.data.name,
   series: entry.data.series,
 }));
 
-const { entries } = Astro.props as Props;
+const { entries: propsEntries } = Astro.props as Props;
+
 ---
 
 <div>
   <h2 class="text-xl py-8">Japanese-American Internment Camps</h2>
   <ul class="flex flex-col items-center">
     {
-      entries
+      propsEntries
         .filter(
           (entry) => entry.series === "Japanese-American Internment Camps"
         )
@@ -38,7 +40,7 @@ const { entries } = Astro.props as Props;
   <h2 class="text-xl py-8">Japanese-Canadian Internment Camps</h2>
   <ul class="flex flex-col justify-center pb-8">
     {
-      entries
+      propsEntries
         .filter(
           (entry) => entry.series === "Japanese-Canadian Internment Camps"
         )

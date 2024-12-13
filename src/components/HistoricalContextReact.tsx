@@ -1,8 +1,7 @@
 // HistoricalContextReact.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card, CardContent } from '@components/ui/card';
-import { ScrollText, Users, Mail } from 'lucide-react';
 
 interface Section {
   title: string;
@@ -12,10 +11,6 @@ interface Section {
     alt: string;
     caption?: string;
   };
-}
-
-interface HistoricalContextProps {
-  sections: Section[];
 }
 
 export const HistoricalContextReact = () => {

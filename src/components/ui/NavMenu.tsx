@@ -2,17 +2,11 @@ import * as React from "react"
 import HamburgerMenuIcon from "../HamburgerMenuIcon"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@components/ui/navigation-menu"
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@components/ui/sheet"
-import { cn } from "@lib/utils"
+} from "@radix-ui/react-navigation-menu"
+import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet"
 
 const navData = [
   {
