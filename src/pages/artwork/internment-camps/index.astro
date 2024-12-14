@@ -18,7 +18,15 @@ const japaneseCanadianArtworks: ArtworkEntry[] = allEntries.filter(
   (entry) => entry.data.series === "Japanese-Canadian Internment Camps"
 );
 
-const pageTitle = "Japanese American Internment Camps | Artwork Series";
+const seoConfig = {
+  title: "Japanese American Internment Camps - Panoramic Photo Documentation",
+  description: "Explore Masumi Hayashi's powerful panoramic photo collages documenting Japanese American internment camps, preserving the memory of this important historical period through artistic documentation.",
+  keywords: ["Japanese American internment", "concentration camps", "World War II", "historical photography", "documentary art"],
+  type: "article",
+  image: japaneseAmericanArtworks[0]?.data.cloudinaryId // Use the first camp image as OG image
+};
+
+const pageTitle = seoConfig.title;
 ---
 
 <style>
@@ -140,7 +148,7 @@ const pageTitle = "Japanese American Internment Camps | Artwork Series";
         Japanese-American Internment Camps
       </h1>
       <p class="text-museum-white text-center text-lg opacity-80 mb-16">
-        A collection of artworks documenting the Japanese-American internment camps of World War II
+        {seoConfig.description}
       </p>
       <div class="scroll-indicator">
         <span>Scroll to view artwork</span>

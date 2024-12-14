@@ -4,16 +4,21 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FontLoader from "../components/FontLoader.astro";
 
-const {
-  title = "Masumi Hayashi",
-  description = "Masumi Hayashi's panoramic photocollage artwork dealing with the Japanese American Internment Camps",
-  classes = "",
-} = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  type?: 'website' | 'article';
+  image?: string;
+  keywords?: string[];
+  classes?: string;
+}
+
+const { title, description, type, image, keywords, classes = "" } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <MainHead title={title} description={description}>
+    <MainHead title={title} description={description} type={type} image={image} keywords={keywords}>
       <FontLoader />
     </MainHead>
   </head>
