@@ -32,7 +32,7 @@ export interface ArtworkData {
 }
 
 // Type for the collection entry (with data property)
-export interface ArtworkEntry extends CollectionEntry<'artwork'> {}
+export type ArtworkEntry = CollectionEntry<'artwork'>;
 
 // Type for flattened artwork data (spread data with slug)
 export interface Artwork extends ArtworkData {

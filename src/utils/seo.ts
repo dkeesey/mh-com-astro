@@ -1,4 +1,4 @@
-interface SEOConfig {
+export interface SEOConfig {
   title?: string;
   description?: string;
   type?: 'website' | 'article';

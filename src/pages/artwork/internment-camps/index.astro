@@ -7,6 +7,8 @@ import Header from '@components/Header.astro';
 import type { CollectionEntry } from 'astro:content';
 import type { ArtworkEntry } from '../../../types/artwork';
 
+import { generateSEOTags, type SEOConfig } from "@utils/seo";
+
 // Fetch all entries from the "artwork" collection
 const allEntries: CollectionEntry<'artwork'>[] = await getCollection("artwork");
 
@@ -18,15 +20,15 @@ const japaneseCanadianArtworks: ArtworkEntry[] = allEntries.filter(
   (entry) => entry.data.series === "Japanese-Canadian Internment Camps"
 );
 
-const seoConfig = {
+const seoConfig: SEOConfig = {
   title: "Japanese American Internment Camps - Panoramic Photo Documentation",
   description: "Explore Masumi Hayashi's powerful panoramic photo collages documenting Japanese American internment camps, preserving the memory of this important historical period through artistic documentation.",
   keywords: ["Japanese American internment", "concentration camps", "World War II", "historical photography", "documentary art"],
-  type: "article",
+  type: "article" as const,
   image: japaneseAmericanArtworks[0]?.data.cloudinaryId // Use the first camp image as OG image
 };
 
-const pageTitle = seoConfig.title;
+const seoTags = generateSEOTags(seoConfig);
 ---
 
 <style>
@@ -136,7 +138,13 @@ const pageTitle = seoConfig.title;
   }
 </style>
 
-<GalleryScrollLayout title={pageTitle}>
+<GalleryScrollLayout 
+    title={seoTags.title}
+    description={seoTags.description}
+    type={seoTags.ogType}
+    image={seoTags.ogImage}
+    keywords={seoConfig.keywords}
+  >
   <div class="mobile-orientation text-white">
     📱 Rotate phone for best viewing experience
   </div>
