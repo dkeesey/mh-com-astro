@@ -4,15 +4,17 @@ import { getCollection } from 'astro:content';
 import CloudinaryImage from '@components/CloudinaryImage.astro';
 import GalleryScrollLayout from '@layouts/GalleryScrollLayout.astro';
 import Header from '@components/Header.astro';
+import type { CollectionEntry } from 'astro:content';
+import type { ArtworkEntry } from '../../../types/artwork';
 
 // Fetch all entries from the "artwork" collection
-const allEntries = await getCollection("artwork");
+const allEntries: CollectionEntry<'artwork'>[] = await getCollection("artwork");
 
 // Filter artworks by series
-const japaneseAmericanArtworks = allEntries.filter(
+const japaneseAmericanArtworks: ArtworkEntry[] = allEntries.filter(
   (entry) => entry.data.series === "Japanese-American Internment Camps"
 );
-const japaneseCanadianArtworks = allEntries.filter(
+const japaneseCanadianArtworks: ArtworkEntry[] = allEntries.filter(
   (entry) => entry.data.series === "Japanese-Canadian Internment Camps"
 );
 
@@ -246,4 +248,3 @@ const pageTitle = "Japanese American Internment Camps | Artwork Series";
 </GalleryScrollLayout>
 
 <style>
-

@@ -1,6 +1,9 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-const { title = "Masumi Hayashi", description = "Masumi Hayashi Foundation" } = Astro.props;
+import { generateTitle, generateDescription } from "@utils/seo";
+const { title, description } = Astro.props;
+const pageTitle = generateTitle(title);
+const pageDescription = generateDescription(description);
 ---
 
 <head>
@@ -19,9 +22,9 @@ const { title = "Masumi Hayashi", description = "Masumi Hayashi Foundation" } = 
   <slot name="head" />  <!-- Make sure this line exists -->
   <link rel="icon" type="image/svg+xml" href="/favicon/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
+  <title>{pageTitle}</title>
   <ViewTransitions />
-  <meta name="description" content={description} />
+  <meta name="description" content={pageDescription} />
   <meta name="generator" content="Astro" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

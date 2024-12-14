@@ -22,7 +22,7 @@ const mapToArtwork = (entry: CollectionEntry<'artwork'>): Artwork => ({
 
 // Get artworks based on the current entry's series
 const artworks = allArtworks
-  .filter((artwork) => artwork.data.series === entry.data.series)
+  .filter((artwork: CollectionEntry<'artwork'>) => artwork.data.series === entry.data.series)
   .map(mapToArtwork);
 
 let CampDataComponent;

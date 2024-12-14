@@ -31,5 +31,12 @@ export interface ArtworkData {
   altTag?: string;
 }
 
-// The full Artwork type including the generated slug
-export interface Artwork extends Pick<CollectionEntry<'artwork'>, 'slug'>, ArtworkData {}
+// Type for the collection entry (with data property)
+export interface ArtworkEntry extends CollectionEntry<'artwork'> {}
+
+// Type for flattened artwork data (spread data with slug)
+export interface Artwork extends ArtworkData {
+  slug: string;
+}
+
+export type ArtworkType = Artwork;
