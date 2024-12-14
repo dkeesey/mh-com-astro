@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import CloudinaryImage from '@components/CloudinaryImage.astro';
 import GalleryScrollLayout from '@layouts/GalleryScrollLayout.astro';
 import Header from '@components/Header.astro';
-import AudioPlayerComponent from "@components/audio-player";
+import AudioPlayer from "@components/audio-player";
 import type { CollectionEntry } from 'astro:content';
 import type { ArtworkEntry } from '../../../types/artwork';
 
@@ -312,9 +312,14 @@ const audioFiles = [
     </section>
   ))}
   
-  <AudioPlayerComponent
+  <AudioPlayer
+    audioFiles={audioFiles.map(file => ({ 
+      title: file.title,
+      url: file.src 
+    }))}
+    variant="horizontal"
+    className="z-50"
     client:load
-    audioFiles={audioFiles.map((file) => ({ ...file, url: file.src }))}
   />
 </GalleryScrollLayout>
 

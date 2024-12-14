@@ -1,12 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Rewind, FastForward, Volume2, VolumeX, Minimize2, Maximize2, X } from 'lucide-react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Minimize2, Maximize2, X, GripHorizontal, ChevronDown, GripVertical } from 'lucide-react';
+import Draggable from 'react-draggable';
 
 interface AudioFile {
   url: string;
   title: string;
+  excerpt: string;
+  interviewee?: string;
 }
 
-export default function AudioPlayer({ audioFiles }: { audioFiles: AudioFile[] }) {
+type PlayerVariant = 'compact' | 'horizontal' | 'vertical';
+
+interface AudioPlayerProps {
+  audioFiles: AudioFile[];
+  variant?: PlayerVariant;
+  className?: string;
+}
+
+export default function AudioPlayer({ audioFiles, variant = 'compact', className = '' }: AudioPlayerProps) {
   const [currentTrack, setCurrentTrack] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -15,7 +26,11 @@ export default function AudioPlayer({ audioFiles }: { audioFiles: AudioFile[] })
   const [volume, setVolume] = useState(0.5);
   const [isVisible, setIsVisible] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const [showTrackList, setShowTrackList] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const volumeControlRef = useRef<HTMLDivElement>(null);
+  const trackListRef = useRef<HTMLDivElement>(null);
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
 
@@ -38,6 +53,20 @@ export default function AudioPlayer({ audioFiles }: { audioFiles: AudioFile[] })
       return () => audioRef.current?.removeEventListener('loadedmetadata', updateDuration);
     }
   }, [currentTrack]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (volumeControlRef.current && !volumeControlRef.current.contains(event.target as Node)) {
+        setShowVolumeSlider(false);
+      }
+      if (trackListRef.current && !trackListRef.current.contains(event.target as Node)) {
+        setShowTrackList(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const togglePlayPause = () => {
     if (hasAudioFiles) {
@@ -77,201 +106,227 @@ export default function AudioPlayer({ audioFiles }: { audioFiles: AudioFile[] })
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const variantStyles = {
+    compact: {
+      container: 'w-[24rem] max-w-[95vw]',
+      content: 'flex-col',
+      controls: 'flex-col space-y-4',
+    },
+    horizontal: {
+      container: 'w-[24rem] max-w-[95vw] h-20',
+      content: 'flex-row items-center',
+      controls: 'flex-row space-x-4',
+    },
+    vertical: {
+      container: 'w-[24rem] max-w-[95vw]',
+      content: 'flex-col',
+      controls: 'flex-col space-y-4',
+    },
+  };
+
   if (!hasAudioFiles || !isVisible) return null;
 
+  const currentAudioFile = audioFiles[currentTrack];
+  const title = currentAudioFile.title;
+
   return (
-    <div className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ease-in-out
-      ${isMinimized ? 'w-12 h-12' : 'w-80 sm:w-96'}
-      bg-background/80 backdrop-blur-sm shadow-lg rounded-lg border border-border/50`}>
-      
-      <div className="p-0">
-        {isMinimized ? (
-          <button
-            type="button"
-            className="w-full h-full flex items-center justify-center hover:bg-accent/50 rounded-lg"
-            onClick={togglePlayPause}
-            aria-label={isPlaying ? "Pause current track" : "Play current track"}
-            title={isPlaying ? "Pause" : "Play"}
-          >
-            {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-            <span className="sr-only">{isPlaying ? "Pause" : "Play"} current track</span>
-          </button>
-        ) : (
-          <div className="p-4 space-y-4">
-            {/* Track Info */}
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium leading-none truncate">
-                {audioFiles[currentTrack].title}
-              </h3>
-              <p className="text-xs text-muted-foreground">
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </p>
+    <Draggable>
+      <div className="absolute bottom-4 left-4">
+        <button
+          onClick={() => setShowTrackList(!showTrackList)}
+          className="absolute -top-7 left-0 w-[24rem] text-center group"
+        >
+          <div className="flex items-center justify-between bg-[#333] rounded-t-lg">
+            <div className="flex items-center px-2 py-1">
+              <GripVertical className="h-4 w-4 text-[#ccc]" />
             </div>
-
-            {/* Progress Slider */}
-            <div className="relative w-full h-1.5 bg-accent rounded-full overflow-hidden">
-              <div
-                className="absolute h-full bg-primary"
-                style={{ width: `${(currentTime / duration) * 100}%` }}
-              />
-              <input
-                type="range"
-                min={0}
-                max={duration || 0}
-                value={currentTime}
-                onChange={(e) => {
-                  const newTime = parseFloat(e.target.value);
-                  if (audioRef.current) {
-                    audioRef.current.currentTime = newTime;
-                    setCurrentTime(newTime);
-                  }
-                }}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                aria-label="Seek time in track"
-                title="Seek time in track"
-              />
-            </div>
-
-            {/* Controls */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  className="p-1.5 hover:bg-accent/50 rounded-md"
-                  onClick={playPrevious}
-                  aria-label="Play previous track"
-                  title="Previous track"
-                >
-                  <SkipBack className="h-4 w-4" />
-                  <span className="sr-only">Play previous track</span>
-                </button>
-                
-                <button
-                  type="button"
-                  className="p-2 hover:bg-accent/50 rounded-full"
-                  onClick={togglePlayPause}
-                  aria-label={isPlaying ? "Pause current track" : "Play current track"}
-                  title={isPlaying ? "Pause" : "Play"}
-                >
-                  {isPlaying ? 
-                    <Pause className="h-5 w-5" /> : 
-                    <Play className="h-5 w-5" />
-                  }
-                  <span className="sr-only">{isPlaying ? "Pause" : "Play"} current track</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="p-1.5 hover:bg-accent/50 rounded-md"
-                  onClick={playNext}
-                  aria-label="Play next track"
-                  title="Next track"
-                >
-                  <SkipForward className="h-4 w-4" />
-                  <span className="sr-only">Play next track</span>
-                </button>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  className="p-1.5 hover:bg-accent/50 rounded-md"
-                  onClick={() => {
-                    setIsMuted(!isMuted);
-                    if (audioRef.current) {
-                      audioRef.current.volume = isMuted ? volume : 0;
-                    }
-                  }}
-                  aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-                  title={isMuted ? "Unmute" : "Mute"}
-                >
-                  {isMuted ? 
-                    <VolumeX className="h-4 w-4" /> : 
-                    <Volume2 className="h-4 w-4" />
-                  }
-                  <span className="sr-only">{isMuted ? "Unmute" : "Mute"} audio</span>
-                </button>
-
-                <div className="relative w-20 h-1.5 bg-accent rounded-full overflow-hidden">
-                  <div
-                    className="absolute h-full bg-primary"
-                    style={{ width: `${(isMuted ? 0 : volume) * 100}%` }}
-                  />
-                  <input
-                    type="range"
-                    min={0}
-                    max={1}
-                    step={0.1}
-                    value={isMuted ? 0 : volume}
-                    onChange={(e) => {
-                      const newVolume = parseFloat(e.target.value);
-                      setVolume(newVolume);
-                      setIsMuted(false);
-                      if (audioRef.current) {
-                        audioRef.current.volume = newVolume;
-                      }
-                    }}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    aria-label="Adjust volume"
-                    title="Adjust volume"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Track List */}
-            <div className="mt-4 space-y-1 max-h-32 overflow-y-auto">
-              {audioFiles.map((file, index) => (
-                <button
-                  type="button"
-                  key={file.url}
-                  className={`w-full text-left px-2 py-1 rounded-md text-sm truncate
-                    ${currentTrack === index ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/50'}`}
-                  onClick={() => handleTrackClick(index)}
-                  aria-label={`Play ${file.title}`}
-                  title={file.title}
-                >
-                  {file.title}
-                </button>
-              ))}
+            <span className="px-2 py-1 text-sm font-medium
+              hover:text-amber-400 hover:font-bold hover:shadow-[0_0_10px_rgba(251,191,36,0.3)]
+              active:text-amber-300 active:shadow-[0_0_15px_rgba(251,191,36,0.5)]"
+            >
+              Internee Interviews
+            </span>
+            <div className="flex items-center px-2 py-1">
+              <GripVertical className="h-4 w-4 text-[#ccc]" />
             </div>
           </div>
-        )}
+        </button>
 
-        {/* Minimize/Close Controls */}
-        <div className="absolute top-2 right-2 flex gap-1">
-          <button
-            type="button"
-            className="p-1 hover:bg-accent/50 rounded-md"
-            onClick={() => setIsMinimized(!isMinimized)}
-            aria-label={isMinimized ? "Expand audio player" : "Minimize audio player"}
-            title={isMinimized ? "Expand" : "Minimize"}
-          >
-            {isMinimized ? 
-              <Maximize2 className="h-3 w-3" /> : 
-              <Minimize2 className="h-3 w-3" />
-            }
-            <span className="sr-only">{isMinimized ? "Expand" : "Minimize"} audio player</span>
-          </button>
-          <button
-            type="button"
-            className="p-1 hover:bg-accent/50 rounded-md"
-            onClick={() => setIsVisible(false)}
-            aria-label="Close audio player"
-            title="Close"
-          >
-            <X className="h-3 w-3" />
-            <span className="sr-only">Close audio player</span>
-          </button>
+        <div className="relative flex">
+          <div className={`z-50 transition-all duration-700 ease-in-out cursor-move
+            ${isMinimized ? 'w-12 h-12' : variantStyles[variant].container}
+            bg-background/80 backdrop-blur-sm shadow-lg rounded-lg border border-border/50
+            ${className}`}>
+            <div className="relative h-full">
+              {/* Minimize Button */}
+              <button
+                type="button"
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="absolute top-2 right-2 p-1 rounded-sm opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-accent"
+                aria-label={isMinimized ? "Expand audio player" : "Minimize audio player"}
+                title={isMinimized ? "Expand" : "Minimize"}
+              >
+                <Minimize2 className="h-4 w-4" />
+                <span className="sr-only">{isMinimized ? "Expand" : "Minimize"} audio player</span>
+              </button>
+
+              {!isMinimized && (
+                <div className="h-full px-6 py-2 flex flex-col space-y-1.5">
+                  {/* Track Title */}
+                  <div className="flex flex-col gap-0.5">
+                    <div className="text-sm font-medium truncate">
+                      {currentAudioFile.excerpt}
+                    </div>
+                    <div className="text-xs text-muted-foreground truncate">
+                      {title}
+                    </div>
+                  </div>
+
+                  {/* Time and Progress */}
+                  <div className="flex flex-col gap-1">
+                    <div
+                      className="relative w-full h-1.5 bg-accent rounded-full overflow-hidden"
+                    >
+                      <div
+                        className="absolute h-full bg-primary"
+                        style={{ width: `${(currentTime / duration) * 100}%` }}
+                      />
+                      <input
+                        type="range"
+                        min={0}
+                        max={duration || 0}
+                        value={currentTime}
+                        onChange={(e) => {
+                          const newTime = parseFloat(e.target.value);
+                          if (audioRef.current) {
+                            audioRef.current.currentTime = newTime;
+                            setCurrentTime(newTime);
+                          }
+                        }}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        aria-label="Seek time in track"
+                        title="Seek time in track"
+                      />
+                    </div>
+
+                    <div className="flex items-center">
+                      {/* Time Display */}
+                      <div className="text-xs text-muted-foreground px-2">
+                        <span>{formatTime(currentTime)}</span>
+                        <span className="mx-1">/</span>
+                        <span>{formatTime(duration)}</span>
+                      </div>
+
+                      {/* Controls */}
+                      <div className="flex-1 flex items-center justify-center space-x-1">
+                        <button
+                          type="button"
+                          className="p-1 hover:bg-accent/50 rounded-md"
+                          onClick={playPrevious}
+                          aria-label="Play previous track"
+                          title="Previous track"
+                        >
+                          <SkipBack className="h-3.5 w-3.5" />
+                          <span className="sr-only">Play previous track</span>
+                        </button>
+                        
+                        <button
+                          type="button"
+                          className="p-1 hover:bg-accent/50 rounded-md"
+                          onClick={togglePlayPause}
+                          aria-label={isPlaying ? "Pause current track" : "Play current track"}
+                          title={isPlaying ? "Pause" : "Play"}
+                        >
+                          {isPlaying ? 
+                            <Pause className="h-3.5 w-3.5" /> : 
+                            <Play className="h-3.5 w-3.5" />
+                          }
+                          <span className="sr-only">{isPlaying ? "Pause" : "Play"} current track</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          className="p-1 hover:bg-accent/50 rounded-md"
+                          onClick={playNext}
+                          aria-label="Play next track"
+                          title="Next track"
+                        >
+                          <SkipForward className="h-3.5 w-3.5" />
+                          <span className="sr-only">Play next track</span>
+                        </button>
+
+                        {/* Volume Controls */}
+                        <div className="relative">
+                          <button
+                            type="button"
+                            className="p-1 hover:bg-accent/50 rounded-md relative"
+                            onClick={() => {
+                              if (isMuted) {
+                                setIsMuted(false);
+                                if (audioRef.current) {
+                                  audioRef.current.volume = volume;
+                                }
+                              } else {
+                                setIsMuted(true);
+                                if (audioRef.current) {
+                                  audioRef.current.volume = 0;
+                                }
+                              }
+                              setShowVolumeSlider(!showVolumeSlider);
+                            }}
+                            aria-label={isMuted ? "Unmute" : "Mute"}
+                            title={isMuted ? "Unmute" : "Mute"}
+                          >
+                            {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+                            <span className="sr-only">{isMuted ? "Unmute" : "Mute"}</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Empty div for spacing */}
+                      <div className="w-[88px]"></div>
+                    </div>
+                  </div>
+
+                  {/* Controls */}
+                </div>
+              )}
+            </div>
+
+            <audio
+              ref={audioRef}
+              src={audioFiles[currentTrack].url}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={playNext}
+            />
+          </div>
+        </div>
+
+        {/* Track List with Animation */}
+        <div className={`absolute left-full top-0 transition-all duration-500 ease-in-out
+          ${showTrackList ? 'translate-x-4 opacity-100' : '-translate-x-4 opacity-0 pointer-events-none'}
+          w-[24rem] h-20 overflow-y-auto bg-background/80 backdrop-blur-sm shadow-lg rounded-lg border border-border/50`}
+        >
+          {audioFiles.map((file, index) => (
+            <button
+              key={file.url}
+              className={`w-full text-left px-4 py-0.5 text-sm hover:bg-accent/50
+                ${currentTrack === index ? 'bg-accent text-accent-foreground' : ''}
+                ${index === 0 ? 'rounded-t-lg' : ''}
+                ${index === audioFiles.length - 1 ? 'rounded-b-lg' : ''}`}
+              onClick={() => {
+                handleTrackClick(index);
+                setShowTrackList(false);
+              }}
+            >
+              <div className="flex flex-col leading-tight">
+                <span className="font-medium truncate">{file.excerpt}</span>
+                <span className="text-xs text-muted-foreground truncate">{file.title}</span>
+              </div>
+            </button>
+          ))}
         </div>
       </div>
-
-      <audio
-        ref={audioRef}
-        src={audioFiles[currentTrack].url}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={playNext}
-      />
-    </div>
+    </Draggable>
   );
 }
