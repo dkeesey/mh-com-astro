@@ -6,17 +6,20 @@ interface AudioFile {
   title: string;
   excerpt: string;
   interviewee?: string;
+  timestamp?: string;
+  transcript?: string;
 }
 
-type PlayerVariant = 'compact' | 'horizontal' | 'vertical';
+type PlayerVariant = 'compact' | 'horizontal' | 'vertical' | 'inline';
 
 interface AudioPlayerProps {
   audioFiles: AudioFile[];
   variant?: PlayerVariant;
   className?: string;
+  context?: string; // Surrounding text context for inline variant
 }
 
-export default function AudioPlayer({ audioFiles, variant = 'compact', className = '' }: AudioPlayerProps) {
+export default function AudioPlayer({ audioFiles, variant = 'compact', className = '', context }: AudioPlayerProps) {
   const [currentTrack, setCurrentTrack] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -125,30 +128,80 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
   const currentAudioFile = audioFiles[currentTrack];
   const title = currentAudioFile.title;
 
+  if (variant === 'inline') {
+    return (
+      <div className={`relative border rounded-lg p-4 my-4 ${className}`}>
+        <div className="flex items-start space-x-4">
+          {/* Play/Pause button */}
+          <button
+            onClick={togglePlayPause}
+            className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white"
+          >
+            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+          </button>
+          
+          <div className="flex-grow">
+            {/* Title and Interviewee */}
+            <div className="mb-2">
+              <h4 className="font-medium">{currentAudioFile.title}</h4>
+              {currentAudioFile.interviewee && (
+                <p className="text-sm text-gray-600">Interview with {currentAudioFile.interviewee}</p>
+              )}
+              {currentAudioFile.timestamp && (
+                <p className="text-sm text-gray-500">{currentAudioFile.timestamp}</p>
+              )}
+            </div>
+
+            {/* Progress Bar */}
+            <div className="relative h-1 bg-gray-200 rounded-full mb-2">
+              <div
+                className="absolute h-full bg-primary rounded-full"
+                style={{ width: `${(currentTime / duration) * 100}%` }}
+              />
+            </div>
+
+            {/* Time Display */}
+            <div className="flex justify-between text-sm text-gray-500">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+
+            {/* Transcript (if available) */}
+            {currentAudioFile.transcript && (
+              <div className="mt-4 p-4 bg-gray-50 rounded text-sm">
+                {currentAudioFile.transcript}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Context (if provided) */}
+        {context && (
+          <div className="mt-4 text-sm text-gray-600 border-t pt-4">
+            <p>{context}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className={`${className}`}>
+    <div className={`fixed z-50 ${className}`}>
+      {/* Header - Now clickable to toggle track list */}
       <button
         onClick={() => setShowTrackList(!showTrackList)}
-        className="w-full text-center group"
+        className="w-full flex items-center justify-between bg-background/80 backdrop-blur-sm px-4 py-2 rounded-t-lg border border-border/50"
       >
-        <div className="flex items-center justify-between bg-[#333] rounded-t-lg">
-          <div className="flex items-center px-2 py-1">
-            <GripVertical className="h-4 w-4 text-[#ccc]" />
-          </div>
-          <span className="px-2 py-1 text-sm font-medium
-            hover:text-amber-400 hover:font-bold hover:shadow-[0_0_10px_rgba(251,191,36,0.3)]
-            active:text-amber-300 active:shadow-[0_0_15px_rgba(251,191,36,0.5)]"
-          >
+        <div className="flex items-center space-x-2">
+          <span className="text-sm font-medium">
             Internee Interviews
           </span>
-          <div className="flex items-center px-2 py-1">
-            <GripVertical className="h-4 w-4 text-[#ccc]" />
-          </div>
+          <GripVertical className="h-4 w-4 text-[#ccc]" />
         </div>
       </button>
 
       <div className="relative flex">
-        {/* Track List */}
+        {/* Track List - Now properly toggled */}
         <div 
           ref={volumeControlRef}
           className={`absolute right-full top-0 w-[300px] bg-background/80 backdrop-blur-sm rounded-l-lg border border-border/50 shadow-lg
@@ -160,12 +213,19 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
               {audioFiles.map((file, index) => (
                 <button
                   key={index}
-                  onClick={() => handleTrackClick(index)}
+                  onClick={() => {
+                    handleTrackClick(index);
+                    setShowTrackList(false); // Hide track list after selection
+                  }}
                   className={`w-full text-left p-2 rounded-md text-sm hover:bg-accent/50
                     ${currentTrack === index ? 'bg-accent text-accent-foreground' : ''}`}
                 >
                   <div className="font-medium">{file.excerpt}</div>
-                  <div className="text-xs text-muted-foreground">{file.title}</div>
+                  {file.interviewee && (
+                    <div className="text-xs text-muted-foreground">
+                      Interview with {file.interviewee}
+                    </div>
+                  )}
                 </button>
               ))}
             </div>

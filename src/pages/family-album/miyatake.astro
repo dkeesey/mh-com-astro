@@ -5,6 +5,7 @@ import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
 import NarrativeText from '@components/NarrativeText.astro';
+import AudioPlayer from '@components/audio-player';
 
 // Import images
 import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake1.jpg';
@@ -37,6 +38,17 @@ const photos = [
     description: "Difficult as it was to get material goods, children still had birthdays to celebrate. Bartering was common to get birthday cakes from the cook."
   }
 ];
+
+const audioSnippet = {
+  url: "/audio/JACCampsMP3/camps.01.mp3",
+  title: "All American Boy...",
+  excerpt: "All American Boy...",
+  interviewee: "Toyo Miyatake",
+  timestamp: "1992",
+  transcript: "I was an All American Boy... I grew up in Los Angeles, went to school there. Photography was my passion, and I had my own studio before the war."
+};
+
+const pageContext = "Toyo Miyatake was a Los Angeles based photographer who continued to document life in the camps, even when cameras were considered contraband. His story represents the resilience and dedication of Japanese American photographers during internment.";
 ---
 
 <FamilyAlbumLayout title={title} description={description}>
@@ -69,6 +81,15 @@ const photos = [
 
     <NarrativeText title="Photographs">
       <PhotoGallery photos={photos} />
+    </NarrativeText>
+
+    <NarrativeText title="Audio">
+      <AudioPlayer
+        client:load
+        audioFiles={[audioSnippet]}
+        variant="inline"
+        context={pageContext}
+      />
     </NarrativeText>
 
     <div class="mt-16">
