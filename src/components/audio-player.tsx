@@ -8,376 +8,319 @@ interface AudioFile {
   interviewee?: string;
   timestamp?: string;
   transcript?: string;
+  context?: string;
 }
 
-type PlayerVariant = 'compact' | 'horizontal' | 'vertical' | 'inline';
+type PlayerVariant = 'compact' | 'horizontal' | 'vertical' | 'inline' | 'timeline';
 
 interface AudioPlayerProps {
   audioFiles: AudioFile[];
   variant?: PlayerVariant;
   className?: string;
-  context?: string; // Surrounding text context for inline variant
+  showTranscript?: boolean;
+  showTimeline?: boolean;
+  showTrackList?: boolean;
+  isGlobal?: boolean;  // Whether this is the global player that persists
+  onTrackSelect?: (index: number) => void;  // Callback for when a track is selected
+  initialTrack?: number;  // Initial track to play
+  context?: string;  // Contextual information about the audio
+  timelineEvents?: {  // For timeline variant
+    date: string;
+    event: string;
+    audioIndex?: number;
+  }[];
 }
 
-export default function AudioPlayer({ audioFiles, variant = 'compact', className = '', context }: AudioPlayerProps) {
-  const [currentTrack, setCurrentTrack] = useState(0);
+export default function AudioPlayer({ 
+  audioFiles,
+  variant = 'compact',
+  className = '',
+  showTranscript = false,
+  showTimeline = false,
+  showTrackList = false,
+  isGlobal = false,
+  onTrackSelect,
+  initialTrack = 0,
+  context,
+  timelineEvents = []
+}: AudioPlayerProps) {
+  const [currentTrack, setCurrentTrack] = useState(initialTrack);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
-  const [showTrackList, setShowTrackList] = useState(false);
+  const [isTrackListVisible, setIsTrackListVisible] = useState(showTrackList);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const volumeControlRef = useRef<HTMLDivElement>(null);
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
 
-  useEffect(() => {
-    if (audioRef.current && hasAudioFiles) {
-      if (isPlaying) {
-        audioRef.current.play();
-      } else {
-        audioRef.current.pause();
+  // Common player controls
+  const PlayerControls = () => (
+    <div className="flex items-center space-x-2">
+      <button
+        onClick={togglePlayPause}
+        className="p-2 rounded-full hover:bg-gray-100"
+        aria-label={isPlaying ? 'Pause' : 'Play'}
+      >
+        {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+      </button>
+      {audioFiles.length > 1 && (
+        <>
+          <button
+            onClick={() => handleTrackChange('prev')}
+            className="p-2 rounded-full hover:bg-gray-100"
+            aria-label="Previous track"
+          >
+            <SkipBack className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => handleTrackChange('next')}
+            className="p-2 rounded-full hover:bg-gray-100"
+            aria-label="Next track"
+          >
+            <SkipForward className="h-5 w-5" />
+          </button>
+        </>
+      )}
+    </div>
+  );
+
+  // Progress bar component
+  const ProgressBar = () => {
+    const progressWidth = `w-[${Math.floor((currentTime / duration) * 100)}%]`;
+    const progressPercent = Math.floor((currentTime / duration) * 100);
+    const progressRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (progressRef.current) {
+        progressRef.current.setAttribute('aria-valuemin', '0');
+        progressRef.current.setAttribute('aria-valuemax', '100');
+        progressRef.current.setAttribute('aria-valuenow', progressPercent.toString());
       }
-    }
-  }, [isPlaying, currentTrack, hasAudioFiles]);
+    }, [progressPercent]);
+    
+    return (
+      <div className="relative h-1 bg-gray-200 rounded-full flex-grow">
+        <div
+          ref={progressRef}
+          className={`absolute h-full bg-primary rounded-full ${progressWidth}`}
+          role="progressbar"
+          aria-label="Audio progress"
+        />
+        <label htmlFor="audio-progress" className="sr-only">
+          Audio time slider
+        </label>
+        <input
+          id="audio-progress"
+          type="range"
+          min={0}
+          max={duration}
+          value={currentTime}
+          onChange={handleTimeChange}
+          className="absolute w-full h-full opacity-0 cursor-pointer"
+          title={`Time slider: ${formatTime(currentTime)} of ${formatTime(duration)}`}
+          aria-label="Audio time slider"
+        />
+      </div>
+    );
+  };
 
-  useEffect(() => {
-    if (audioRef.current) {
-      const updateDuration = () => {
-        setDuration(audioRef.current?.duration || 0);
-      };
-      audioRef.current?.addEventListener('loadedmetadata', updateDuration);
-      return () => audioRef.current?.removeEventListener('loadedmetadata', updateDuration);
-    }
-  }, [currentTrack]);
+  // Timeline variant specific component
+  const TimelineView = () => (
+    <div className="relative">
+      <div className="absolute left-1/2 w-px h-full bg-gray-200" />
+      <div className="space-y-8">
+        {timelineEvents.map((event, index) => (
+          <div
+            key={index}
+            className={`flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+          >
+            <div className="w-1/2 p-4 bg-white rounded-lg shadow-md">
+              <div className="text-sm text-gray-500">{event.date}</div>
+              <div className="mt-2">{event.event}</div>
+              {typeof event.audioIndex === 'number' && (
+                <button
+                  onClick={() => handleTrackClick(event.audioIndex!)}
+                  className="mt-2 text-primary hover:underline"
+                >
+                  Listen to related audio
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (volumeControlRef.current && !volumeControlRef.current.contains(event.target as Node)) {
-        setShowVolumeSlider(false);
-      }
-      if (volumeControlRef.current && !volumeControlRef.current.contains(event.target as Node)) {
-        setShowTrackList(false);
-      }
-    };
+  // Inline variant specific component
+  const InlineView = () => (
+    <div className="border rounded-lg p-4">
+      <div className="flex items-start space-x-4">
+        <PlayerControls />
+        <div className="flex-grow">
+          <div className="mb-2">
+            <h4 className="font-medium">{currentAudioFile.title}</h4>
+            {currentAudioFile.interviewee && (
+              <p className="text-sm text-gray-600">
+                Interview with {currentAudioFile.interviewee}
+              </p>
+            )}
+          </div>
+          <ProgressBar />
+          {showTranscript && currentAudioFile.transcript && (
+            <div className="mt-4 p-4 bg-gray-50 rounded text-sm">
+              {currentAudioFile.transcript}
+            </div>
+          )}
+        </div>
+      </div>
+      {context && (
+        <div className="mt-4 text-sm text-gray-600 border-t pt-4">
+          <p>{context}</p>
+        </div>
+      )}
+    </div>
+  );
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  // Global player specific component
+  const GlobalPlayer = () => (
+    <div className={`fixed z-50 ${isMinimized ? 'bottom-4 right-4' : 'top-[72px] right-4'}`}>
+      <div className="bg-white rounded-lg shadow-lg">
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-medium">Internee Interviews</h3>
+            <button
+              onClick={() => setIsMinimized(!isMinimized)}
+              className="p-2 hover:bg-gray-100 rounded-full"
+              aria-label={isMinimized ? "Maximize player" : "Minimize player"}
+              title={isMinimized ? "Maximize player" : "Minimize player"}
+            >
+              <Minimize2 className="h-4 w-4" />
+            </button>
+          </div>
+          {!isMinimized && (
+            <>
+              <PlayerControls />
+              <ProgressBar />
+              {isTrackListVisible && (
+                <div className="mt-4 space-y-2">
+                  {audioFiles.map((file, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleTrackClick(index)}
+                      className={`w-full text-left p-2 rounded-md text-sm hover:bg-gray-100
+                        ${currentTrack === index ? 'bg-primary text-white' : ''}`}
+                    >
+                      <div className="font-medium">{file.excerpt}</div>
+                      {file.interviewee && (
+                        <div className="text-xs opacity-75">
+                          Interview with {file.interviewee}
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
+  // Event handlers
   const togglePlayPause = () => {
-    if (hasAudioFiles) {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
       setIsPlaying(!isPlaying);
     }
   };
 
-  const playNext = () => {
-    if (hasAudioFiles) {
-      setCurrentTrack((prevTrack) => (prevTrack + 1) % audioFiles.length);
-      setIsPlaying(true);
-    }
-  };
-
-  const playPrevious = () => {
-    if (hasAudioFiles) {
-      setCurrentTrack((prevTrack) => (prevTrack - 1 + audioFiles.length) % audioFiles.length);
-      setIsPlaying(true);
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
-    }
+  const handleTrackChange = (direction: 'prev' | 'next') => {
+    const newTrack = direction === 'prev'
+      ? (currentTrack - 1 + audioFiles.length) % audioFiles.length
+      : (currentTrack + 1) % audioFiles.length;
+    handleTrackClick(newTrack);
   };
 
   const handleTrackClick = (index: number) => {
     setCurrentTrack(index);
-    setIsPlaying(true);
+    setIsPlaying(false);
+    onTrackSelect?.(index);
   };
 
-  const formatTime = (time: number) => {
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const time = parseFloat(e.target.value);
+    setCurrentTime(time);
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+    }
+  };
+
+  // Utility function to format time
+  const formatTime = (time: number): string => {
     if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const variantStyles = {
-    compact: {
-      container: 'w-[24rem] max-w-[95vw]',
-      content: 'flex-col',
-      controls: 'flex-col space-y-4',
-    },
-    horizontal: {
-      container: 'w-[24rem] max-w-[95vw] h-20',
-      content: 'flex-row items-center',
-      controls: 'flex-row space-x-4',
-    },
-    vertical: {
-      container: 'w-[24rem] max-w-[95vw]',
-      content: 'flex-col',
-      controls: 'flex-col space-y-4',
-    },
-  };
+  // Effect hooks
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
+    const handleEnded = () => {
+      if (currentTrack < audioFiles.length - 1) {
+        handleTrackChange('next');
+      } else {
+        setIsPlaying(false);
+      }
+    };
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, [currentTrack]);
 
   if (!hasAudioFiles) return null;
 
   const currentAudioFile = audioFiles[currentTrack];
-  const title = currentAudioFile.title;
 
-  if (variant === 'inline') {
-    return (
-      <div className={`relative border rounded-lg p-4 my-4 ${className}`}>
-        <div className="flex items-start space-x-4">
-          {/* Play/Pause button */}
-          <button
-            onClick={togglePlayPause}
-            className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white"
-          >
-            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-          </button>
-          
-          <div className="flex-grow">
-            {/* Title and Interviewee */}
-            <div className="mb-2">
-              <h4 className="font-medium">{currentAudioFile.title}</h4>
-              {currentAudioFile.interviewee && (
-                <p className="text-sm text-gray-600">Interview with {currentAudioFile.interviewee}</p>
-              )}
-              {currentAudioFile.timestamp && (
-                <p className="text-sm text-gray-500">{currentAudioFile.timestamp}</p>
-              )}
-            </div>
-
-            {/* Progress Bar */}
-            <div className="relative h-1 bg-gray-200 rounded-full mb-2">
-              <div
-                className="absolute h-full bg-primary rounded-full"
-                style={{ width: `${(currentTime / duration) * 100}%` }}
-              />
-            </div>
-
-            {/* Time Display */}
-            <div className="flex justify-between text-sm text-gray-500">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-
-            {/* Transcript (if available) */}
-            {currentAudioFile.transcript && (
-              <div className="mt-4 p-4 bg-gray-50 rounded text-sm">
-                {currentAudioFile.transcript}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Context (if provided) */}
-        {context && (
-          <div className="mt-4 text-sm text-gray-600 border-t pt-4">
-            <p>{context}</p>
-          </div>
-        )}
-      </div>
-    );
-  }
-
+  // Render appropriate variant
   return (
-    <div className={`fixed z-50 ${className}`}>
-      {/* Header - Now clickable to toggle track list */}
-      <button
-        onClick={() => setShowTrackList(!showTrackList)}
-        className="w-full flex items-center justify-between bg-background/80 backdrop-blur-sm px-4 py-2 rounded-t-lg border border-border/50"
-      >
-        <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium">
-            Internee Interviews
-          </span>
-          <GripVertical className="h-4 w-4 text-[#ccc]" />
+    <>
+      <audio
+        ref={audioRef}
+        src={currentAudioFile.url}
+        preload="metadata"
+      />
+      
+      {variant === 'inline' && <InlineView />}
+      {variant === 'timeline' && <TimelineView />}
+      {isGlobal && <GlobalPlayer />}
+      {!isGlobal && variant === 'compact' && (
+        <div className={`bg-white rounded-lg shadow-md p-4 ${className}`}>
+          <PlayerControls />
+          <ProgressBar />
         </div>
-      </button>
-
-      <div className="relative flex">
-        {/* Track List - Now properly toggled */}
-        <div 
-          ref={volumeControlRef}
-          className={`absolute right-full top-0 w-[300px] bg-background/80 backdrop-blur-sm rounded-l-lg border border-border/50 shadow-lg
-            transform transition-transform duration-300 ease-in-out ${showTrackList ? 'translate-x-0' : 'translate-x-full'}`}
-        >
-          <div className="p-4">
-            <h3 className="text-sm font-medium mb-2">Track List</h3>
-            <div className="space-y-2">
-              {audioFiles.map((file, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    handleTrackClick(index);
-                    setShowTrackList(false); // Hide track list after selection
-                  }}
-                  className={`w-full text-left p-2 rounded-md text-sm hover:bg-accent/50
-                    ${currentTrack === index ? 'bg-accent text-accent-foreground' : ''}`}
-                >
-                  <div className="font-medium">{file.excerpt}</div>
-                  {file.interviewee && (
-                    <div className="text-xs text-muted-foreground">
-                      Interview with {file.interviewee}
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Main Player */}
-        <div className={`z-50 transition-all duration-700 ease-in-out
-          ${isMinimized ? 'w-12 h-12' : variantStyles[variant].container}
-          bg-background/80 backdrop-blur-sm shadow-lg rounded-lg border border-border/50`}>
-          {/* Minimize Button */}
-          <button
-            type="button"
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="absolute top-2 right-2 p-1 rounded-sm opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-accent"
-            aria-label={isMinimized ? "Expand audio player" : "Minimize audio player"}
-            title={isMinimized ? "Expand" : "Minimize"}
-          >
-            <Minimize2 className="h-4 w-4" />
-            <span className="sr-only">{isMinimized ? "Expand" : "Minimize"} audio player</span>
-          </button>
-
-          {!isMinimized && (
-            <div className="h-full px-6 py-2 flex flex-col space-y-1.5">
-              {/* Track Title */}
-              <div className="flex flex-col gap-0.5">
-                <div className="text-sm font-medium truncate">
-                  {currentAudioFile.excerpt}
-                </div>
-                <div className="text-xs text-muted-foreground truncate">
-                  {title}
-                </div>
-              </div>
-
-              {/* Time and Progress */}
-              <div className="flex flex-col gap-1">
-                <div
-                  className="relative w-full h-1.5 bg-accent rounded-full overflow-hidden"
-                >
-                  <div
-                    className="absolute h-full bg-primary"
-                    style={{ width: `${(currentTime / duration) * 100}%` }}
-                  />
-                  <input
-                    type="range"
-                    min={0}
-                    max={duration || 0}
-                    value={currentTime}
-                    onChange={(e) => {
-                      const newTime = parseFloat(e.target.value);
-                      if (audioRef.current) {
-                        audioRef.current.currentTime = newTime;
-                        setCurrentTime(newTime);
-                      }
-                    }}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    aria-label="Seek time in track"
-                    title="Seek time in track"
-                  />
-                </div>
-
-                <div className="flex items-center">
-                  {/* Time Display */}
-                  <div className="text-xs text-muted-foreground px-2">
-                    <span>{formatTime(currentTime)}</span>
-                    <span className="mx-1">/</span>
-                    <span>{formatTime(duration)}</span>
-                  </div>
-
-                  {/* Controls */}
-                  <div className="flex-1 flex items-center justify-center space-x-1">
-                    <button
-                      type="button"
-                      className="p-1 hover:bg-accent/50 rounded-md"
-                      onClick={playPrevious}
-                      aria-label="Play previous track"
-                      title="Previous track"
-                    >
-                      <SkipBack className="h-3.5 w-3.5" />
-                      <span className="sr-only">Play previous track</span>
-                    </button>
-                    
-                    <button
-                      type="button"
-                      className="p-1 hover:bg-accent/50 rounded-md"
-                      onClick={togglePlayPause}
-                      aria-label={isPlaying ? "Pause current track" : "Play current track"}
-                      title={isPlaying ? "Pause" : "Play"}
-                    >
-                      {isPlaying ? 
-                        <Pause className="h-3.5 w-3.5" /> : 
-                        <Play className="h-3.5 w-3.5" />
-                      }
-                      <span className="sr-only">{isPlaying ? "Pause" : "Play"} current track</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className="p-1 hover:bg-accent/50 rounded-md"
-                      onClick={playNext}
-                      aria-label="Play next track"
-                      title="Next track"
-                    >
-                      <SkipForward className="h-3.5 w-3.5" />
-                      <span className="sr-only">Play next track</span>
-                    </button>
-
-                    {/* Volume Controls */}
-                    <div className="relative">
-                      <button
-                        type="button"
-                        className="p-1 hover:bg-accent/50 rounded-md relative"
-                        onClick={() => {
-                          if (isMuted) {
-                            setIsMuted(false);
-                            if (audioRef.current) {
-                              audioRef.current.volume = 0.5;
-                            }
-                          } else {
-                            setIsMuted(true);
-                            if (audioRef.current) {
-                              audioRef.current.volume = 0;
-                            }
-                          }
-                          setShowVolumeSlider(!showVolumeSlider);
-                        }}
-                        aria-label={isMuted ? "Unmute" : "Mute"}
-                        title={isMuted ? "Unmute" : "Mute"}
-                      >
-                        {isMuted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
-                        <span className="sr-only">{isMuted ? "Unmute" : "Mute"}</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Empty div for spacing */}
-                  <div className="w-[88px]"></div>
-                </div>
-              </div>
-
-              {/* Controls */}
-            </div>
-          )}
-        </div>
-
-        <audio
-          ref={audioRef}
-          src={audioFiles[currentTrack].url}
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={playNext}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
