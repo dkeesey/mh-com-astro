@@ -10,7 +10,7 @@ import VisitorsSection from "@components/VisitorsSection.astro";
 import CanadianIncarcerationSection from "@components/CanadianIncarcerationSection.astro";
 import Breadcrumb from '@components/Breadcrumb.astro';
 import ExhibitionInfo from '@components/ExhibitionInfo.astro';
-import TableOfContentsWrapper from '@components/TableOfContentsWrapper.astro';
+import TableOfContents from '@components/TableOfContents.tsx';
 import AudioPlayer from "@components/audio-player";
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
@@ -119,8 +119,79 @@ const audioFiles = [
 
 <FamilyAlbumLayout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
   <div class="relative">
-    <TableOfContentsWrapper sections={sections} />
-    
+    <main class="relative max-w-[100rem] mx-auto px-4 py-8">
+      <div class="mb-8">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Family Album Project", href: "/family-album-project", current: true }
+          ]}
+        />
+        
+        <div class="mt-8">
+          <PhotographersGrid />
+        </div>
+      </div>
+
+      <div class="lg:grid lg:grid-cols-[1fr_300px] lg:gap-8">
+        <div class="space-y-16">
+          <!-- Introduction -->
+          <section id="introduction">
+            <FamilyAlbumIntro />
+          </section>
+
+          <!-- Exhibition Images -->
+          <section id="exhibition-views" class="mt-16">
+            <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <Image 
+                  src={installPic1}
+                  alt="Installation view of the Family Album Project"
+                  class="w-full h-auto rounded-lg shadow-lg"
+                />
+                <p class="mt-2 text-sm text-gray-300 italic">Cleveland State University Art Gallery, March 1996, Installation View</p>
+              </div>
+              <div>
+                <Image 
+                  src={installPic3}
+                  alt="Installation view: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM"
+                  class="w-full h-auto rounded-lg shadow-lg"
+                />
+                <p class="mt-2 text-sm text-gray-300 italic">Installation Detail: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Content Sections -->
+          <section id="contraband" class="mt-16">
+            <ContrabandSection />
+          </section>
+          <section id="internee-photographers" class="mt-16">
+            <InterneePhotographerSection />
+          </section>
+          <section id="amateur-photographers" class="mt-16">
+            <AmateurPhotographerSection />
+          </section>
+          <section id="visitors" class="mt-16">
+            <VisitorsSection />
+          </section>
+          <section id="canadian-incarceration" class="mt-16">
+            <CanadianIncarcerationSection />
+          </section>
+
+          <!-- About Exhibition -->
+          <section id="about" class="mt-16">
+            <ExhibitionInfo />
+          </section>
+        </div>
+
+        <div class="hidden lg:block">
+          <TableOfContents sections={sections} client:load />
+        </div>
+      </div>
+    </main>
+
     {/* Audio Player */}
     <div class="fixed top-[72px] right-4 z-50">
       <AudioPlayer
@@ -145,88 +216,6 @@ const audioFiles = [
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
       </svg>
     </button>
-    
-    <main class="max-w-4xl mx-auto px-4 py-8 relative">
-      <div class="mb-16">
-        <Breadcrumb
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Family Album Project", href: "/family-album-project", current: true }
-          ]}
-        />
-        
-        {/* Quick Navigation Cards */}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 mb-8">
-          {sections.map(section => (
-            <a
-              href={`#${section.id}`}
-              class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-            >
-              <h3 class="font-medium text-lg mb-2">{section.title}</h3>
-              <p class="text-sm text-gray-600">{section.description}</p>
-            </a>
-          ))}
-        </div>
-
-        <div class="mt-8">
-          <PhotographersGrid />
-        </div>
-      </div>
-
-      <!-- Introduction -->
-      <section id="introduction">
-        <FamilyAlbumIntro />
-      </section>
-
-      <!-- Exhibition Images -->
-      <section id="exhibition-views" class="mt-16">
-        <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <Image 
-              src={installPic1}
-              alt="Installation view of the Family Album Project"
-              class="w-full h-auto rounded-lg shadow-lg"
-            />
-            <p class="mt-2 text-sm text-gray-300 italic">Cleveland State University Art Gallery, March 1996, Installation View</p>
-          </div>
-          <div>
-            <Image 
-              src={installPic3}
-              alt="Installation view: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM"
-              class="w-full h-auto rounded-lg shadow-lg"
-            />
-            <p class="mt-2 text-sm text-gray-300 italic">Installation Detail: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Content Sections -->
-      <section id="contraband" class="mt-16">
-        <ContrabandSection />
-      </section>
-      <section id="internee-photographers" class="mt-16">
-        <InterneePhotographerSection />
-      </section>
-      <section id="amateur-photographers" class="mt-16">
-        <AmateurPhotographerSection />
-      </section>
-      <section id="visitors" class="mt-16">
-        <VisitorsSection />
-      </section>
-      <section id="canadian-incarceration" class="mt-16">
-        <CanadianIncarcerationSection />
-      </section>
-
-      <!-- About Exhibition -->
-      <section id="about" class="mt-16">
-        <ExhibitionInfo />
-      </section>
-
-      <div class="mt-16">
-        <PhotographersGrid />
-      </div>
-    </main>
   </div>
 </FamilyAlbumLayout>
 

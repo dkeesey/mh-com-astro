@@ -3,14 +3,14 @@
   "type": "module",
   "version": "0.0.1",
   "license": "UNLICENSED",
-"scripts": {
+  "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "shadcn-ui": "shadcn-ui"
-},
+  },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/mdx": "^3.1.5",
@@ -24,6 +24,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-scroll-area": "^1.2.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/leaflet": "^1.9.15",
