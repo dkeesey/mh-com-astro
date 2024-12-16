@@ -57,6 +57,36 @@ export default function AudioPlayer({
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
 
+  // Audio event handlers
+  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement>) => {
+    const audio = e.currentTarget;
+    setCurrentTime(audio.currentTime);
+  };
+
+  const handleLoadedMetadata = (e: React.SyntheticEvent<HTMLAudioElement>) => {
+    const audio = e.currentTarget;
+    setDuration(audio.duration);
+  };
+
+  const handleEnded = () => {
+    if (currentTrack < audioFiles.length - 1) {
+      handleTrackChange('next');
+    } else {
+      setIsPlaying(false);
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+      }
+    }
+  };
+
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
   // Common player controls
   const PlayerControls = () => (
     <div className="flex items-center space-x-2">
@@ -256,6 +286,34 @@ export default function AudioPlayer({
     </div>
   );
 
+  // Mobile variant specific component
+  const MobileView = () => (
+    <div className="fixed bottom-0 left-0 right-0 z-50">
+      {/* Semi-transparent overlay background */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+      
+      <div className="relative">
+        {/* Label */}
+        <div className="bg-black/40 backdrop-blur-sm px-4 py-2 border-b border-white/20">
+          <h3 className="text-sm font-medium text-white/90">Internee Interviews</h3>
+        </div>
+
+        {/* Controls */}
+        <div className="bg-black/40 backdrop-blur-sm px-4 py-3">
+          <div className="flex items-center space-x-3 max-w-screen-lg mx-auto">
+            <PlayerControls />
+            <div className="flex-grow min-w-0">
+              <div className="text-sm font-medium truncate mb-1 text-white">
+                {currentAudioFile.excerpt}
+              </div>
+              <ProgressBar />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   // Event handlers
   const togglePlayPause = () => {
     if (audioRef.current) {
@@ -279,14 +337,6 @@ export default function AudioPlayer({
     setCurrentTrack(index);
     setIsPlaying(false);
     onTrackSelect?.(index);
-  };
-
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const time = parseFloat(e.target.value);
-    setCurrentTime(time);
-    if (audioRef.current) {
-      audioRef.current.currentTime = time;
-    }
   };
 
   // Utility function to format time
@@ -328,19 +378,30 @@ export default function AudioPlayer({
   const currentAudioFile = audioFiles[currentTrack];
 
   return (
-    <div className={className}>
-      <audio
-        ref={audioRef}
-        src={currentAudioFile.url}
-        preload="metadata"
-      />
-      
-      {variant === 'compact' && <CompactView />}
-      {variant === 'horizontal' && <div>Horizontal View</div>}
-      {variant === 'vertical' && <div>Vertical View</div>}
-      {variant === 'inline' && <InlineView />}
-      {variant === 'timeline' && <TimelineView />}
-      {isGlobal && <GlobalPlayer />}
-    </div>
+    <>
+      {/* Mobile View */}
+      <div className="lg:hidden">
+        <MobileView />
+      </div>
+
+      {/* Desktop View */}
+      <div className={className}>
+        <audio
+          ref={audioRef}
+          src={currentAudioFile.url}
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
+          onEnded={handleEnded}
+          aria-label="Internee Interviews audio player"
+        />
+        
+        {variant === 'compact' && <CompactView />}
+        {variant === 'horizontal' && <div>Horizontal View</div>}
+        {variant === 'vertical' && <div>Vertical View</div>}
+        {variant === 'inline' && <InlineView />}
+        {variant === 'timeline' && <TimelineView />}
+        {isGlobal && <GlobalPlayer />}
+      </div>
+    </>
   );
 }

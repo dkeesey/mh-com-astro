@@ -206,6 +206,21 @@ const audioFiles = [
           </div>
         </div>
       </div>
+
+      {/* Mobile Audio Player */}
+      <div class="lg:hidden">
+        <AudioPlayer
+          audioFiles={audioFiles.map(file => ({ 
+            title: file.title,
+            url: file.src,
+            excerpt: file.excerpt 
+          }))}
+          variant="compact"
+          showTranscript={false}
+          showTimeline={false}
+          client:load
+        />
+      </div>
     </main>
 
     {/* Back to Top Button */}
