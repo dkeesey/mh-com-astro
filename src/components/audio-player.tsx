@@ -62,7 +62,7 @@ export default function AudioPlayer({
     <div className="flex items-center space-x-2">
       <button
         onClick={togglePlayPause}
-        className="p-2 rounded-full hover:bg-gray-100"
+        className="p-2 rounded-full hover:bg-gray-400/60 transition-colors"
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
         {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
@@ -71,14 +71,14 @@ export default function AudioPlayer({
         <>
           <button
             onClick={() => handleTrackChange('prev')}
-            className="p-2 rounded-full hover:bg-gray-100"
+            className="p-2 rounded-full hover:bg-gray-400/60 transition-colors"
             aria-label="Previous track"
           >
             <SkipBack className="h-5 w-5" />
           </button>
           <button
             onClick={() => handleTrackChange('next')}
-            className="p-2 rounded-full hover:bg-gray-100"
+            className="p-2 rounded-full hover:bg-gray-400/60 transition-colors"
             aria-label="Next track"
           >
             <SkipForward className="h-5 w-5" />
@@ -232,6 +232,30 @@ export default function AudioPlayer({
     </div>
   );
 
+  // Compact variant specific component
+  const CompactView = () => (
+    <div className="border-b border-gray-400/60">
+      <div className="border-b border-gray-400/60 pb-2 mb-2">
+        <h3 className="text-sm font-semibold text-foreground/80">Internee Interviews</h3>
+      </div>
+      <div className="p-3 space-y-2">
+        <div className="text-sm font-medium line-clamp-2">
+          {currentAudioFile.excerpt}
+        </div>
+        <div className="flex items-center space-x-4">
+          <PlayerControls />
+          <div className="flex-grow">
+            <ProgressBar />
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   // Event handlers
   const togglePlayPause = () => {
     if (audioRef.current) {
@@ -303,24 +327,20 @@ export default function AudioPlayer({
 
   const currentAudioFile = audioFiles[currentTrack];
 
-  // Render appropriate variant
   return (
-    <>
+    <div className={className}>
       <audio
         ref={audioRef}
         src={currentAudioFile.url}
         preload="metadata"
       />
       
+      {variant === 'compact' && <CompactView />}
+      {variant === 'horizontal' && <div>Horizontal View</div>}
+      {variant === 'vertical' && <div>Vertical View</div>}
       {variant === 'inline' && <InlineView />}
       {variant === 'timeline' && <TimelineView />}
       {isGlobal && <GlobalPlayer />}
-      {!isGlobal && variant === 'compact' && (
-        <div className={`bg-white rounded-lg shadow-md p-4 ${className}`}>
-          <PlayerControls />
-          <ProgressBar />
-        </div>
-      )}
-    </>
+    </div>
   );
 }

@@ -186,25 +186,27 @@ const audioFiles = [
           </section>
         </div>
 
-        <div class="hidden lg:block">
-          <TableOfContents sections={sections} client:load />
+        <div class="hidden lg:block space-y-8">
+          <div class="sticky top-24">
+            <div class="mb-8">
+              <AudioPlayer
+                audioFiles={audioFiles.map(file => ({ 
+                  title: file.title,
+                  url: file.src,
+                  excerpt: file.excerpt 
+                }))}
+                variant="compact"
+                className="w-full bg-card rounded-lg shadow-sm mb-6"
+                showTranscript={false}
+                showTimeline={false}
+                client:load
+              />
+            </div>
+            <TableOfContents sections={sections} client:load />
+          </div>
         </div>
       </div>
     </main>
-
-    {/* Audio Player */}
-    <div class="fixed top-[72px] right-4 z-50">
-      <AudioPlayer
-        audioFiles={audioFiles.map(file => ({ 
-          title: file.title,
-          url: file.src,
-          excerpt: file.excerpt 
-        }))}
-        variant="horizontal"
-        className="w-[400px]"
-        client:load
-      />
-    </div>
 
     {/* Back to Top Button */}
     <button
