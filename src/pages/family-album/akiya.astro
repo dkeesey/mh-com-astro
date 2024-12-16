@@ -7,30 +7,31 @@ import Breadcrumb from '@components/Breadcrumb.astro';
 import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
-import akiya1 from '@images/family-album/photographers/akiya/akiya1.gif';
-import akiya4 from '@images/family-album/photographers/akiya/akiya4.gif';
-import akiya3 from '@images/family-album/photographers/akiya/akiya3.gif';
+import akiyaPortraits from '@images/family-album/photographers/akiya/akiya-two-portraits-1938.gif';
+import akiyaGraceEd from '@images/family-album/photographers/akiya/akiya-grace-and-ed.gif';
+import akiyaWomanDust from '@images/family-album/photographers/akiya/akiya-woman-in-dust-camp-in-background.gif';
 
 const title = "Family Album";
 const description = "Family Album from Heart Mountain Relocation Camp by Grace Akiya";
 
 const photos = [
   {
-    src: akiya1,
-    alt: "Photos by Grace Akiya at Heart Mountain",
-    description: "Mrs. Grace Akiya had already purchased her box camera when she returned to the United States from Japan around 1938. Her parents had moved back to Japan when she was a child and she returned after high school to the country of her birth, the U.S., alone and without parents. She lived and worked for a concerned woman in Los Angeles. At the first warning signs of incarceration she was encouraged to move to areas of the midwest by her employer but she had a hard time beliving she would be incarcerated."
+    src: akiyaPortraits,
+    alt: "Two portraits from 1938",
+    description: "Two portrait photographs taken in 1938, showing life before the internment camps."
   },
   {
-    src: akiya4,
-    alt: "Wedding photo of Grace and Ed Akiya",
-    description: "Mrs. Grace Akiya photographed extensively in the camp, recording her friends and brothers. She married Ed Akiya when Heart Mountain first opened up as a camp and they had to be married by the justice of the peace in Cody, Wyoming, the nearest town. They went to town under guard in a guard truck for their weeding and stopped at a 5 & 10 store to pick up presents for some of their friends in the camp. Friends made the paper flowers she had on her dress. She made her wedding dress. Camp photographer, James Yonemura, took their wedding picture with a crate to sit on and the bare wooden floor of the barracks, and a sheet hung up for the backdrop."
+    src: akiyaGraceEd,
+    alt: "Grace and Ed Akiya",
+    description: "A photograph of Grace and Ed Akiya, documenting their life during this period."
   },
   {
-    src: akiya3,
-    alt: "Photos by Grace Akiya at Heart Mountain",
-    description: "Mrs. Grace Akiya was encouraged to continue photographing in the camp by her friend and former employer. She would send the film to her on the outside and it would be sent back developed and printed. The camera passed inspection when entering the camp because she did not know she had it in her duffle bag. The guards did not see on the bottom of the bag."
+    src: akiyaWomanDust,
+    alt: "Woman in dust with camp in background",
+    description: "A poignant image showing a woman standing in the dust with the camp visible in the background, capturing the harsh conditions of camp life."
   }
 ];
+
 ---
 
 <FamilyAlbumLayout title={title} description={description}>
