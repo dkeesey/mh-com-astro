@@ -20,11 +20,16 @@ interface AudioPlayerProps {
   showTranscript?: boolean;
   showTimeline?: boolean;
   showTrackList?: boolean;
-  isGlobal?: boolean;  // Whether this is the global player that persists
-  onTrackSelect?: (index: number) => void;  // Callback for when a track is selected
-  initialTrack?: number;  // Initial track to play
-  context?: string;  // Contextual information about the audio
-  timelineEvents?: {  // For timeline variant
+  isGlobal?: boolean;
+  onTrackSelect?: (index: number) => void;
+  initialTrack?: number;
+  currentTime?: number;
+  isPlaying?: boolean;
+  onTimeUpdate?: (time: number) => void;
+  onTrackChange?: (track: number) => void;
+  onPlayPause?: (playing: boolean) => void;
+  context?: string;
+  timelineEvents?: {
     date: string;
     event: string;
     audioIndex?: number;
@@ -41,26 +46,99 @@ export default function AudioPlayer({
   isGlobal = false,
   onTrackSelect,
   initialTrack = 0,
+  currentTime: externalCurrentTime,
+  isPlaying: externalIsPlaying = false,
+  onTimeUpdate,
+  onTrackChange,
+  onPlayPause,
   context,
   timelineEvents = []
 }: AudioPlayerProps) {
   const [currentTrack, setCurrentTrack] = useState(initialTrack);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(externalIsPlaying);
+  const [currentTime, setCurrentTime] = useState(externalCurrentTime || 0);
   const [duration, setDuration] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [isTrackListVisible, setIsTrackListVisible] = useState(showTrackList);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const volumeControlRef = useRef<HTMLDivElement>(null);
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
+
+  useEffect(() => {
+    if (externalCurrentTime !== undefined && Math.abs(externalCurrentTime - currentTime) > 1) {
+      setCurrentTime(externalCurrentTime);
+      if (audioRef.current) {
+        audioRef.current.currentTime = externalCurrentTime;
+      }
+    }
+  }, [externalCurrentTime]);
+
+  useEffect(() => {
+    if (externalIsPlaying !== undefined && externalIsPlaying !== isPlaying) {
+      setIsPlaying(externalIsPlaying);
+      if (audioRef.current) {
+        if (externalIsPlaying) {
+          const playPromise = audioRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              console.log("Playback prevented:", error);
+              setIsPlaying(false);
+              onPlayPause?.(false);
+            });
+          }
+        } else {
+          audioRef.current.pause();
+        }
+      }
+    }
+  }, [externalIsPlaying]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+
+  // Start playing on mount if isPlaying is true
+  useEffect(() => {
+    let mounted = true;
+
+    if (audioRef.current && externalIsPlaying) {
+      audioRef.current.currentTime = externalCurrentTime || 0;
+      if (mounted) {
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            if (mounted) {
+              console.log("Autoplay prevented:", error);
+              setIsPlaying(false);
+              onPlayPause?.(false);
+            }
+          });
+        }
+      }
+    }
+
+    return () => {
+      mounted = false;
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []); // Empty dependency array means this runs once on mount
 
   // Audio event handlers
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement>) => {
     const audio = e.currentTarget;
     setCurrentTime(audio.currentTime);
+    onTimeUpdate?.(audio.currentTime);
   };
 
   const handleLoadedMetadata = (e: React.SyntheticEvent<HTMLAudioElement>) => {
@@ -91,7 +169,7 @@ export default function AudioPlayer({
   const PlayerControls = () => (
     <div className="flex items-center space-x-2">
       <button
-        onClick={togglePlayPause}
+        onClick={handlePlayPause}
         className="p-2 rounded-full hover:bg-gray-400/60 transition-colors"
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
@@ -315,17 +393,6 @@ export default function AudioPlayer({
   );
 
   // Event handlers
-  const togglePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
   const handleTrackChange = (direction: 'prev' | 'next') => {
     const newTrack = direction === 'prev'
       ? (currentTrack - 1 + audioFiles.length) % audioFiles.length
@@ -337,6 +404,26 @@ export default function AudioPlayer({
     setCurrentTrack(index);
     setIsPlaying(false);
     onTrackSelect?.(index);
+  };
+
+  const handlePlayPause = () => {
+    const newIsPlaying = !isPlaying;
+    setIsPlaying(newIsPlaying);
+    onPlayPause?.(newIsPlaying);
+    if (audioRef.current) {
+      if (newIsPlaying) {
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Playback prevented:", error);
+            setIsPlaying(false);
+            onPlayPause?.(false);
+          });
+        }
+      } else {
+        audioRef.current.pause();
+      }
+    }
   };
 
   // Utility function to format time

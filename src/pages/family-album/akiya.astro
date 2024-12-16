@@ -4,6 +4,7 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import akiya1 from '@images/family-album/photographers/akiya/akiya1.gif';
@@ -35,12 +36,19 @@ const photos = [
 <FamilyAlbumLayout title={title} description={description}>
   <main class="max-w-4xl mx-auto px-4 py-8">
     <Breadcrumb
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Family Album Project", href: "/family-album-project" },
-        { label: "Akiya", href: "/family-album/akiya", current: true }
-      ]}
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Family Album Project", href: "/family-album-project" },
+      { label: "Akiya", href: "/family-album/akiya", current: true }
+    ]}
     />
+    
+    <div class="sticky top-0 z-10 bg-gray-900 py-4">
+      <div class="max-w-3xl mx-auto">
+        <AudioPlayerSection client:load />
+      </div>
+    </div>
+
 
     <div class="mb-16">
       <PhotographersGrid />

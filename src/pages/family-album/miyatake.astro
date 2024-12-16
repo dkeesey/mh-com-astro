@@ -1,102 +1,68 @@
 ---
-import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
-import AlbumTitle from '@components/AlbumTitle.astro';
+import PhotographerPageLayout from '@components/PhotographerPageLayout.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
-import PhotographersGrid from '@components/PhotographersGrid.astro';
-import Breadcrumb from '@components/Breadcrumb.astro';
-import NarrativeText from '@components/NarrativeText.astro';
-import AudioPlayer from '@components/audio-player';
 
 // Import images
-import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake1.jpg';
-import miyatakeBoys from '@images/family-album/photographers/miyatake/miyatake2.jpg';
-import miyatakeBirthday1 from '@images/family-album/photographers/miyatake/miyatake2.1.jpg';
-import miyatakeBirthday2 from '@images/family-album/photographers/miyatake/miyatake2.2.jpg';
+import miyatakeSoldier from '@images/family-album/photographers/miyatake/miyatake-soldier-portrait.jpg';
+import miyatakeWedding from '@images/family-album/photographers/miyatake/miyatake-wedding-ceremony.jpg';
+import miyatakeGirls from '@images/family-album/photographers/miyatake/miyatake-girls-traditional.jpg';
+import miyatakeGroup from '@images/family-album/photographers/miyatake/miyatake-group-portrait.jpg';
+import miyatakePrison from '@images/family-album/photographers/miyatake/miyatake5.jpg';
 
 const title = "Family Album";
-const description = "Family Album from Manzanar Relocation Camp by Toyo Miyatake";
+const description = "Family Album from Manzanar by Toyo Miyatake";
 
 const photos = [
   {
     src: miyatakeSoldier,
-    alt: "Son and soldier of the 442nd visiting parents",
-    description: "A son and soldier of the 442nd visiting his parents at Manzanar Concentration Camp. Photo copyright by Archie Miyatake."
+    alt: "Soldier in uniform",
+    description: "A Japanese American soldier in uniform. Many young men volunteered or were drafted from the camps to serve in the US military, particularly in the highly decorated 442nd Regimental Combat Team."
   },
   {
-    src: miyatakeBoys,
-    alt: "Young boys near fence and guard tower",
-    description: "These young boys were playing near the fense and one of the guard tower of the camp. Photo copyright by Archie Miyatake."
+    src: miyatakeWedding,
+    alt: "Wedding ceremony",
+    description: "A wedding ceremony at Manzanar. Despite the harsh conditions of incarceration, people continued to celebrate life events and maintain cultural traditions."
   },
   {
-    src: miyatakeBirthday1,
-    alt: "Men fishing beyond barbed wire",
-    description: "Some men would sneak out beyond the barbed wire fence to go fishing for several days."
+    src: miyatakeGirls,
+    alt: "Girls in traditional dress",
+    description: "Young women in traditional Japanese dress. Cultural practices and celebrations were maintained in the camps as a way to preserve identity and community."
   },
   {
-    src: miyatakeBirthday2,
-    alt: "Child with birthday cake",
-    description: "Difficult as it was to get material goods, children still had birthdays to celebrate. Bartering was common to get birthday cakes from the cook."
+    src: miyatakeGroup,
+    alt: "Group of people",
+    description: "A group of internees at Manzanar. The camps were like small cities, with people from all walks of life trying to maintain a sense of normalcy."
+  },
+  {
+    src: miyatakePrison,
+    alt: "Guard tower",
+    description: "A guard tower at Manzanar. These towers, along with barbed wire fences, were constant reminders of their imprisonment."
   }
 ];
 
-const audioSnippet = {
-  url: "/audio/JACCampsMP3/camps.01.mp3",
-  title: "All American Boy...",
-  excerpt: "All American Boy...",
-  interviewee: "Toyo Miyatake",
-  timestamp: "1992",
-  transcript: "I was an All American Boy... I grew up in Los Angeles, went to school there. Photography was my passion, and I had my own studio before the war."
-};
-
-const pageContext = "Toyo Miyatake was a Los Angeles based photographer who continued to document life in the camps, even when cameras were considered contraband. His story represents the resilience and dedication of Japanese American photographers during internment.";
+const about = `
+  <p>
+    Toyo Miyatake was a professional photographer in Los Angeles' Little Tokyo district before World War II. 
+    When he was incarcerated at Manzanar, he smuggled in a lens and film holder, later building a camera 
+    from wood. Initially taking photos in secret, he was eventually allowed to be the camp's official photographer.
+  </p>
+  <p class="mt-4">
+    His photographs document daily life, special events, and the stark reality of incarceration at Manzanar. 
+    His work provides both historical documentation and artistic interpretation of the Japanese American 
+    internment experience.
+  </p>
+`;
 ---
 
-<FamilyAlbumLayout title={title} description={description}>
-  <main class="max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumb
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Family Album Project", href: "/family-album-project" },
-        { label: "Toyo Miyatake", href: "/family-album/miyatake", current: true }
-      ]}
-    />
-    
-    <div class="mb-16">
-      <PhotographersGrid />
-    </div>
-
-    <AlbumTitle
-      subtitle="Manzanar Relocation Camp, California"
-      collection="Mr. Toyo Miyatake"
-      photographer="internee, Mr. Toyo Miyatake"
-      date="1942-1945"
-    />
-    
-    <NarrativeText title="About">
-      <p>
-        Toyo Miyatake was a professional photographer who was incarcerated at Manzanar. Despite cameras being considered contraband, he managed to document life in the camp using various format cameras. His photographs provide a unique insider's perspective of daily life, celebrations, and the resilience of the Japanese-American 
-        community during their internment at Manzanar.
-      </p>
-    </NarrativeText>
-
-    <NarrativeText title="Photographs">
-      <PhotoGallery photos={photos} />
-    </NarrativeText>
-
-    <NarrativeText title="Audio">
-      <AudioPlayer
-        client:load
-        audioFiles={[audioSnippet]}
-        variant="inline"
-        context={pageContext}
-      />
-    </NarrativeText>
-
-    <div class="mt-16">
-      <PhotographersGrid />
-    </div>
-    <div class="mt-16">
-      <PhotographersGrid />
-    </div>
-  </main>
-</FamilyAlbumLayout>
+<PhotographerPageLayout
+  title={title}
+  description={description}
+  photographerName="Miyatake"
+  subtitle="Manzanar Relocation Camp, California"
+  collection="Mr. Toyo Miyatake"
+  photographer="Mr. Toyo Miyatake"
+  date="1942-1945"
+  about={about}
+>
+  <PhotoGallery slot="photographs" photos={photos} />
+</PhotographerPageLayout>

@@ -4,6 +4,7 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import guardsman from '@images/family-album/guardsman.gif';
@@ -46,16 +47,12 @@ const photos = [
 
 <FamilyAlbumLayout title={title} description={description}>
   <main class="max-w-4xl mx-auto px-4 py-8">
-    <Breadcrumb
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Family Album Project", href: "/family-album-project" },
-        { label: "Professional", href: "/family-album/professional", current: true }
-      ]}
-    />
-
     <div class="mb-16">
       <PhotographersGrid />
+    </div>
+
+    <div class="mb-16">
+      <AudioPlayerSection client:load />
     </div>
 
     <AlbumTitle

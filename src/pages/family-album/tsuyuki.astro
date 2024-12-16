@@ -1,9 +1,10 @@
 ---
-import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
+import PhotographerLayout from '@layouts/PhotographerLayout.astro';
 import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import tsuyukiTomato from   '@images/family-album/photographers/tsuyuki/tsuyuki1.jpg';
@@ -48,9 +49,10 @@ const photos = [
     description: "After a days work on the farms it was part of the culture to enjoy both the bath, furo, and the message. The art of message was passed down from parents to children."
   }
 ];
+
 ---
 
-<FamilyAlbumLayout title={title} description={description}>
+<PhotographerLayout title={title} description={description}>
   <main class="max-w-4xl mx-auto px-4 py-8">
     <Breadcrumb
       items={[
@@ -62,6 +64,10 @@ const photos = [
 
     <div class="mb-16">
       <PhotographersGrid />
+    </div>
+
+    <div class="mb-16">
+      <AudioPlayerSection client:load />
     </div>
 
     <AlbumTitle
@@ -96,4 +102,4 @@ const photos = [
       <PhotographersGrid />
     </div>
   </main>
-</FamilyAlbumLayout>
+</PhotographerLayout>

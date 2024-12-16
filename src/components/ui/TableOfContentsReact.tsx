@@ -48,11 +48,11 @@ export function TableOfContents({ sections }: TableOfContentsProps) {
               key={section.id}
               href={`#${section.id}`}
               className={cn(
-                "block py-2 px-3 text-sm rounded-md transition-colors duration-200",
+                "block py-2 px-3 text-sm rounded-md transition-all duration-300",
                 "hover:bg-fa-bg-secondary hover:text-fa-text-primary",
                 activeSection === section.id
-                  ? "bg-fa-bg-secondary text-fa-text-primary font-medium"
-                  : "text-fa-text-secondary"
+                  ? "bg-fa-bg-secondary text-fa-text-primary font-medium scale-120 origin-left"
+                  : "text-[#E6F0FF] hover:text-white"
               )}
               onClick={(e) => {
                 e.preventDefault();

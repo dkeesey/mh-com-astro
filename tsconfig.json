@@ -12,6 +12,7 @@
       "@styles/*": ["src/styles/*"],
       "@lib/*": ["src/lib/*"],
       "@radix/*": ["node_modules/@radix-ui/*"],
+      "@stores/*": ["src/stores/*"],
       "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"]
     },

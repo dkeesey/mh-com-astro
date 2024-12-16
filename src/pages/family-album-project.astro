@@ -11,7 +11,7 @@ import CanadianIncarcerationSection from "@components/CanadianIncarcerationSecti
 import Breadcrumb from '@components/Breadcrumb.astro';
 import ExhibitionInfo from '@components/ExhibitionInfo.astro';
 import TableOfContents from '@components/TableOfContents.tsx';
-import AudioPlayer from "@components/audio-player";
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 
@@ -189,18 +189,7 @@ const audioFiles = [
         <div class="hidden lg:block space-y-8">
           <div class="sticky top-24">
             <div class="mb-8">
-              <AudioPlayer
-                audioFiles={audioFiles.map(file => ({ 
-                  title: file.title,
-                  url: file.src,
-                  excerpt: file.excerpt 
-                }))}
-                variant="compact"
-                className="w-full bg-card rounded-lg shadow-sm mb-6"
-                showTranscript={false}
-                showTimeline={false}
-                client:load
-              />
+              <AudioPlayerSection />
             </div>
             <TableOfContents sections={sections} client:load />
           </div>
@@ -209,17 +198,7 @@ const audioFiles = [
 
       {/* Mobile Audio Player */}
       <div class="lg:hidden">
-        <AudioPlayer
-          audioFiles={audioFiles.map(file => ({ 
-            title: file.title,
-            url: file.src,
-            excerpt: file.excerpt 
-          }))}
-          variant="compact"
-          showTranscript={false}
-          showTimeline={false}
-          client:load
-        />
+        <AudioPlayerSection />
       </div>
     </main>
 

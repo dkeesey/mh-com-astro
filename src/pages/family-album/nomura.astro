@@ -4,6 +4,7 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import amache1 from '@images/family-album/camps/amache1.gif';
@@ -41,6 +42,10 @@ const photos = [
         { label: "Nomura", href: "/family-album/nomura", current: true }
       ]}
     />
+
+    <div class="mb-16">
+      <AudioPlayerSection client:load />
+    </div>
 
     <div class="mb-16">
       <PhotographersGrid />
