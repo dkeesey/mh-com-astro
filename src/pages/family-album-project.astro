@@ -11,6 +11,7 @@ import CanadianIncarcerationSection from "@components/CanadianIncarcerationSecti
 import Breadcrumb from '@components/Breadcrumb.astro';
 import ExhibitionInfo from '@components/ExhibitionInfo.astro';
 import TableOfContentsWrapper from '@components/TableOfContentsWrapper.astro';
+import AudioPlayer from "@components/audio-player";
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 
@@ -24,11 +25,82 @@ const sections = [
   { id: 'canadian-incarceration', title: 'Canadian Incarceration' },
   { id: 'about', title: 'About the Exhibition' },
 ];
+
+const audioFiles = [
+  {
+    title: "Interview 1",
+    src: "/audio/JACCampsMP3/camps.01.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.01.ogg",
+    excerpt: "All American Boy...",
+  },
+  {
+    title: "Interview 2",
+    src: "/audio/JACCampsMP3/camps.02.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.02.ogg",
+    excerpt: "Angry Man...",
+  },
+  {
+    title: "Interview 3",
+    src: "/audio/JACCampsMP3/camps.03.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.03.ogg",
+    excerpt: "What would you do if we deported you?",
+  },
+  {
+    title: "Interview 4",
+    src: "/audio/JACCampsMP3/camps.04.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.04.ogg",
+    excerpt: "Everyone just believed in the government...",
+  },
+  {
+    title: "Interview 5",
+    src: "/audio/JACCampsMP3/camps.05.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.05.ogg",
+    excerpt: "We are American citizens and had nothing to do with Pearl Harbor",
+  },
+  {
+    title: "Interview 6",
+    src: "/audio/JACCampsMP3/camps.06.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.06.ogg",
+    excerpt: "We were being treated like the enemy...",
+  },
+  {
+    title: "Interview 7",
+    src: "/audio/JACCampsMP3/camps.07.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.07.ogg",
+    excerpt: "No future for my children?...",
+  },
+  {
+    title: "Interview 8",
+    src: "/audio/JACCampsMP3/camps.08.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.08.ogg",
+    excerpt: "Rehabilitation",
+  },
+  {
+    title: "Interview 9",
+    src: "/audio/JACCampsMP3/camps.09.mp3",
+    oggSrc: "/audio/JACCampsOgg/camps.09.ogg",
+    excerpt: "If I can get through that...",
+  },
+];
 ---
 
 <FamilyAlbumLayout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
   <div class="relative">
     <TableOfContentsWrapper sections={sections} />
+    
+    {/* Audio Player */}
+    <div class="fixed top-[72px] right-4 z-50">
+      <AudioPlayer
+        audioFiles={audioFiles.map(file => ({ 
+          title: file.title,
+          url: file.src,
+          excerpt: file.excerpt 
+        }))}
+        variant="horizontal"
+        className="w-[400px]"
+        client:load
+      />
+    </div>
     
     <main class="max-w-4xl mx-auto px-4 py-8 relative">
       <div class="mb-16">
