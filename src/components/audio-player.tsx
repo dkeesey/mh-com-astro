@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Minimize2, Maximize2, X, GripHorizontal, ChevronDown, GripVertical } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Minimize2, GripVertical } from 'lucide-react';
 
 interface AudioFile {
   url: string;
@@ -22,14 +22,11 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [isVisible, setIsVisible] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [showTrackList, setShowTrackList] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const volumeControlRef = useRef<HTMLDivElement>(null);
-  const trackListRef = useRef<HTMLDivElement>(null);
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
 
@@ -58,7 +55,7 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
       if (volumeControlRef.current && !volumeControlRef.current.contains(event.target as Node)) {
         setShowVolumeSlider(false);
       }
-      if (trackListRef.current && !trackListRef.current.contains(event.target as Node)) {
+      if (volumeControlRef.current && !volumeControlRef.current.contains(event.target as Node)) {
         setShowTrackList(false);
       }
     };
@@ -123,7 +120,7 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
     },
   };
 
-  if (!hasAudioFiles || !isVisible) return null;
+  if (!hasAudioFiles) return null;
 
   const currentAudioFile = audioFiles[currentTrack];
   const title = currentAudioFile.title;
@@ -153,7 +150,7 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
       <div className="relative flex">
         {/* Track List */}
         <div 
-          ref={trackListRef}
+          ref={volumeControlRef}
           className={`absolute right-full top-0 w-[300px] bg-background/80 backdrop-blur-sm rounded-l-lg border border-border/50 shadow-lg
             transform transition-transform duration-300 ease-in-out ${showTrackList ? 'translate-x-0' : 'translate-x-full'}`}
         >
@@ -285,7 +282,7 @@ export default function AudioPlayer({ audioFiles, variant = 'compact', className
                           if (isMuted) {
                             setIsMuted(false);
                             if (audioRef.current) {
-                              audioRef.current.volume = volume;
+                              audioRef.current.volume = 0.5;
                             }
                           } else {
                             setIsMuted(true);
