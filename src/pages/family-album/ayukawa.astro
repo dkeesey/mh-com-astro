@@ -1,6 +1,9 @@
 ---
 import PhotographerPageLayout from '@components/PhotographerPageLayout.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
+import PhotographersGrid from '@components/PhotographersGrid.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import ayukawaPreCamp from '@images/family-album/photographers/ayukawa/ayukawa-mother-brother-vancouver.jpg';
@@ -13,7 +16,7 @@ import ayukawaGardens from '@images/family-album/photographers/ayukawa/ayukawa-r
 import ayukawaCamp from '@images/family-album/photographers/ayukawa/ayukawa-hillside-camp-in-background.jpg';
 
 const title = "Family Album";
-const description = "Family Album from Lemon Creek Internment Camp by Dr. Midge Ayakawa";
+const description = "Family Album from Lemon Creek Internment Camp by Dr. Midge Ayukawa";
 
 const photos = [
   {
@@ -66,17 +69,33 @@ const about = `
     the camp, capturing moments of family life despite the difficult circumstances.
   </p>
 `;
+
 ---
 
 <PhotographerPageLayout
   title={title}
   description={description}
-  photographerName="Dr. Midge Ayakawa"
+  photographerName="Dr. Midge Ayukawa"
   subtitle="Lemon Creek Internment Camp, Slocan, British Columbia, Canada"
-  collection="Dr. Midge Ayakawa Collection"
-  photographer="Dr. Midge Ayakawa and other internees"
+  collection="Dr. Midge Ayukawa Collection"
+  photographer="Dr. Midge Ayukawa and other internees"
   date="1942-1948"
   about={about}
 >
+  <Breadcrumb
+    slot="breadcrumb"
+    items={[
+      { label: "Home", href: "/" },
+      { label: "Family Album Project", href: "/family-album-project" },
+      { label: "Ayukawa", href: "/family-album/ayukawa", current: true }
+    ]}
+  />
+
+  <div class="mb-16" slot="content">
+    <PhotographersGrid />
+  </div>
+
+  <AudioPlayerSection client:load slot="content" />
+
   <PhotoGallery slot="photographs" photos={photos} />
 </PhotographerPageLayout>
