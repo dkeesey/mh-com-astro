@@ -8,10 +8,10 @@ import NarrativeText from '@components/NarrativeText.astro';
 import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
-import fukuyama1 from '@images/family-album/photographers/fukuyama/fukuyama1.gif';
-import fukuyama2 from '@images/family-album/photographers/fukuyama/fukuyama2.gif';
-import fukuyama3 from '@images/family-album/photographers/fukuyama/fukuyama3.gif';
-import fukuyama4 from '@images/family-album/photographers/fukuyama/fukuyama4.gif';
+import fukuyama1 from '@images/family-album/photographers/fukuyama/fukuyama-family-and-water-tank.gif';
+import fukuyama2 from '@images/family-album/photographers/fukuyama/fukuyama-gila-river-panorama.gif';
+import fukuyama3 from '@images/family-album/photographers/fukuyama/fukuyama-mother-and-children-dressed-for-photo.gif';
+import fukuyama4 from '@images/family-album/photographers/fukuyama/fukuyama-outside-the-guard-tower.gif';
 
 const title = "Family Album";
 const description = "Family Album from Gila River Relocation Camp by Hideharu Fukuyama";
@@ -19,25 +19,26 @@ const description = "Family Album from Gila River Relocation Camp by Hideharu Fu
 const photos = [
   {
     src: fukuyama1,
-    alt: "Panoramic photo collage of Gila River Camp",
-    description: "Fukuyama had won a Kodak award before entering Gila Relocation Camp. He was also experimenting with other types of photography, including panoramic photo collages (above) and hand colored landscapes. But primarily while in camp he photographed the traditional high school group shots and activities, other community activities."
+    alt: "Family by water tank",
+    description: "The Fukuyama family standing near a water tank at Gila River. Water tanks were essential infrastructure in the desert camp environment."
   },
   {
     src: fukuyama2,
-    alt: "View outside the guard tower",
-    description: "As the war in the Pacific began to turn the restrictions in camplife eased. This is a photograph taken outside the guard tower and barbed wire fense. It is opposite the water tower (can be seen to the left of the catus) and monument but overlooking the panoramic of the relocation camp. These relocation camps were small cities, housing 10,000 or more internees."
+    alt: "Panoramic view of Gila River",
+    description: "A panoramic view of the Gila River camp, showing the vast desert landscape and camp buildings stretching into the distance."
   },
   {
     src: fukuyama3,
-    alt: "Fukuyama family with water tank",
-    description: "Hideharu Fukuyama photographed his family extensively within the confinds of the restricted area of the internment camp. Here the water tank is behind them."
+    alt: "Mother and children dressed for photo",
+    description: "A mother and her children dressed up for a formal photograph, maintaining dignity and family traditions despite camp conditions."
   },
   {
     src: fukuyama4,
-    alt: "Mrs. Fukuyama with children in doorway",
-    description: "Mrs. Fukuyama standing in the doorway with the children dressed for the family photograph. The family resettled in the Los Angeles area."
+    alt: "View outside the guard tower",
+    description: "A view from outside one of the guard towers that surrounded the camp, a stark reminder of their confinement."
   }
 ];
+
 ---
 
 <FamilyAlbumLayout title={title} description={description}>
