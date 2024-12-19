@@ -55,7 +55,8 @@ import { interviewAudioFiles } from '../data/interview-audio';
     </div>
   </main>
 
-  <script>
+  <script is:inline>
+    // The Window interface is already extended in global.d.ts
     window.playTrack = (index) => {
       // We'll need to implement this to control the audio player
       console.log('Playing track:', index);
