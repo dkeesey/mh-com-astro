@@ -1,5 +1,11 @@
 {
   "pieces.cloudCapabilities": "Blended",
   "pieces.telemetry": true,
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "typescript.validate.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[astro]": {
+    "typescript.validate.enable": false,
+    "javascript.validate.enable": false
+  }
 }

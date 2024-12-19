@@ -28,7 +28,7 @@ const allArtPagesEntries = await getCollection("artwork");
         .filter((e) => e.data.series === "Japanese-American Internment Camps")
         .map((e) => (
           <li class="self-start ml-8">
-            <a href={`/artwork/internment-camps/${e.slug}`}>{e.data.title}</a>
+            <a href={`/artwork/japanese-american-internment-camps/${e.slug}`}>{e.data.title}</a>
           </li>
         ))}
     </ul>
@@ -38,7 +38,7 @@ const allArtPagesEntries = await getCollection("artwork");
         .filter((e) => e.data.series === "Japanese-Canadian Internment Camps")
         .map((e) => (
           <li class="px-2">
-            <a href={`/artwork/internment-camps/${e.slug}`}>{e.data.title}</a>
+            <a href={`/artwork/japanese-american-internment-camps/${e.slug}`}>{e.data.title}</a>
           </li>
         ))}
     </ul>

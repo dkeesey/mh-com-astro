@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet"
 const navData = [
   {
     name: "Internment Camps Gallery",
-    path: "/artwork/internment-camps/",
+    path: "/artwork/japanese-american-internment-camps/",
   },
   {
     name: "Family Album",
