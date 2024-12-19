@@ -1,78 +1,65 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AudioPlayerComponent from "../components/audio-player";
+import { interviewAudioFiles } from '../data/interview-audio';
 
-const audioFiles = [
-  {
-    title: "All American Boy...",
-    src: "/audio/JACCampsMP3/camps.01.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.01.ogg",
-    excerpt: "All American Boy...",
-  },
-  {
-    title: "Angry Man...",
-    src: "/audio/JACCampsMP3/camps.02.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.02.ogg",
-    excerpt: "Angry Man...",
-  },
-  {
-    title: "What would you do if we deported you?",
-    src: "/audio/JACCampsMP3/camps.03.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.03.ogg",
-    excerpt: "What would you do if we deported you?",
-  },
-  {
-    title: "Everyone just believed in the government...",
-    src: "/audio/JACCampsMP3/camps.04.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.04.ogg",
-    excerpt: "Everyone just believed in the government...",
-  },
-  {
-    title: "We are American citizens and had nothing to do with Pearl Harbor",
-    src: "/audio/JACCampsMP3/camps.05.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.05.ogg",
-    excerpt: "We are American citizens and had nothing to do with Pearl Harbor",
-  },
-  {
-    title: "We were being treated like the enemy...",
-    src: "/audio/JACCampsMP3/camps.06.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.06.ogg",
-    excerpt: "We were being treated like the enemy...",
-  },
-  {
-    title: "No future for my children?...",
-    src: "/audio/JACCampsMP3/camps.07.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.07.ogg",
-    excerpt: "No future for my children?...",
-  },
-  {
-    title: "Rehabilitation",
-    src: "/audio/JACCampsMP3/camps.08.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.08.ogg",
-    excerpt: "Rehabilitation",
-  },
-  {
-    title: "If I can get through that...",
-    src: "/audio/JACCampsMP3/camps.09.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.09.ogg",
-    excerpt: "If I can get through that...",
-  },
-];
 ---
 
-<Layout title="Internee Audio Interviews | Masumi Hayashi">
-  <main class="container mx-auto px-4 flex justify-center items-center">
-    <div class="prose prose-sm sm:prose lg:prose-lg">
-      <h1>Japanese American Internee Audio Interviews</h1>
-      <p>
-        Listen to firsthand accounts from Japanese American internees about
-        their experiences during World War II.
-      </p>
+<Layout title="Oral History Interviews - Japanese American Concentration Camps">
+  <main class="min-h-screen bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <header class="mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Oral History Interviews</h1>
+        <p class="text-xl text-gray-600 max-w-3xl">
+          Listen to firsthand accounts from Japanese Americans who experienced life in the concentration camps during World War II. 
+          These interviews provide valuable historical perspectives and personal stories that help us understand this critical period 
+          in American history.
+        </p>
+      </header>
+
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="grid gap-8">
+          {interviewAudioFiles.map((audio, index) => (
+            <div class="border-b border-gray-200 last:border-0 pb-6 last:pb-0">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex-1">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                    {audio.title}
+                  </h3>
+                  <p class="text-gray-600">
+                    {audio.excerpt}
+                  </p>
+                </div>
+                <div class="flex-shrink-0">
+                  <button
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onclick={`window.playTrack(${index})`}
+                  >
+                    Play
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 sticky bottom-0 bg-white border-t border-gray-200 p-4 rounded-b-lg shadow-lg">
+          <AudioPlayerComponent
+            audioFiles={interviewAudioFiles}
+            variant="horizontal"
+            client:load
+            className="max-w-3xl mx-auto"
+          />
+        </div>
+      </div>
     </div>
   </main>
 
-  <AudioPlayerComponent
-    client:load
-    audioFiles={audioFiles.map((file) => ({ ...file, url: file.src }))}
-  />
+  <script>
+    window.playTrack = (index) => {
+      // We'll need to implement this to control the audio player
+      console.log('Playing track:', index);
+      // TODO: Connect this to the audio player state
+    };
+  </script>
 </Layout>

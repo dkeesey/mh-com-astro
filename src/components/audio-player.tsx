@@ -25,15 +25,13 @@ interface AudioPlayerProps {
   initialTrack?: number;
   currentTime?: number;
   isPlaying?: boolean;
+  volume?: number;
+  onVolumeChange?: (volume: number) => void;
   onTimeUpdate?: (time: number) => void;
   onTrackChange?: (track: number) => void;
   onPlayPause?: (playing: boolean) => void;
   context?: string;
-  timelineEvents?: {
-    date: string;
-    event: string;
-    audioIndex?: number;
-  }[];
+  timelineEvents?: any[];
 }
 
 export default function AudioPlayer({ 
@@ -48,6 +46,8 @@ export default function AudioPlayer({
   initialTrack = 0,
   currentTime: externalCurrentTime,
   isPlaying: externalIsPlaying = false,
+  volume: externalVolume = 1,
+  onVolumeChange,
   onTimeUpdate,
   onTrackChange,
   onPlayPause,
@@ -62,6 +62,7 @@ export default function AudioPlayer({
   const [isMuted, setIsMuted] = useState(false);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [isTrackListVisible, setIsTrackListVisible] = useState(showTrackList);
+  const [volume, setVolume] = useState(externalVolume);
   const audioRef = useRef<HTMLAudioElement>(null);
   const volumeControlRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +96,15 @@ export default function AudioPlayer({
       }
     }
   }, [externalIsPlaying]);
+
+  useEffect(() => {
+    if (externalVolume !== undefined && externalVolume !== volume) {
+      setVolume(externalVolume);
+      if (audioRef.current) {
+        audioRef.current.volume = externalVolume;
+      }
+    }
+  }, [externalVolume]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -165,6 +175,15 @@ export default function AudioPlayer({
     }
   };
 
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+    onVolumeChange?.(newVolume);
+  };
+
   // Common player controls
   const PlayerControls = () => (
     <div className="flex items-center space-x-2">
@@ -193,6 +212,29 @@ export default function AudioPlayer({
           </button>
         </>
       )}
+      <button
+        onClick={() => setIsMuted(!isMuted)}
+        className="p-2 rounded-full hover:bg-gray-400/60 transition-colors"
+        aria-label={isMuted ? 'Unmute' : 'Mute'}
+      >
+        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </button>
+      <div className="relative">
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={volume}
+          onChange={handleVolumeChange}
+          className="absolute w-full h-full opacity-0 cursor-pointer"
+          title="Volume slider"
+          aria-label="Volume slider"
+        />
+        <div
+          className={`absolute h-full bg-primary rounded-full ${volume === 0 ? 'w-0' : `w-[${volume * 100}%]`}`}
+        />
+      </div>
     </div>
   );
 

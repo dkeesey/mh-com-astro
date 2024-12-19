@@ -29,7 +29,9 @@ const {
 ---
 
 <FamilyAlbumLayout {title} {description}>
-  <main class="max-w-4xl mx-auto px-4 py-8">
+  <AudioPlayerSection client:load />
+  
+  <main class="max-w-4xl mx-auto px-4 py-8 mt-16">
     <Breadcrumb
       items={[
         { label: "Home", href: "/" },
@@ -37,10 +39,6 @@ const {
         { label: photographerName, href: `/family-album/${photographerName.toLowerCase()}`, current: true }
       ]}
     />
-
-    <div class="mb-16">
-      <AudioPlayerSection client:load />
-    </div>
 
     <AlbumTitle
       {subtitle}
