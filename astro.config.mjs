@@ -15,10 +15,12 @@ export default defineConfig({
   security: {
     csp: false
   },
-  renderers: [react()],
   integrations: [
+    react({
+      include: ['**/react/*', '**/components/**/*.tsx', '**/components/**/*.jsx'],
+      mode: 'development'
+    }),
     tailwind(),
-    react(),
     icon(),
     mdx()
   ],
