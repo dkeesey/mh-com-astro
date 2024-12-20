@@ -38,11 +38,14 @@ import fukuyamaImage from '@images/family-album/photographers/fukuyama/fukuyama-
         <!-- Hideharu Fukuyama -->
         <div>
           <div class="flex items-start gap-6 mb-6">
-            <Image 
-              src={fukuyamaImage}
-              alt="Hideharu Fukuyama photograph"
-              class="rounded-lg shadow-md"
-            />
+            <div class="transition-transform duration-300 hover:scale-105">
+              <Image 
+                src={fukuyamaImage}
+                alt="Hideharu Fukuyama photograph"
+                title="Hideharu Fukuyama - Award-winning photographer interned at Gila River Relocation Camp"
+                class="rounded-lg shadow-md"
+              />
+            </div>
             <div>
               <h3 class="text-2xl font-medium mb-4 text-fa-text-primary">
                 <a href="/family-album/fukuyama" class="hover:text-fa-link-hover transition-colors">

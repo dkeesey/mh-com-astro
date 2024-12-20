@@ -21,6 +21,7 @@ const { photos } = Astro.props;
         <Image
           src={photo.src}
           alt={photo.alt}
+          title={photo.alt}
           width={photo.src.width}
           height={photo.src.height}
           class="hover:scale-105 transition-transform duration-300"

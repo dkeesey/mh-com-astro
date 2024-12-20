@@ -14,22 +14,22 @@ const description = "Family Album from Heart Mountain by June Utako Morioka";
 const photos = [
   {
     src: moriokaSoldier,
-    alt: "Portrait of a UCLA student who joined the 442nd",
+    alt: "UCLA student and 442nd soldier - A story of sacrifice and complex patriotism",
     description: "A young friend of Mrs. Morioka had enlisted in the Army and returned to camp after training to say goodbye to friends and family. He had been an 'A' student and president of many organizations at UCLA before the evacuation. He was going overseas to join the 442nd to serve his country. He felt he could make a difference. He was one of the many casualties that the 442nd and the 100th battalions suffered during the war. Many of the Hawaiian Japanese of the 100th battalion found it difficult to believe that the Japanese Americans on the mainland were in concentration camps and with them fighting for the same country that incarcerated them."
   },
   {
     src: moriokaFatherDaughter,
-    alt: "Father/daughter portrait in front of guard tower",
+    alt: "Father and daughter portrait with guard tower - A powerful symbol of family life under surveillance",
     description: "When Lani Sanjek showed me this family album photo it made me realize that families saved photos of this time period and shared them with their children. Although most of the photographs are of family and friends, there seem to be some that create exceptional irony. This is the father/daughter portrait in front of the guard tower of the camp. Many other photographers show the barbed wire fence or the guard tower as part of the portrait."
   },
   {
     src: moriokaGrandfather,
-    alt: "Grandfather with daughter",
+    alt: "Grandfather with daughter - Preserving family bonds in Heart Mountain camp",
     description: "A tender moment between grandfather and daughter, captured despite the harsh circumstances of their internment."
   },
   {
     src: moriokaShowers,
-    alt: "Little Lani Morioka dressed for showers",
+    alt: "Little Lani Morioka - Daily life and dignity in the camp's communal facilities",
     description: "This is little Lani Morioka dressed for the walk to the group showers."
   }
 ];
@@ -53,6 +53,7 @@ const about = `
     historical documents of this period in American history.
   </p>
 `;
+
 ---
 
 <PhotographerPageLayout
@@ -65,5 +66,5 @@ const about = `
   date="circa 1942-1945"
   about={about}
 >
-  <PhotoGallery slot="photographs" photos={photos} />
+  <PhotoGallery photos={photos} />
 </PhotographerPageLayout>
