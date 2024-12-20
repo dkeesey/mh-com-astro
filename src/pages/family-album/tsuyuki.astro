@@ -12,42 +12,16 @@ import tsuyukiMassage from '@images/family-album/photographers/tsuyuki/tsuyuki-m
 
 const title = "Family Album";
 const description = "Family Album from Tsuyuki Collection";
-
-const photos = [
-  {
-    src: tsuyukiFarmers,
-    alt: "Farmers at work",
-    description: "The Tsuyuki family evacuated to a farm in Lillooet that was part of the \"self-supporting\" camps. Norman Tsuyuki was a teenager in the camps and was an avid photographer. He was able to record all aspects of their life during this internment time."
-  },
-  {
-    src: tsuyukiTomatoes,
-    alt: "Farmers with tomatoes and cantaloupe",
-    description: "Tomatoes and cantaloupe were a couple of the crops they grew. All photographs are by Norman Tsuyuki."
-  },
-  {
-    src: tsuyukiNeighborFuneral,
-    alt: "Neighbor's funeral",
-    description: "A neighboring family's funeral service. Some traditions were more difficult to maintain as it is a tradition to cremate the bodies before burial. Photo by Norman Tsuyuki."
-  },
-  {
-    src: tsuyukiBuddhistFuneral,
-    alt: "Buddhist funeral service",
-    description: "Although many internees were Christian, the ritual of cremation and Buddhist services before and after burial of the ashes was a ritual most maintained. It is part of the Japanese culture and ritual of ancestral worship. Photo by Norman Tsuyuki."
-  },
-  {
-    src: tsuyukiHuntFish,
-    alt: "Pre-war hunting and fishing",
-    description: "Prewar families were free to hunt and fish and live as free Canadian citizens. During WWII they were labeled \"enemy aliens\" and they were rounded up and interned. Some families in Vancouver left before the forced evacuation. These families resettled in towns where \"self-supporting\" camps were designated. As in the States, they were told they could relocate away from the Coast. But most people did not realize the implications of evacuation and/or did not have the resources to move within a week or a month. Cameras and guns and knives and all sharp utensils were considered contraband and were confiscated."
-  },
-  {
-    src: tsuyukiMassage,
-    alt: "Traditional massage",
-    description: "After a day's work on the farms it was part of the culture to enjoy both the bath, furo, and the massage. The art of massage was passed down from parents to children."
-  }
-];
-
+const photographerName = "Norman Tsuyuki";
+const subtitle = "Life in Lillooet";
+const collection = "Tsuyuki Collection";
+const photographer = "Norman Tsuyuki";
+const date = "1942-1946";
 const about = `
   <p>
+    Norman Tsuyuki was a teenager in the camps and was an avid photographer. He was able to record all aspects of their life during this internment time. The Tsuyuki family evacuated to a farm in Lillooet that was part of the "self-supporting" camps.
+  </p>
+  <p class="mt-4">
     The Tsuyuki collection provides a unique glimpse into various aspects of Japanese American life, 
     from farming activities to important cultural and religious ceremonies. These photographs span both 
     pre-war life and the internment period.
@@ -58,17 +32,51 @@ const about = `
     highlighting how the community maintained their cultural and religious practices.
   </p>
 `;
+
+const photos = [
+  {
+    src: tsuyukiFarmers,
+    alt: "Farmers at work in Lillooet",
+    description: "The Tsuyuki family evacuated to a farm in Lillooet that was part of the \"self-supporting\" camps. Norman Tsuyuki was a teenager in the camps and was an avid photographer. He was able to record all aspects of their life during this internment time. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiTomatoes,
+    alt: "Farmers with tomatoes and cantaloupe harvest",
+    description: "Tomatoes and cantaloupe were among the successful crops grown by Japanese Canadian farmers in Lillooet. Despite the challenging circumstances, they managed to maintain productive farms. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiNeighborFuneral,
+    alt: "Community gathering for a neighbor's funeral",
+    description: "A neighboring family's funeral service demonstrates how the community maintained important cultural practices even during internment. Traditional funeral services helped preserve cultural connections. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiBuddhistFuneral,
+    alt: "Traditional Buddhist funeral service",
+    description: "Although many internees were Christian, Buddhist funeral services and cremation remained important cultural practices. These rituals were vital for maintaining connections to Japanese cultural traditions and ancestral worship. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiHuntFish,
+    alt: "Pre-war hunting and fishing activities",
+    description: "Before WWII, Japanese Canadians enjoyed the same freedoms as other citizens, including hunting and fishing. This changed dramatically when they were labeled \"enemy aliens\" and forced into internment. Photo by Norman Tsuyuki."
+  },
+  {
+    src: tsuyukiMassage,
+    alt: "Traditional massage therapy practice",
+    description: "Traditional Japanese therapeutic practices, including massage, continued within the community during internment. These practices helped maintain both physical and cultural well-being. Photo by Norman Tsuyuki."
+  }
+];
+
 ---
 
 <PhotographerPageLayout
   title={title}
   description={description}
-  photographerName="Tsuyuki"
-  subtitle="Japanese American Community"
-  collection="Tsuyuki Family Collection"
-  photographer="Tsuyuki Family"
-  date="1941-1945"
+  photographerName={photographerName}
+  subtitle={subtitle}
+  collection={collection}
+  photographer={photographer}
+  date={date}
   about={about}
 >
-  <PhotoGallery slot="photographs" photos={photos} />
+  <PhotoGallery photos={photos} />
 </PhotographerPageLayout>

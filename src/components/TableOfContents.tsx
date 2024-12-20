@@ -4,6 +4,52 @@ import { useEffect, useState } from 'react'
 import { ScrollArea } from "@components/ui/scroll-area"
 import { cn } from "@lib/utils"
 
+// Styling constants for Table of Contents
+const tocStyles = {
+  container: 'hidden lg:block sticky top-24 ml-8 w-64',
+  wrapper: 'space-y-4',
+  headerTitle: 'font-medium text-gray-200',
+  scrollArea: 'h-[calc(100vh-200px)] pr-4',
+  list: 'space-y-2',
+  link: {
+    base: [
+      // Layout
+      'block py-2 text-sm pl-4',
+      'relative',
+      // Colors & Transitions
+      'text-gray-400 hover:text-gray-200',
+      'transition-all duration-300 ease-in-out',
+      // Vertical Bar (using after pseudo-element)
+      'after:content-[""]',
+      'after:absolute after:left-0 after:top-1/2',
+      'after:h-[80%] after:w-0.5',
+      'after:bg-amber-400',
+      'after:transform after:scale-y-0 after:-translate-y-1/2',
+      'after:transition-transform after:duration-300 after:ease-in-out',
+      'after:origin-center',
+      // Hover effect for the bar
+      'hover:after:scale-y-50 hover:after:opacity-50'
+    ].join(' '),
+    active: [
+      'text-amber-300',
+      'after:scale-y-100 after:opacity-100',
+      'transform scale-[1.02] origin-left'
+    ].join(' ')
+  },
+  title: {
+    base: 'transition-all duration-300 ease-in-out font-normal',
+    active: 'font-medium'
+  },
+  description: {
+    base: [
+      'text-xs text-gray-500 line-clamp-2 mt-0.5',
+      'transition-all duration-300 ease-in-out',
+      'group-hover:text-gray-400'
+    ].join(' '),
+    active: 'text-amber-200/70'
+  }
+} as const
+
 interface TableOfContentsProps {
   sections: {
     id: string
@@ -18,63 +64,71 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
+        // Find the entry with the highest intersection ratio
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (visibleEntries.length > 0) {
+          const mostVisible = visibleEntries.reduce((prev, current) => {
+            return (current.intersectionRatio > prev.intersectionRatio) ? current : prev;
+          });
+          setActiveSection(mostVisible.target.id);
+        }
       },
       {
-        rootMargin: '-10% 0% -80% 0%',
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
+        rootMargin: '-20% 0% -35% 0%',
+        threshold: [0, 0.25, 0.5, 0.75, 1]
       }
-    )
+    );
 
     sections.forEach(({ id }) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
 
-    return () => observer.disconnect()
+    return () => observer.disconnect();
   }, [sections])
 
   return (
-    <div className="hidden lg:block sticky top-24 ml-8 w-64">
-      <div className="space-y-4">
-        <p className="font-medium">On this page</p>
-        <ScrollArea className="h-[calc(100vh-200px)] pr-4">
-          <div className="space-y-2">
+    <div className={tocStyles.container}>
+      <div className={tocStyles.wrapper}>
+        <p className={tocStyles.headerTitle}>On this page</p>
+        <ScrollArea className={tocStyles.scrollArea}>
+          <div className={tocStyles.list}>
             {sections.map(({ id, title, description }) => (
               <a
                 key={id}
                 href={`#${id}`}
                 onClick={(e) => {
-                  e.preventDefault()
+                  e.preventDefault();
                   document.querySelector(`#${id}`)?.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'start'
-                  })
-                  history.pushState(null, '', `#${id}`)
+                    block: 'start',
+                    inline: 'nearest'
+                  });
+                  setActiveSection(id);
+                  history.pushState(null, '', `#${id}`);
                 }}
                 className={cn(
-                  'block py-2 text-sm transition-all duration-300 ease-in-out relative pl-4',
-                  'text-blue-300 hover:text-amber-300 hover:bg-gray-800/30 visited:text-blue-300',
-                  activeSection === id
-                    ? [
-                        'font-medium text-amber-300',
-                        'bg-gray-800/20',
-                        'before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-amber-400',
-                        'before:transition-all before:duration-300'
-                      ].join(' ')
-                    : ''
+                  tocStyles.link.base,
+                  'group',
+                  activeSection === id && tocStyles.link.active
                 )}
               >
-                {title}
-                {description && (
-                  <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                    {description}
-                  </p>
-                )}
+                <div className="relative">
+                  <span className={cn(
+                    tocStyles.title.base,
+                    activeSection === id && tocStyles.title.active
+                  )}>
+                    {title}
+                  </span>
+                  {description && (
+                    <p className={cn(
+                      tocStyles.description.base,
+                      activeSection === id && tocStyles.description.active
+                    )}>
+                      {description}
+                    </p>
+                  )}
+                </div>
               </a>
             ))}
           </div>
