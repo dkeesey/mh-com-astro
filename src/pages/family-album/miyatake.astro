@@ -14,22 +14,22 @@ const description = "Family Album from Manzanar by Toyo Miyatake";
 const photos = [
   {
     src: miyatakeSoldier,
-    alt: "A soldier visiting his parents",
+    alt: "442nd Soldier Visiting Parents - A poignant moment of family reunion in Manzanar",
     description: "A son and soldier of the 442nd visiting his parents at Manzanar. Many Japanese Americans served in the highly decorated 442nd Regimental Combat Team while their families remained in the camps."
   },
   {
     src: miyatakeBoys,
-    alt: "Three boys near barbed wire fence",
+    alt: "Three Boys at Barbed Wire - Childhood against the backdrop of confinement",
     description: "Three young boys near the barbed wire fence at Manzanar. The fence and guard towers were constant reminders of their confinement."
   },
   {
     src: miyatakeFisherman,
-    alt: "Man with caught fish",
+    alt: "Fisherman at Manzanar - Finding sustenance and purpose beyond camp boundaries",
     description: "A man displaying fish he caught. Despite the restrictions, some internees would fish outside the camp boundaries to supplement their meals."
   },
   {
     src: miyatakeBirthday,
-    alt: "Young girl with birthday cake",
+    alt: "Birthday Celebration - Maintaining childhood joy and family traditions in camp",
     description: "A young girl celebrating her birthday. Even in difficult circumstances, families tried to maintain normalcy by celebrating special occasions."
   }
 ];
@@ -58,5 +58,5 @@ const about = `
   date="1942-1945"
   about={about}
 >
-  <PhotoGallery slot="photographs" photos={photos} />
+  <PhotoGallery photos={photos} />
 </PhotographerPageLayout>
