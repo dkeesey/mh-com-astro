@@ -38,9 +38,6 @@ export default function AudioPlayerComponent({
         <div className={variant === 'horizontal' ? 'flex-1' : ''}>
           <h2 className="text-xl font-semibold text-white mb-2">{currentTrack.title}</h2>
           <p className="text-gray-400 mb-4">{currentTrack.excerpt}</p>
-          {currentTrack.timestamp && (
-            <p className="text-sm text-gray-500">{currentTrack.timestamp}</p>
-          )}
         </div>
         
         <div className={variant === 'horizontal' ? 'flex-1' : ''}>
