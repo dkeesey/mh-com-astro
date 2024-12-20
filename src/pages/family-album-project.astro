@@ -57,63 +57,6 @@ const sections = [
   }
 ];
 
-const audioFiles = [
-  {
-    title: "Interview 1",
-    src: "/audio/JACCampsMP3/camps.01.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.01.ogg",
-    excerpt: "All American Boy...",
-  },
-  {
-    title: "Interview 2",
-    src: "/audio/JACCampsMP3/camps.02.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.02.ogg",
-    excerpt: "Angry Man... Not a grudge; just a bad memory...",
-  },
-  {
-    title: "Interview 3",
-    src: "/audio/JACCampsMP3/camps.03.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.03.ogg",
-    excerpt: "What would you do if we deported you?",
-  },
-  {
-    title: "Interview 4",
-    src: "/audio/JACCampsMP3/camps.04.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.04.ogg",
-    excerpt: "Everyone just believed in the government...",
-  },
-  {
-    title: "Interview 5",
-    src: "/audio/JACCampsMP3/camps.05.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.05.ogg",
-    excerpt: "We are American citizens and had nothing to do with Pearl Harbor",
-  },
-  {
-    title: "Interview 6",
-    src: "/audio/JACCampsMP3/camps.06.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.06.ogg",
-    excerpt: "We were being treated like the enemy...",
-  },
-  {
-    title: "Interview 7",
-    src: "/audio/JACCampsMP3/camps.07.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.07.ogg",
-    excerpt: "No future for my children?...",
-  },
-  {
-    title: "Interview 8",
-    src: "/audio/JACCampsMP3/camps.08.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.08.ogg",
-    excerpt: "Rehabilitation",
-  },
-  {
-    title: "Interview 9",
-    src: "/audio/JACCampsMP3/camps.09.mp3",
-    oggSrc: "/audio/JACCampsOgg/camps.09.ogg",
-    excerpt: "If I can get through that...",
-  },
-];
-
 ---
 
 <FamilyAlbumLayout title="Family Album Project" description="A collection of photographs and stories from Japanese American internment camps">
@@ -137,6 +80,15 @@ const audioFiles = [
           <!-- Introduction -->
           <section id="introduction">
             <FamilyAlbumIntro />
+          </section>
+
+          <section class="mt-16 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-light mb-8">Critical Context</h2>
+            <div class="prose prose-invert max-w-none font-inter">
+              <p class="text-lg text-fa-text-secondary">
+                These photographs require careful viewing. While many images show internees in formal dress and composed expressions, these should not be misinterpreted as signs of comfort or contentment. When forced into the camps, internees could bring only what they could carry in their suitcases. Their nice clothes - among their few preserved possessions - became powerful tools for maintaining dignity in the face of imprisonment. The act of dressing well and photographing themselves was a form of resistance against dehumanization, not evidence of "happy camps" as some mischaracterized them. These images document both the visible effort to preserve humanity and the invisible weight of dispossession and confinement.
+              </p>
+            </div>
           </section>
 
           <!-- Exhibition Images -->
@@ -194,9 +146,6 @@ const audioFiles = [
           </div>
         </div>
       </div>
-
-      {/* Mobile Audio Player */}
-      {/* Removed */}
 
     </main>
 

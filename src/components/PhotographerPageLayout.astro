@@ -3,7 +3,6 @@ import FamilyAlbumLayout from '@layouts/FamilyAlbumLayout.astro';
 import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
-import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 interface Props {
   title: string;
@@ -29,9 +28,7 @@ const {
 ---
 
 <FamilyAlbumLayout {title} {description}>
-  <AudioPlayerSection client:load />
-  
-  <main class="max-w-4xl mx-auto px-4 py-8 mt-16">
+  <main class="max-w-4xl mx-auto px-4 py-8">
     <Breadcrumb
       items={[
         { label: "Home", href: "/" },
@@ -39,6 +36,10 @@ const {
         { label: photographerName, href: `/family-album/${photographerName.toLowerCase()}`, current: true }
       ]}
     />
+
+    <div class="mb-16">
+      <PhotographersGrid />
+    </div>
 
     <AlbumTitle
       {subtitle}
@@ -54,10 +55,7 @@ const {
       </div>
     </section>
 
-    <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-4">Photographs</h2>
-      <slot name="photographs" />
-    </section>
+    <slot />
 
     <div class="mt-16">
       <PhotographersGrid />
