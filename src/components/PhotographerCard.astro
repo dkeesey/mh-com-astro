@@ -16,18 +16,19 @@ const { name, url } = Astro.props;
   <a href={url} class="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
     <Image 
       src={butcamIcon}
-      alt={`View ${name}'s photographs`}
+      alt={`Illustration of a pinhole camera used in internment camps - Click to view ${name}'s photographs`}
       height={48}
       width={48}
       class="rounded-sm shadow-md hover:opacity-90 active:opacity-75"
+      title="Illustration of a pinhole box camera used by internees in the camps"
     />
   </a>
   <a 
     href={url}
-    class="text-lg font-medium text-gray-100 transition-colors duration-200 
+    class="text-lg font-medium text-blue-300 transition-colors duration-200 
            hover:text-amber-300 
-           active:text-amber-500 
-           visited:text-rose-300 
+           active:text-amber-400 
+           visited:text-blue-300 
            focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:ring-offset-2 focus:ring-offset-gray-900 
            rounded font-robotoCondensed"
   >

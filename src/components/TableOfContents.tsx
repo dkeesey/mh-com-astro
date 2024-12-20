@@ -25,8 +25,8 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
         })
       },
       {
-        rootMargin: '-20% 0% -35% 0%',
-        threshold: 0
+        rootMargin: '-10% 0% -80% 0%',
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1]
       }
     )
 
@@ -57,10 +57,16 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
                   history.pushState(null, '', `#${id}`)
                 }}
                 className={cn(
-                  'block py-1 text-sm transition-colors hover:text-foreground/80',
+                  'block py-2 text-sm transition-all duration-300 ease-in-out relative pl-4',
+                  'text-blue-300 hover:text-amber-300 hover:bg-gray-800/30 visited:text-blue-300',
                   activeSection === id
-                    ? 'font-medium text-foreground'
-                    : 'text-foreground/60'
+                    ? [
+                        'font-medium text-amber-300',
+                        'bg-gray-800/20',
+                        'before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-amber-400',
+                        'before:transition-all before:duration-300'
+                      ].join(' ')
+                    : ''
                 )}
               >
                 {title}
