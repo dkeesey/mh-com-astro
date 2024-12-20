@@ -45,3 +45,11 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## 📝 TODO
+
+- [ ] Review and implement proper Content Security Policy (CSP) for production environment
+  - Current CSP is set to be permissive for development
+  - Need to restrict CSP directives to only required sources
+  - Consider implementing nonce-based CSP for inline scripts
+  - Evaluate necessary domains for connect-src, script-src, and frame-src directives
