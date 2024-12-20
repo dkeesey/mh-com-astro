@@ -3,7 +3,6 @@ import PhotographerPageLayout from '@components/PhotographerPageLayout.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
-import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import ayukawaPreCamp from '@images/family-album/photographers/ayukawa/ayukawa-mother-brother-vancouver.jpg';
@@ -95,7 +94,5 @@ const about = `
     <PhotographersGrid />
   </div>
 
-  <AudioPlayerSection client:load slot="content" />
-
-yh    <PhotoGallery slot="photographs" photos={photos} />
+  <PhotoGallery slot="photographs" photos={photos} />
 </PhotographerPageLayout>

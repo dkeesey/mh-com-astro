@@ -4,7 +4,6 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
-import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import akiyaPortraits from '@images/family-album/photographers/akiya/akiya-two-portraits-1938.gif';
@@ -44,13 +43,6 @@ const photos = [
     ]}
     />
     
-    <div class="sticky top-0 z-10 bg-gray-900 py-4">
-      <div class="max-w-3xl mx-auto">
-        <AudioPlayerSection client:load />
-      </div>
-    </div>
-
-
     <div class="mb-16">
       <PhotographersGrid />
     </div>

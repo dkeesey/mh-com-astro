@@ -11,7 +11,6 @@ import CanadianIncarcerationSection from "@components/CanadianIncarcerationSecti
 import Breadcrumb from '@components/Breadcrumb.astro';
 import ExhibitionInfo from '@components/ExhibitionInfo.astro';
 import TableOfContents from '@components/TableOfContents.tsx';
-import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 
@@ -188,18 +187,14 @@ const audioFiles = [
 
         <div class="hidden lg:block space-y-8">
           <div class="sticky top-24">
-            <div class="mb-8">
-              <AudioPlayerSection />
-            </div>
             <TableOfContents sections={sections} client:load />
           </div>
         </div>
       </div>
 
       {/* Mobile Audio Player */}
-      <div class="lg:hidden">
-        <AudioPlayerSection />
-      </div>
+      {/* Removed */}
+
     </main>
 
     {/* Back to Top Button */}

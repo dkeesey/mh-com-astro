@@ -4,7 +4,6 @@ import AlbumTitle from '@components/AlbumTitle.astro';
 import PhotoGallery from '@components/PhotoGallery.astro';
 import PhotographersGrid from '@components/PhotographersGrid.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
-import { AudioPlayerSection } from '@components/ui/AudioPlayerSection';
 
 // Import images
 import guardsman from '@images/family-album/guardsman.gif';
@@ -49,10 +48,6 @@ const photos = [
   <main class="max-w-4xl mx-auto px-4 py-8">
     <div class="mb-16">
       <PhotographersGrid />
-    </div>
-
-    <div class="mb-16">
-      <AudioPlayerSection client:load />
     </div>
 
     <AlbumTitle
