@@ -1,70 +1,75 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { AudioPlayer } from "@components/ui/AudioPlayer";
-import { interviewAudioFiles } from '../data/interview-audio';
+import { ViewTransitions } from "astro:transitions";
+import Layout from "@layouts/Layout.astro";
+import { interviewAudioFiles } from "../data/interview-audio";
+import AudioPlayer from "@components/audio-player";
 ---
 
-<Layout title="Oral History Interviews - Japanese American Concentration Camps">
-  <main class="min-h-screen bg-museum-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <header class="mb-16">
-        <h1 class="text-5xl font-bold text-gray-900 mb-8 font-robotoCondensed">Oral History Interviews</h1>
-        <p class="text-2xl text-gray-700 max-w-4xl leading-relaxed">
-          Listen to firsthand accounts from Japanese Americans who experienced life in the concentration camps during World War II. 
-          These interviews provide valuable historical perspectives and personal stories that help us understand this critical period 
-          in American history.
-        </p>
-      </header>
+<Layout title="Oral History Project Interviews">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">Oral History Project Interviews</h1>
 
-      <div class="max-w-4xl mx-auto bg-gray-900/95 rounded-xl p-8 shadow-2xl">
-        <div id="audio-player-container">
-          <AudioPlayer 
-            client:load
-            tracks={interviewAudioFiles}
-            currentTrackIndex={0}
-          />
-        </div>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        interviewAudioFiles.map((audio, index) => (
+          <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+            <h2 class="text-xl font-semibold text-white mb-2">{audio.title}</h2>
+            <p class="text-gray-400 mb-4">{audio.excerpt}</p>
+            {audio.timestamp && (
+              <p class="text-sm text-gray-500">{audio.timestamp}</p>
+            )}
+            <audio
+              src={audio.url}
+              controls
+              class="w-full mt-4"
+              data-track-index={index}
+            />
+          </div>
+        ))
+      }
     </div>
-  </main>
+  </div>
 </Layout>
 
 <style>
-  :global(.plyr) {
-    --plyr-color-main: #4f46e5;
-    --plyr-audio-controls-background: transparent;
-    --plyr-audio-control-color: #ffffff;
-    --plyr-audio-control-color-hover: #4f46e5;
-    --plyr-audio-control-background-hover: transparent;
-    font-size: 1.2rem;
+  audio {
+    width: 100%;
+    height: 40px;
+    margin-top: 1rem;
   }
 
-  :global(.plyr--audio .plyr__control:hover) {
-    background: transparent;
+  audio::-webkit-media-controls-panel {
+    background-color: transparent;
   }
 
-  :global(.plyr--audio .plyr__controls button:hover) {
-    background: transparent;
+  audio::-webkit-media-controls-play-button,
+  audio::-webkit-media-controls-mute-button {
+    background-color: transparent;
+    color: white;
+  }
+
+  audio::-webkit-media-controls-current-time-display,
+  audio::-webkit-media-controls-time-remaining-display {
+    color: white;
+  }
+
+  audio::-webkit-media-controls-timeline {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 </style>
 
 <script define:vars={{ interviewAudioFiles }}>
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('audio-player-container');
-    if (container) {
-      const currentTrack = parseInt(container.dataset.currentTrack || '0');
-      const audioPlayer = container.querySelector('.plyr');
-      if (audioPlayer) {
-        // @ts-ignore
-        const plyr = audioPlayer.plyr;
-        if (plyr) {
-          plyr.source = {
-            type: 'audio',
-            sources: [{ src: interviewAudioFiles[currentTrack].url }]
-          };
-          plyr.play();
+  // Stop all other audio players when one starts playing
+  document.querySelectorAll('audio').forEach(audio => {
+    audio.addEventListener('play', () => {
+      document.querySelectorAll('audio').forEach(otherAudio => {
+        if (otherAudio !== audio) {
+          otherAudio.pause();
         }
-      }
-    }
+      });
+    });
   });
 </script>

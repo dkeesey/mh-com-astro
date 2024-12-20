@@ -1,7 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Plyr from 'plyr-react';
-import type { PlyrInstance } from 'plyr-react';
-import 'plyr-react/plyr.css';
+import React, { useRef, useState } from 'react';
 import type { InterviewAudio } from '../../data/interview-audio';
 
 interface AudioPlayerProps {
@@ -16,34 +13,15 @@ export default function AudioPlayerComponent({
   className = ''
 }: AudioPlayerProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const playerRef = useRef<{ plyr: PlyrInstance }>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const currentTrack = audioFiles[currentTrackIndex];
-  const [player, setPlayer] = useState<PlyrInstance | null>(null);
-
-  useEffect(() => {
-    if (playerRef.current?.plyr) {
-      playerRef.current.plyr.source = {
-        type: 'audio',
-        sources: [{ src: currentTrack.url }],
-      };
-    }
-  }, [currentTrack]);
-
-  useEffect(() => {
-    // Get the Plyr instance from the DOM
-    const plyrElement = document.querySelector('.plyr');
-    if (plyrElement) {
-      const plyrInstance = (plyrElement as any).plyr as PlyrInstance;
-      setPlayer(plyrInstance);
-    }
-  }, [currentTrack.url]);
 
   // Make this function available globally for the play buttons
-  useEffect(() => {
+  React.useEffect(() => {
     (window as any).playTrack = (index: number) => {
       setCurrentTrackIndex(index);
-      if (playerRef.current?.plyr) {
-        playerRef.current.plyr.play();
+      if (audioRef.current) {
+        audioRef.current.play();
       }
     };
 
@@ -66,23 +44,11 @@ export default function AudioPlayerComponent({
         </div>
         
         <div className={variant === 'horizontal' ? 'flex-1' : ''}>
-          <Plyr
-            source={{
-              type: 'audio',
-              sources: [{ src: currentTrack.url }],
-            }}
-            options={{
-              controls: [
-                'play',
-                'progress',
-                'current-time',
-                'duration',
-                'mute',
-                'volume',
-                'settings',
-              ],
-              keyboard: { focused: true, global: true },
-            }}
+          <audio
+            ref={audioRef}
+            src={currentTrack.url}
+            controls
+            className="w-full"
           />
         </div>
       </div>
