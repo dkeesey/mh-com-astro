@@ -32,7 +32,7 @@ export default function AudioPlayerComponent({
 
   return (
     <div className={`${className} ${variant === 'vertical' ? 'space-y-6' : ''}`}>
-      <div className={`bg-gray-900 p-6 rounded-lg shadow-lg ${
+      <div className={`bg-gray-300 p-6 rounded-lg shadow-lg ${
         variant === 'horizontal' ? 'flex items-center gap-6' : ''
       }`}>
         <div className={variant === 'horizontal' ? 'flex-1' : ''}>

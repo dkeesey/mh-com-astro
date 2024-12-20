@@ -14,8 +14,8 @@ export const interviewAudioFiles: InterviewAudio[] = [
   },
   {
     url: '/audio/JACCampsMP3/camps.02.mp3',
-    title: 'Angry Man...',
-    excerpt: 'Angry Man...',
+    title: 'Just a bad memory...',
+    excerpt: 'Just a bad memory...',
     duration: '4:20'
   },
   {
