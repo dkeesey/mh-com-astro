@@ -32,5 +32,26 @@ export default defineConfig({
         '@utils': path.resolve('./src/utils')
       }
     }
+  },
+  output: 'static',
+  build: {
+    inlineScripts: true
+  },
+  server: {
+    headers: {
+      'Content-Security-Policy': `
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.googletagmanager.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: blob: https://res.cloudinary.com;
+        media-src 'self' blob:;
+        connect-src 'self';
+        object-src 'none';
+        frame-ancestors 'none';
+        worker-src 'self' blob:;
+        form-action 'self'
+      `.replace(/\s+/g, ' ').trim()
+    }
   }
 });

@@ -1,16 +1,17 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import ArtworkWithCampDataLayout from "../../../layouts/ArtworkWithCampDataLayout.astro";
 
 export async function getStaticPaths() {
   const artworkEntries = await getCollection("artwork");
-  return artworkEntries.map((entry) => ({
+  return artworkEntries.map((entry: CollectionEntry<"artwork">) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry }: { entry: CollectionEntry<"artwork"> } = Astro.props;
 const { Content } = await entry.render();
 
 // Fetch all entries for the footer links
@@ -25,8 +26,8 @@ const allArtPagesEntries = await getCollection("artwork");
     <h2 class="text-xl py-8">Japanese-American Internment Camps</h2>
     <ul class="flex flex-col items-center">
       {allArtPagesEntries
-        .filter((e) => e.data.series === "Japanese-American Internment Camps")
-        .map((e) => (
+        .filter((e: CollectionEntry<'artwork'>) => e.data.series === "Japanese-American Internment Camps")
+        .map((e: CollectionEntry<'artwork'>) => (
           <li class="self-start ml-8">
             <a href={`/artwork/japanese-american-internment-camps/${e.slug}`}>{e.data.title}</a>
           </li>
@@ -35,8 +36,8 @@ const allArtPagesEntries = await getCollection("artwork");
     <h2 class="text-xl py-8">Japanese-Canadian Prisoner of War Camps</h2>
     <ul class="flex flex-col justify-center pb-8">
       {allArtPagesEntries
-        .filter((e) => e.data.series === "Japanese-Canadian Internment Camps")
-        .map((e) => (
+        .filter((e: CollectionEntry<'artwork'>) => e.data.series === "Japanese-Canadian Internment Camps")
+        .map((e: CollectionEntry<'artwork'>) => (
           <li class="px-2">
             <a href={`/artwork/japanese-american-internment-camps/${e.slug}`}>{e.data.title}</a>
           </li>
