@@ -11,6 +11,7 @@ import CanadianIncarcerationSection from "@components/CanadianIncarcerationSecti
 import Breadcrumb from '@components/Breadcrumb.astro';
 import ExhibitionInfo from '@components/ExhibitionInfo.astro';
 import TableOfContents from '@components/TableOfContents.tsx';
+import HoverImage from "@components/HoverImage.astro";
 import installPic1 from '@images/family-album/installation/install-pic1.jpg';
 import installPic3 from '@images/family-album/installation/install-pic3.jpg';
 
@@ -112,30 +113,21 @@ const sections = [
           </section>
 
           <!-- Exhibition Images -->
-          <section id="exhibition-views" class="mt-16">
+          <section id="exhibition-views" class="mt-16 max-w-4xl mx-auto">
             <h2 class="text-3xl font-light mb-8">Exhibition Views</h2>
-            <div class="prose prose-invert max-w-none font-inter mb-8">
-              <p class="text-lg text-fa-text-secondary">
-                The exhibition design emphasized how these photographs exist in tension between documenting both resilience and oppression - showing how internees used photography and self-presentation to maintain dignity while imprisoned.
-              </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <Image 
-                  src={installPic1}
-                  alt="Installation view of the Family Album Project"
-                  class="w-full h-auto rounded-lg shadow-lg"
-                />
-                <p class="mt-2 text-sm text-gray-300 italic">Cleveland State University Art Gallery, March 1996, Installation View</p>
-              </div>
-              <div>
-                <Image 
-                  src={installPic3}
-                  alt="Installation view: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM"
-                  class="w-full h-auto rounded-lg shadow-lg"
-                />
-                <p class="mt-2 text-sm text-gray-300 italic">Installation Detail: CONTRABAND: THE CAMERA, THE PHOTOGRAPH, THE FAMILY ALBUM</p>
-              </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              <HoverImage 
+                src={installPic1}
+                alt="Installation view of the Family Album exhibition"
+                title="Family Album exhibition at Cleveland State University Art Gallery, 1996 - View showing the layout of photographs and their presentation"
+                class="w-full h-auto"
+              />
+              <HoverImage 
+                src={installPic3}
+                alt="Installation view showing visitor interaction"
+                title="Visitors engaging with the Family Album exhibition at Cleveland State University Art Gallery, 1996 - Note the careful arrangement of photographs to tell the story of internment camp life"
+                class="w-full h-auto"
+              />
             </div>
           </section>
 

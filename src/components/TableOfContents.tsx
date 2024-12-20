@@ -5,19 +5,32 @@ import { ScrollArea } from "@components/ui/scroll-area"
 import { cn } from "@lib/utils"
 
 // Styling constants for Table of Contents
+/**
+ * Table of Contents Styles - FINAL VERSION
+ * 
+ * Color Schema:
+ * - Main title: blue-400
+ * - Section titles: blue-400 (inactive) → amber-300 (active)
+ * - Descriptions: gray-300 (inactive) → amber-300 (active)
+ * - Vertical bar: amber-400
+ * 
+ * Typography:
+ * - Main title: text-lg
+ * - Section titles: text-base
+ * - Descriptions: text-sm
+ */
 const tocStyles = {
   container: 'hidden lg:block sticky top-24 ml-8 w-64',
   wrapper: 'space-y-4',
-  headerTitle: 'font-medium text-gray-200',
+  headerTitle: 'text-blue-400 text-lg font-medium mb-4',
   scrollArea: 'h-[calc(100vh-200px)] pr-4',
   list: 'space-y-2',
   link: {
     base: [
       // Layout
-      'block py-2 text-sm pl-4',
+      'block py-2 text-base pl-4',
       'relative',
       // Colors & Transitions
-      'text-gray-400 hover:text-gray-200',
       'transition-all duration-300 ease-in-out',
       // Vertical Bar
       'before:content-[""]',
@@ -29,21 +42,20 @@ const tocStyles = {
       'before:origin-center',
       'before:scale-y-0 before:opacity-0',
       // Hover effect
-      'hover:before:scale-y-50 hover:before:opacity-50'
+      'hover:before:scale-y-50 hover:before:opacity-100'
     ].join(' '),
-    active: 'text-amber-300 before:!scale-y-100 before:!opacity-100 transform scale-[1.02] origin-left'
+    active: 'before:!scale-y-100 before:!opacity-100 transform scale-[1.02] origin-left text-base font-medium'
   },
   title: {
-    base: 'transition-all duration-300 ease-in-out font-normal',
-    active: 'font-medium'
+    base: 'transition-all duration-300 ease-in-out font-normal text-base text-blue-400',
+    active: 'text-amber-300 font-medium'
   },
   description: {
     base: [
-      'text-xs text-gray-500 line-clamp-2 mt-0.5',
-      'transition-all duration-300 ease-in-out',
-      'group-hover:text-gray-400'
+      'text-sm text-gray-300',
+      'transition-colors duration-300'
     ].join(' '),
-    active: 'text-amber-200/70'
+    active: 'text-amber-300'
   }
 } as const
 
@@ -128,10 +140,11 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
     <div className={tocStyles.container}>
       <div className={tocStyles.wrapper}>
         <p className={tocStyles.headerTitle}>On this page</p>
-        {/* Debug info */}
+        {/* Debug info - uncomment to show active section
         <div className="text-xs text-gray-500 mb-2">
           Active: {activeSection}
         </div>
+        */}
         <ScrollArea className={tocStyles.scrollArea}>
           <div className={tocStyles.list}>
             {sections.map(({ id, title, description }) => (
