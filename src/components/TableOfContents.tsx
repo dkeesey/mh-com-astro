@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { ScrollArea } from "@components/ui/scroll-area"
 import { cn } from "@lib/utils"
 
@@ -57,14 +57,17 @@ interface TableOfContentsProps {
 
 const TableOfContents = ({ sections }: TableOfContentsProps) => {
   const [activeSection, setActiveSection] = useState<string>('');
-  const [debugIntersecting, setDebugIntersecting] = useState<string[]>([]);
+  const [userClicked, setUserClicked] = useState(false);
+  const userClickTimeout = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        // Don't update if user just clicked (within last 1.5s)
+        if (userClicked) return;
+
         // Find the entry with the highest intersection ratio
         const visibleEntries = entries.filter(entry => entry.isIntersecting);
-        setDebugIntersecting(visibleEntries.map(e => e.target.id));
         
         if (visibleEntries.length > 0) {
           const mostVisible = visibleEntries.reduce((prev, current) => {
@@ -74,8 +77,8 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
         }
       },
       {
-        rootMargin: '-20% 0% -35% 0%',
-        threshold: [0, 0.25, 0.5, 0.75, 1]
+        rootMargin: '-10% 0% -45% 0%',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
       }
     );
 
@@ -88,7 +91,38 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
     });
 
     return () => observer.disconnect();
-  }, [sections]);
+  }, [sections, userClicked]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (userClickTimeout.current) {
+        clearTimeout(userClickTimeout.current);
+      }
+    };
+  }, []);
+
+  const handleClick = (id: string) => {
+    setActiveSection(id);
+    setUserClicked(true);
+    
+    // Clear any existing timeout
+    if (userClickTimeout.current) {
+      clearTimeout(userClickTimeout.current);
+    }
+    
+    // Reset userClicked after 1.5s to allow intersection observer to take over again
+    userClickTimeout.current = setTimeout(() => {
+      setUserClicked(false);
+    }, 1500);
+
+    document.querySelector(`#${id}`)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    });
+    history.pushState(null, '', `#${id}`);
+  };
 
   return (
     <div className={tocStyles.container}>
@@ -96,8 +130,7 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
         <p className={tocStyles.headerTitle}>On this page</p>
         {/* Debug info */}
         <div className="text-xs text-gray-500 mb-2">
-          Active: {activeSection}<br/>
-          Visible: {debugIntersecting.join(', ')}
+          Active: {activeSection}
         </div>
         <ScrollArea className={tocStyles.scrollArea}>
           <div className={tocStyles.list}>
@@ -107,13 +140,7 @@ const TableOfContents = ({ sections }: TableOfContentsProps) => {
                 href={`#${id}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(`#${id}`)?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                  });
-                  setActiveSection(id);
-                  history.pushState(null, '', `#${id}`);
+                  handleClick(id);
                 }}
                 className={cn(
                   tocStyles.link.base,
