@@ -12,6 +12,30 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  security: {
+    csp: {
+      mode: 'hash',
+      directives: {
+        'default-src': ["'self'"],
+        'script-src': [
+          "'self'",
+          "'unsafe-inline'",
+          "'wasm-unsafe-eval'",
+          "'inline-speculation-rules'",
+          "'sha256-NLYu7UJfoEeB6nLU4nPIrHnkWM4rwqoILy6B1aFj2d0='",
+          'https://www.googletagmanager.com',
+          'https://www.google-analytics.com'
+        ],
+        'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        'img-src': ["'self'", 'data:', 'blob:', 'https://res.cloudinary.com', 'https://www.google-analytics.com'],
+        'font-src': ["'self'", 'https://fonts.gstatic.com'],
+        'connect-src': ["'self'", 'https://analytics.google.com', 'https://www.google-analytics.com', 'https://www.googletagmanager.com'],
+        'frame-src': ["'self'", 'https://www.youtube.com', 'https://td.doubleclick.net'],
+        'worker-src': ["'self'", 'blob:'],
+        'media-src': ["'self'", 'blob:']
+      }
+    }
+  },
   renderers: [react()],
   integrations: [
     tailwind(),
