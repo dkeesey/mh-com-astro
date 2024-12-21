@@ -1,80 +1,149 @@
 # Project Tasks
 
-## Content Development
-### Camp Pages
-- [ ] Create individual pages for all 10 internment camps
-- [ ] Develop consistent layout template for camp pages
-- [ ] Add historical context and background information
-- [ ] Include photo galleries specific to each camp
+## Priority Levels
+🔥 Immediate (Next 2 weeks)
+🔸 Short-term (Next 1-2 months)
+🌟 Long-term (2+ months)
 
-### Audio Content
-- [ ] Add transcripts for all audio interviews
-- [ ] Implement search functionality for audio transcripts
-- [ ] Create metadata structure for audio content
-- [ ] Enhance audio player UI/UX
+## Immediate Priority 🔥
+### Core Content Structure
+- [ ] Create base template for camp pages
+  - Technical Requirements:
+    - Create `CampLayout.astro` component
+    - Define consistent metadata structure
+    - Setup image gallery integration
+    - Implement responsive layout
+    - Add breadcrumb navigation
 
-### Maps Integration
-- [ ] Evaluate options for camp location visualization:
-  - [ ] Dedicated map page showing all 10 camps
-  - [ ] Individual maps on each camp page
-  - [ ] Interactive map with camp information overlays
-- [ ] Implement map functionality using Leaflet.js
-- [ ] Add camp location markers with info windows
-- [ ] Create responsive design for map views
+- [ ] Add transcripts for audio interviews
+  - Technical Requirements:
+    - Create transcript data structure in frontmatter
+    - Implement transcript display component
+    - Add timestamp synchronization with audio
+    - Setup transcript search indexing
+    - Add copy/share functionality
 
-## User Features
-### Authentication
-- [ ] Implement social sign-in functionality
-  - [ ] Google authentication
-  - [ ] Facebook authentication
-  - [ ] Twitter authentication
-- [ ] Create user profile system
-- [ ] Setup secure session management
-- [ ] Add user preferences storage
+- [ ] Basic map integration
+  - Technical Requirements:
+    - Setup Leaflet.js with React
+    - Create camp location data structure
+    - Implement basic map component
+    - Add camp markers with basic info
+    - Ensure mobile responsiveness
 
-### Future Features (For Consideration)
-- [ ] Image favoriting system (potential feature for masumimuseum.com)
-- [ ] User-created galleries
-- [ ] Personal collections management
+### Essential Features
+- [ ] Setup donation processing
+  - Technical Requirements:
+    - Select payment processor (Stripe recommended)
+    - Create donation form component
+    - Implement secure payment flow
+    - Setup webhook handling
+    - Add donation success/failure pages
+    - Implement donation amount suggestions
+    - Add recurring donation option
 
-## Site Integration
-### Cross-Site Navigation
-- [ ] Add footer links to related sites:
-  - [ ] masumimuseum.com
-  - [ ] masumihayashifoundation.org
-- [ ] Create consistent cross-site navigation
-- [ ] Implement contextual links within content
-- [ ] Add clear visual indicators for external links
+- [ ] Cross-site navigation
+  - Technical Requirements:
+    - Create consistent footer component
+    - Add cross-site navigation schema
+    - Implement external link tracking
+    - Add site switcher component
+    - Create shared navigation state
 
-### Donation Processing
-- [ ] Select and implement payment processing system
-- [ ] Create donation form/flow
-- [ ] Setup secure payment handling
-- [ ] Add donation CTAs throughout site
-- [ ] Create donation confirmation system
+## Short-term Priority 🔸
+### Enhanced User Experience
+- [ ] Social authentication
+  - Technical Requirements:
+    - Setup Auth.js/NextAuth
+    - Implement OAuth providers
+    - Create user profile schema
+    - Add session management
+    - Setup secure cookie handling
+    - Add user preference storage
 
-## Technical Improvements
-### Performance
-- [ ] Optimize image loading and caching
-- [ ] Implement lazy loading for galleries
-- [ ] Optimize map rendering performance
-- [ ] Audit and improve page load times
+- [ ] Complete camp pages content
+  - Technical Requirements:
+    - Create content management system
+    - Setup image optimization pipeline
+    - Implement advanced gallery features
+    - Add camp-specific metadata
+    - Create related content links
 
-### SEO & Accessibility
-- [ ] Add meta descriptions for all pages
-- [ ] Implement structured data
-- [ ] Ensure WCAG compliance
-- [ ] Add alt text for all images
-- [ ] Implement proper heading hierarchy
+### Analytics & SEO
+- [ ] Setup comprehensive analytics
+  - Technical Requirements:
+    - Implement Google Analytics 4
+    - Add custom event tracking
+    - Create conversion funnels
+    - Setup performance monitoring
+    - Add user journey tracking
 
-### Analytics
-- [ ] Setup tracking for user interactions
-- [ ] Implement donation funnel analytics
-- [ ] Track cross-site navigation
-- [ ] Monitor performance metrics
+## Long-term Priority 🌟
+### Advanced Features
+- [ ] User collections/favorites
+  - Technical Requirements:
+    - Design database schema
+    - Create collection management UI
+    - Implement sharing features
+    - Add export functionality
+    - Setup collection privacy settings
 
-## Documentation
+- [ ] Advanced map features
+  - Technical Requirements:
+    - Add historical map overlays
+    - Create timeline integration
+    - Implement camp comparison tools
+    - Add virtual tour features
+    - Create map embedding system
+
+## Additional Tasks
+### Content Management
+- [ ] Create editorial guidelines
+- [ ] Setup content review process
+- [ ] Create asset management system
+- [ ] Implement version control for content
+
+### Performance Optimization
+- [ ] Implement edge caching
+- [ ] Setup image CDN
+- [ ] Optimize client-side bundle
+- [ ] Add performance monitoring
+- [ ] Implement progressive loading
+
+### Accessibility
+- [ ] Add screen reader support
+- [ ] Implement keyboard navigation
+- [ ] Add high contrast mode
+- [ ] Create accessibility statement
+- [ ] Setup regular a11y audits
+
+### Documentation
 - [ ] Create technical documentation
-- [ ] Document content management processes
-- [ ] Create user guides for interactive features
-- [ ] Document cross-site integration points
+  - API documentation
+  - Component library
+  - Deployment procedures
+  - Content management guides
+- [ ] Setup automated documentation updates
+
+### Security
+- [ ] Implement CSP headers
+- [ ] Setup regular security audits
+- [ ] Add rate limiting
+- [ ] Implement CORS policies
+- [ ] Setup security monitoring
+
+## Dependencies & Integration Points
+### External Services
+- Payment Processing: Stripe
+- Authentication: Auth.js
+- Maps: Leaflet.js
+- Analytics: Google Analytics 4
+- Content Delivery: Cloudinary
+- Search: (TBD - Algolia vs custom solution)
+
+### Cross-site Integration
+- masumimuseum.com
+- masumihayashifoundation.org
+- Shared authentication
+- Unified analytics
+- Consistent branding
