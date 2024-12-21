@@ -2,15 +2,18 @@
 import Layout from './Layout.astro';
 import CloudinaryImage from "../components/CloudinaryImage.astro";
 import { getCollection } from "astro:content";
-import { ArtworkListByCamp } from '../components/ArtworkListByCamp';
+import { GridLayout } from '../components/CampGalleriesNav/GridLayout';
+import { HorizontalScroll } from '../components/CampGalleriesNav/HorizontalScroll';
+import { MinimalList } from '../components/CampGalleriesNav/MinimalList';
 import type { Artwork } from '../types/artwork';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'artwork'>;
+  navStyle?: 'grid' | 'scroll' | 'minimal';
 }
 
-const { entry } = Astro.props;
+const { entry, navStyle = 'grid' } = Astro.props;
 
 // Get all artworks for the navigation
 const allArtworks = await getCollection("artwork");
@@ -72,12 +75,11 @@ if (entry.data['data-file']) {
     </div>
   </div>
 
-  <!-- Artwork List section -->
+  <!-- Navigation to other galleries -->
   <div class="bg-white w-full py-16">
-    <ArtworkListByCamp 
-      client:load 
-      artworks={artworks}
-    />
+    {navStyle === 'grid' && <GridLayout client:load />}
+    {navStyle === 'scroll' && <HorizontalScroll client:load />}
+    {navStyle === 'minimal' && <MinimalList client:load />}
   </div>
 
   <style>

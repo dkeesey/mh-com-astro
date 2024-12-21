@@ -1,17 +1,18 @@
 ---
-import HeroLayout from "../layouts/HeroLayout.astro";
-import { Content as AboutContent } from '../content/pages/about.mdx';
+import HeroLayout from '@layouts/HeroLayout.astro';
+import About from '@components/pages/About';
 
 const rameswaramData = {
   cloudinaryId: "sacred-architectures/rameswaram-1_baqkjr",
-  title: "Rameswaram Temple, No.1",
-  media: "Panoramic photo collage with Fuji Crystal archive prints",
-  year: "2004",
+  title: "Rameswaram Temple",
+  media: "Panoramic Photo Collage",
+  year: "1995",
   city: "Rameswaram",
   state: "Tamil Nadu",
   country: "India",
   size: '41" x 23"',
 };
+
 ---
 
 <HeroLayout 
@@ -19,8 +20,7 @@ const rameswaramData = {
   description="Learn about the life and work of Masumi Hayashi"
   heroImage={rameswaramData}
 >
-  <div class="prose lg:prose-xl mx-auto px-4 py-8 max-w-3xl">
-    <h1 class="text-3xl font-bold mb-6">About Masumi Hayashi (1945-2006)</h1>
-    <AboutContent />
+  <div class="container mx-auto px-4 py-8">
+    <About client:load />
   </div>
 </HeroLayout>

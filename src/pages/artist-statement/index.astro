@@ -1,0 +1,13 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ArtistStatement from '@components/pages/ArtistStatement';
+---
+
+<Layout 
+  title="Artist Statement - American Concentration Camps"
+  description="Artist statement by Masumi Hayashi on her panoramic photo collages of Japanese American concentration camps"
+>
+  <div class="container mx-auto px-4 py-8">
+    <ArtistStatement client:load />
+  </div>
+</Layout>
