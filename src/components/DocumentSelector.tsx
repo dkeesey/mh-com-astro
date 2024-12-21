@@ -33,13 +33,15 @@ export function DocumentSelector({ documents, activeDocument: initialActive }: D
   const handleSelect = (id: string) => {
     setActiveDocument(id);
     setHoveredDocument(null);
-    // Update URL hash
-    window.location.hash = id;
-    // Smooth scroll to the element
+    
+    // First scroll smoothly
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    
+    // Then update URL without causing a jump
+    history.pushState(null, '', `#${id}`);
   };
 
   const getButtonStyle = (docId: string) => {

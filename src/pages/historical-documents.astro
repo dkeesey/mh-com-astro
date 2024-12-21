@@ -82,6 +82,49 @@ const documentsList = Object.values(documents);
 
 ---
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Handle initial hash on page load
+    if (window.location.hash) {
+      const targetId = window.location.hash.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+
+    // Handle all hash link clicks
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = anchor.getAttribute('href')?.substring(1);
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+            history.pushState(null, '', `#${targetId}`);
+          }
+        }
+      });
+    });
+
+    // Handle back to top buttons
+    const backToTopButtons = document.querySelectorAll('button');
+    backToTopButtons.forEach(button => {
+      if (button.textContent?.trim() === 'Back to Top') {
+        button.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
+  });
+</script>
+
 <Layout title="Historical Documents | Japanese American Internment">
   <main class="min-h-screen bg-fa-bg-primary">
     <header class="py-16 bg-black text-white">
@@ -106,56 +149,84 @@ const documentsList = Object.values(documents);
     </section>
 
     <section class="py-8 max-w-4xl mx-auto px-8">
-      <div id="executive-order-9066" class="scroll-mt-32">
+      <div id="executive-order-9066" class="scroll-mt-0">
         <HistoricalDocument 
           client:load
           {...documents['executive-order-9066']}
         />
-        <div class="mt-8 text-center">
+        <div class="mt-8 pb-8 text-center">
           <Button 
-            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }}
+            client:visible
           >
             Back to Top
           </Button>
         </div>
       </div>
 
-      <div id="civilian-exclusion-order-5" class="scroll-mt-32 mt-16">
+      <div id="civilian-exclusion-order-5" class="scroll-mt-0 mt-16">
         <HistoricalDocument 
           client:load
           {...documents['civilian-exclusion-order-5']}
         />
-        <div class="mt-8 text-center">
+        <div class="mt-8 pb-8 text-center">
           <Button 
-            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }}
+            client:visible
           >
             Back to Top
           </Button>
         </div>
       </div>
 
-      <div id="civilian-exclusion-order-82" class="scroll-mt-32 mt-16">
+      <div id="civilian-exclusion-order-82" class="scroll-mt-0 mt-16">
         <HistoricalDocument 
           client:load
           {...documents['civilian-exclusion-order-82']}
         />
-        <div class="mt-8 text-center">
+        <div class="mt-8 pb-8 text-center">
           <Button 
-            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }}
+            client:visible
           >
             Back to Top
           </Button>
         </div>
       </div>
 
-      <div id="presidential-apology" class="scroll-mt-32 mt-16">
+      <div id="presidential-apology" class="scroll-mt-0 mt-16">
         <HistoricalDocument 
           client:load
           {...documents['presidential-apology']}
         />
-        <div class="mt-8 text-center">
+        <div class="mt-8 pb-8 text-center">
           <Button 
-            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg" 
+            className="bg-[#f8f7f3] text-black border-black hover:bg-[#f8f7f3] hover:text-black hover:border-black shadow-lg"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }}
+            client:visible
           >
             Back to Top
           </Button>
@@ -164,33 +235,6 @@ const documentsList = Object.values(documents);
     </section>
   </main>
 </Layout>
-
-<script>
-  // Prevent default hash jump behavior
-  if (window.location.hash) {
-    window.addEventListener('load', () => {
-      const element = document.getElementById(window.location.hash.slice(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
-
-  // Handle all back to top buttons
-  document.addEventListener('DOMContentLoaded', () => {
-    const backToTopButtons = document.querySelectorAll('button');
-    backToTopButtons.forEach(button => {
-      if (button?.textContent?.trim() === 'Back to Top') {
-        button.addEventListener('click', () => {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-      }
-    });
-  });
-</script>
 
 <style>
   /* Add any custom styles here */
