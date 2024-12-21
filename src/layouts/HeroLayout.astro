@@ -7,7 +7,8 @@ interface Props {
   description?: string;
   classes?: string;
   heroImage: {
-    cloudinaryId: string;
+    cloudinaryId?: string;
+    image?: string;
     title: string;
     media: string;
     year: string;
@@ -29,15 +30,19 @@ const {
 <Layout title={title} description={description}>
   <div class={`min-h-screen ${classes}`}>
     <section class="w-full bg-black">
-      <CloudinaryImage
-        name={heroImage.title}
-        city={heroImage.city}
-        state={heroImage.state}
-        year={heroImage.year}
-        cloudinaryId={heroImage.cloudinaryId}
-        media={heroImage.media}
-        size={heroImage.size}
-      />
+      {heroImage.cloudinaryId ? (
+        <CloudinaryImage
+          name={heroImage.title}
+          city={heroImage.city}
+          state={heroImage.state}
+          year={heroImage.year}
+          cloudinaryId={heroImage.cloudinaryId}
+          media={heroImage.media}
+          size={heroImage.size}
+        />
+      ) : (
+        <img src={heroImage.image} alt={heroImage.title} />
+      )}
     </section>
     <article class="text-left bg-museum-white">
       <slot />
