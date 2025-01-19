@@ -94,16 +94,16 @@ const srcsetValue = `${imageURL640} 640w, ${imageURL768} 768w, ${imageURL1024} 1
 
 <div transition:persist={name}>
   <div
-    class={`w-full flex justify-center items-center bg-black ${classNames}`}
+    class={`w-full flex justify-center items-center bg-black pt-16 md:pt-24 ${classNames}`}
   >
     <img
       src={imageURL1536}
       srcset={srcsetValue}
-      class="rounded-md max-w-[95vw] max-h-[95vh]"
+      class="rounded-md max-w-[95vw] max-h-[95vh] mb-12 md:mb-16"
       alt={altText}
     />
   </div>
-  <figcaption class={`text-sm py-2 pb-12 lg:pb-24  sm:px-6 text-center ${figcaptionClasses} text-white bg-black`}>
+  <figcaption class={`text-sm py-2 pb-12 lg:pb-16 sm:px-6 text-center ${figcaptionClasses} text-white bg-black`}>
     <em>{name}</em>,<br />
     {year}, {media}, {size}<br />
     Artist: Dr. Masumi Hayashi
