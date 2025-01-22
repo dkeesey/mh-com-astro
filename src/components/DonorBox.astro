@@ -14,16 +14,18 @@ const {
 const donorboxUrl = `https://donorbox.org/embed/${campaignSlug}?language=${language}`;
 ---
 
-<div class="w-full flex justify-center">
+<div class="w-full flex justify-center px-4">
     <script src="https://donorbox.org/widget.js" data-paypalexpress="false" is:inline></script>
-    <iframe 
-        src={donorboxUrl}
-        name="donorbox"
-        loading="lazy"
-        frameborder="0"
-        height={height}
-        width="100%"
-        style="max-width: 500px; min-width: 310px; max-height:none!important"
-        allow="payment"
-    />
+    <div class="rounded-xl shadow-lg bg-white p-6 w-full max-w-[900px]">
+        <iframe 
+            src={donorboxUrl}
+            name="donorbox"
+            loading="lazy"
+            frameborder="0"
+            height={height}
+            style="max-width: none; min-width: 425px; max-height:none;" 
+            allow="payment"
+            class="rounded-lg mx-auto"
+        />
+    </div>
 </div>
