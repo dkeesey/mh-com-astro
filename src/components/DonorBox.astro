@@ -15,15 +15,15 @@ const donorboxUrl = `https://donorbox.org/embed/${campaignSlug}?language=${langu
 ---
 
 <div class="w-full">
-    <script src="https://donorbox.org/widget.js" data-paypalexpress="false"></script>
+    <script src="https://donorbox.org/widget.js" data-paypalexpress="false" is:inline></script>
     <iframe 
         src={donorboxUrl}
         name="donorbox"
-        frameborder="0"
-        scrolling="no"
+        loading="lazy"
+        border="0"
         height={height}
         width="100%"
-        style="max-width: 500px; min-width: 250px; max-height:none!important"
+        style="max-width: 500px; min-width: 310px; max-height:none!important"
         allow="payment"
     />
 </div>

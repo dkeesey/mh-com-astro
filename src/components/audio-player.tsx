@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Minimize2, GripVertical } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Minimize2 } from 'lucide-react';
 
 interface AudioFile {
   url: string;
@@ -18,7 +18,6 @@ interface AudioPlayerProps {
   variant?: PlayerVariant;
   className?: string;
   showTranscript?: boolean;
-  showTimeline?: boolean;
   showTrackList?: boolean;
   isGlobal?: boolean;
   onTrackSelect?: (index: number) => void;
@@ -28,10 +27,8 @@ interface AudioPlayerProps {
   volume?: number;
   onVolumeChange?: (volume: number) => void;
   onTimeUpdate?: (time: number) => void;
-  onTrackChange?: (track: number) => void;
   onPlayPause?: (playing: boolean) => void;
   context?: string;
-  timelineEvents?: any[];
 }
 
 export default function AudioPlayer({ 
@@ -39,7 +36,6 @@ export default function AudioPlayer({
   variant = 'compact',
   className = '',
   showTranscript = false,
-  showTimeline = false,
   showTrackList = false,
   isGlobal = false,
   onTrackSelect,
@@ -49,10 +45,8 @@ export default function AudioPlayer({
   volume: externalVolume = 1,
   onVolumeChange,
   onTimeUpdate,
-  onTrackChange,
   onPlayPause,
   context,
-  timelineEvents = []
 }: AudioPlayerProps) {
   const [currentTrack, setCurrentTrack] = useState(initialTrack);
   const [isPlaying, setIsPlaying] = useState(externalIsPlaying);
@@ -60,11 +54,9 @@ export default function AudioPlayer({
   const [duration, setDuration] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [isTrackListVisible, setIsTrackListVisible] = useState(showTrackList);
   const [volume, setVolume] = useState(externalVolume);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const volumeControlRef = useRef<HTMLDivElement>(null);
 
   const hasAudioFiles = Array.isArray(audioFiles) && audioFiles.length > 0;
 
@@ -283,25 +275,7 @@ export default function AudioPlayer({
     <div className="relative">
       <div className="absolute left-1/2 w-px h-full bg-gray-200" />
       <div className="space-y-8">
-        {timelineEvents.map((event, index) => (
-          <div
-            key={index}
-            className={`flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
-          >
-            <div className="w-1/2 p-4 bg-white rounded-lg shadow-md">
-              <div className="text-sm text-gray-500">{event.date}</div>
-              <div className="mt-2">{event.event}</div>
-              {typeof event.audioIndex === 'number' && (
-                <button
-                  onClick={() => handleTrackClick(event.audioIndex!)}
-                  className="mt-2 text-primary hover:underline"
-                >
-                  Listen to related audio
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
+        {/* Removed timelineEvents */}
       </div>
     </div>
   );
