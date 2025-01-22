@@ -28,6 +28,11 @@ const navData = [
     name: "About",
     path: "/about/",
   },
+  {
+    name: "Support Our Mission",
+    path: "/donate/",
+    className: "border-2 border-amber-600 text-amber-600 rounded-full px-4 py-1.5 hover:bg-amber-600 hover:text-white font-medium transition-all duration-300"
+  },
 ]
 
 const NavLinks = () => {
@@ -38,7 +43,7 @@ const NavLinks = () => {
   }, []);
 
   return (
-    <>
+    <NavigationMenuList className="hidden lg:flex lg:gap-8 items-center">
       {navData.map((item) => (
         <NavigationMenuItem key={item.path} className="px-4">
           {pathname === item.path ? (
@@ -48,14 +53,16 @@ const NavLinks = () => {
           ) : (
             <a
               href={item.path}
-              className="text-sm md:text-base no-underline transition-colors duration-500 hover:text-primary-bg-primary/50"
+              className={`text-sm md:text-base no-underline transition-colors duration-500 ${
+                item.className || "hover:text-primary-bg-primary/50"
+              }`}
             >
               {item.name}
             </a>
           )}
         </NavigationMenuItem>
       ))}
-    </>
+    </NavigationMenuList>
   );
 }
 
@@ -90,7 +97,9 @@ const MobileNav = () => {
               ) : (
                 <a
                   href={item.path}
-                  className="text-lg text-black/80 no-underline transition-colors duration-500 hover:text-black/60"
+                  className={`text-lg text-black/80 no-underline transition-colors duration-500 ${
+                    item.className || "hover:text-black/60"
+                  }`}
                 >
                   {item.name}
                 </a>
