@@ -46,7 +46,7 @@ const NavLinks = () => {
   return (
     <NavigationMenuList className="hidden lg:flex lg:gap-8 items-center">
       {navData.map((item) => (
-        <NavigationMenuItem key={item.path} className={item.isCTA ? 'ml-4' : ''}>
+        <NavigationMenuItem key={item.path} className={item.className ? 'ml-4' : ''}>
           {pathname === item.path ? (
             <span className="text-sm md:text-base italic">
               {item.name}
