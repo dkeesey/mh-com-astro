@@ -6,6 +6,7 @@ const artworkCollection = defineCollection({
     title: z.string(),
     name: z.string(),
     cloudinaryId: z.string(), // Required for CloudinaryImage component
+    altTag: z.string().optional(), // Alt text for accessibility
 
     // Location information
     city: z.string(),

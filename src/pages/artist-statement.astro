@@ -1,6 +1,6 @@
 ---
 import HeroLayout from '@layouts/HeroLayout.astro';
-import ArtistStatement from '@components/pages/ArtistStatement';
+import ArtistStatementComponent from '@components/pages/ArtistStatement';
 
 const heartMountainData = {
   cloudinaryId: "internment-camps/heart-mountain-internment-camp-blue-room_mtzpdt",
@@ -20,6 +20,6 @@ const heartMountainData = {
   heroImage={heartMountainData}
 >
   <div class="container mx-auto px-4 py-8">
-    <ArtistStatement client:load />
+    <ArtistStatementComponent client:load />
   </div>
 </HeroLayout>

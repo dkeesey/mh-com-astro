@@ -1,6 +1,6 @@
 ---
 import HeroLayout from '@layouts/HeroLayout.astro';
-import About from '@components/pages/About';
+import AboutComponent from '@components/pages/About';
 
 const rameswaramData = {
   cloudinaryId: "sacred-architectures/rameswaram-1_baqkjr",
@@ -21,6 +21,6 @@ const rameswaramData = {
   heroImage={rameswaramData}
 >
   <div class="container mx-auto px-4 py-8">
-    <About client:load />
+    <AboutComponent client:load />
   </div>
 </HeroLayout>
