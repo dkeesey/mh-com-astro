@@ -28,6 +28,7 @@ interface AudioPlayerProps {
   onVolumeChange?: (volume: number) => void;
   onTimeUpdate?: (time: number) => void;
   onPlayPause?: (playing: boolean) => void;
+  onTrackChange?: (track: number) => void;
   context?: string;
 }
 
@@ -46,6 +47,7 @@ export default function AudioPlayer({
   onVolumeChange,
   onTimeUpdate,
   onPlayPause,
+  onTrackChange,
   context,
 }: AudioPlayerProps) {
   const [currentTrack, setCurrentTrack] = useState(initialTrack);
@@ -54,7 +56,6 @@ export default function AudioPlayer({
   const [duration, setDuration] = useState(0);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [isTrackListVisible, setIsTrackListVisible] = useState(showTrackList);
   const [volume, setVolume] = useState(externalVolume);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -330,7 +331,7 @@ export default function AudioPlayer({
             <>
               <PlayerControls />
               <ProgressBar />
-              {isTrackListVisible && (
+              {showTrackList && (
                 <div className="mt-4 space-y-2">
                   {audioFiles.map((file, index) => (
                     <button
@@ -420,6 +421,7 @@ export default function AudioPlayer({
     setCurrentTrack(index);
     setIsPlaying(false);
     onTrackSelect?.(index);
+    onTrackChange?.(index);
   };
 
   const handlePlayPause = () => {
