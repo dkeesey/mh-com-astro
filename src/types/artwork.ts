@@ -5,6 +5,7 @@ export interface ArtworkData {
   // Core identification
   title: string;
   name: string;
+  artist?: string;
 
   // Location information
   city: string;

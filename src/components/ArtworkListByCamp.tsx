@@ -14,7 +14,7 @@ interface CampArtworks {
   [key: string]: Artwork[];
 }
 
-interface ArtworkListByCampProps {
+export interface ArtworkListByCampProps {
   artworks: Artwork[];
 }
 
