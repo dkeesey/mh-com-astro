@@ -10,16 +10,16 @@
 # Main page - internment focus stays on masumihayashi.com
 /                                     /                                   301
 
-# Gallery page - redirect to comprehensive museum archive
-/html/gallery.html                    https://gallery.masumihayashi.com/  301
+# Gallery page - redirect to artwork section
+/html/gallery.html                    /artwork/japanese-american-internment-camps/  301
 
-# Internment-focused legacy pages - keep on masumihayashi.com
-/html/canada.html                     /html/canada.html                   301
-/html/eo9066.html                     /html/eo9066.html                   301
-/html/apology.html                    /html/apology.html                  301
-/html/eo5.html                        /html/eo5.html                      301
-/html/famalbum.html                   /html/famalbum.html                 301
-/html/map.html                        /html/map.html                      301
+# Internment-focused legacy pages - redirect to modern equivalents
+/html/canada.html                     /historical-documents/              301
+/html/eo9066.html                     /historical-documents/              301
+/html/apology.html                    /historical-documents/              301
+/html/eo5.html                        /historical-documents/              301
+/html/famalbum.html                   /family-album-project/              301
+/html/map.html                        /map/                               301
 
 # ==============================================================
 # SMART CONTENT ROUTING
