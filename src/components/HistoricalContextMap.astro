@@ -1,35 +1,31 @@
-// HistoricalContextMap.astro
 ---
-import { Card } from '@/components/ui/card';
-import React from 'react';
-
-interface Props {
-  className?: string;
+export interface Props {
+  class?: string;
 }
 
-const { className } = Astro.props;
+const { class: className = "" } = Astro.props;
 ---
 
-<Card className={`max-w-4xl mx-auto ${className}`}>
-  <figure className="relative">
-    <div className="aspect-[4/3] w-full overflow-hidden">
-      <img 
-        src="/images/japanese-american-internment-map.jpg" 
+<div class={`max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden ${className}`}>
+  <figure class="relative">
+    <div class="aspect-[4/3] w-full overflow-hidden">
+      <img
+        src="/images/japanese-american-internment-map.jpg"
         alt="Map showing Japanese American internment camps from 1942-1946, including the West Coast exclusion area and ten major relocation centers across the United States."
-        className="w-full h-full object-contain"
+        class="w-full h-full object-contain"
         width="800"
         height="600"
       />
     </div>
-    <figcaption className="p-4 text-sm space-y-2">
-      <div className="font-medium">Japanese American Internment Camps, 1942-1946</div>
+    <figcaption class="p-4 text-sm space-y-2">
+      <div class="font-medium">Japanese American Internment Camps, 1942-1946</div>
       <p>Following Executive Order 9066, approximately 120,000 Japanese Americans were forcibly relocated from the West Coast exclusion area (highlighted) to ten major internment camps across the United States. This mass incarceration during World War II impacted entire communities, with families losing their homes, businesses, and constitutional rights.</p>
-      <div className="text-xs text-gray-500 mt-2">
+      <div class="text-xs text-gray-500 mt-2">
         Map adapted from Encyclopedia Britannica, showing major internment camps (red stars) and the West Coast exclusion zone (shaded area).
       </div>
     </figcaption>
   </figure>
-</Card>
+</div>
 
 <!-- Usage in an Astro page -->
 <!-- 

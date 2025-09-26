@@ -30,3 +30,6 @@ public/*.mp3
 
 # Large media files
 public/movies/**/*
+
+# Local Netlify folder
+.netlify

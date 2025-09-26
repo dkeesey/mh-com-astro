@@ -17,13 +17,12 @@ const donorboxUrl = `https://donorbox.org/embed/${campaignSlug}?language=${langu
 <div class="w-full flex justify-center px-4">
     <script src="https://donorbox.org/widget.js" data-paypalexpress="false" is:inline></script>
     <div class="rounded-xl  bg-white w-full max-w-[900px] min-w-[425px]">
-        <iframe 
+        <iframe
             src={donorboxUrl}
             name="donorbox"
             loading="lazy"
-            frameborder="0"
             height={height}
-            style="max-width: none; min-width: 425px; max-height:none;" 
+            style="max-width: none; min-width: 425px; max-height:none; border: 0;"
             allow="payment"
             class="rounded-lg mx-auto"
         />
