@@ -1,76 +1,78 @@
-# Masumi Hayashi Netlify Redirects
+# Masumi Hayashi Legacy URL Redirects
+# Maps old masumihayashi.com HTML structure to new Astro site
 # Generated: 2025-09-26
-# Purpose: Preserve 20+ years SEO equity and route users appropriately
-# Strategy: Internment content stays, general gallery goes to modern site
+# Purpose: Preserve 20+ years SEO equity and user bookmarks
 
 # ==============================================================
-# LEGACY MASUMIHAYASHI.COM URL PRESERVATION
+# CORE LEGACY PAGE REDIRECTS
 # ==============================================================
 
-# Main page - internment focus stays on masumihayashi.com
-/                                     /                                   301
+# Main gallery page - redirect to internment camps artwork
+/html/gallery.html                    /artwork/japanese-american-internment-camps/    301
 
-# Gallery page - redirect to artwork section
-/html/gallery.html                    /artwork/japanese-american-internment-camps/  301
+# Historical documents and internment content
+/html/canada.html                     /historical-documents/                          301
+/html/eo9066.html                     /historical-documents/                          301
+/html/apology.html                    /historical-documents/                          301
+/html/eo5.html                        /historical-documents/                          301
 
-# Internment-focused legacy pages - redirect to modern equivalents
-/html/canada.html                     /historical-documents/              301
-/html/eo9066.html                     /historical-documents/              301
-/html/apology.html                    /historical-documents/              301
-/html/eo5.html                        /historical-documents/              301
-/html/famalbum.html                   /family-album-project/              301
-/html/map.html                        /map/                               301
+# Family album content
+/html/famalbum.html                   /family-album-project/                          301
+/html/akiya.html                      /family-album/akiya/                            301
+/html/ayukawa.html                    /family-album/ayukawa/                          301
+
+# Interactive map
+/html/map.html                        /map/                                           301
+
+# About and bio content
+/html/bio.html                        /about/                                         301
+/html/acknowl.html                    /about/                                         301
+
+# Bibliography and education
+/html/biblio.html                     /education/bibliography/                        301
+
+# Camp-specific pages to artwork gallery
+/html/amache.html                     /artwork/japanese-american-internment-camps/    301
 
 # ==============================================================
-# SMART CONTENT ROUTING
+# SMART CONTENT ROUTING BY QUERY PARAMETERS
 # ==============================================================
 
-# Internment/camp-related content stays on masumihayashi.com
-/search?*internment*                  /                                   301
-/search?*camp*                        /                                   301
-/search?*japanese*american*           /                                   301
-/search?*manzanar*                    /                                   301
-/search?*incarceration*               /                                   301
+# Internment/camp research queries stay on main site
+/search?*internment*                  /artwork/japanese-american-internment-camps/    301
+/search?*camp*                        /artwork/japanese-american-internment-camps/    301
+/search?*japanese*american*           /artwork/japanese-american-internment-camps/    301
+/search?*manzanar*                    /artwork/japanese-american-internment-camps/    301
+/search?*eo9066*                      /historical-documents/                          301
 
-# Comprehensive gallery/museum queries go to gallery site
-/search?*gallery*                     https://gallery.masumihayashi.com/  301
-/search?*artwork*                     https://gallery.masumihayashi.com/  301
-/search?*museum*                      https://gallery.masumihayashi.com/  301
-/search?*collection*                  https://gallery.masumihayashi.com/  301
+# Family and personal story queries
+/search?*family*                      /family-album-project/                          301
+/search?*album*                       /family-album-project/                          301
+
+# Artist and biography queries
+/search?*artist*                      /artist-statement/                              301
+/search?*bio*                         /about/                                         301
 
 # ==============================================================
 # LEGACY FILE EXTENSIONS AND FORMATS
 # ==============================================================
 
-# Remove .html extensions for modern URLs
-/html/*.html                          /:splat/                            301
-/*.html                               /:splat/                            301
+# Remove .html extensions for any other legacy URLs
+/*.html                               /:splat/                                        301
 
 # ==============================================================
-# CROSS-SITE INTEGRATION
+# ROOT LEVEL REDIRECTS
 # ==============================================================
 
-# Museum-specific content goes to gallery site
-/museum                               https://gallery.masumihayashi.com/  301
-/exhibitions                          https://gallery.masumihayashi.com/  301
-/artwork                              https://gallery.masumihayashi.com/  301
-
-# Foundation and administrative content stays
-/foundation                           /                                   301
-/contact                              /                                   301
-/about                                /                                   301
+# Root stays on homepage (internment focus)
+/                                     /                                               200
 
 # ==============================================================
-# LEGACY ASSET REDIRECTS
+# FALLBACK FOR UNMATCHED LEGACY URLS
 # ==============================================================
 
-# Old image paths to new CDN structure
-/images/*                             https://res.cloudinary.com/masumi-hayashi-foundation/image/upload/:splat  301
-/photos/*                             https://res.cloudinary.com/masumi-hayashi-foundation/image/upload/:splat  301
+# Any other /html/* paths go to main gallery
+/html/*                               /artwork/japanese-american-internment-camps/    301
 
-# ==============================================================
-# FALLBACK AND CATCH-ALL
-# ==============================================================
-
-# Any unmatched legacy URLs default to homepage
-/*                                    /                                   301
+# Catch-all for any other legacy structure
+/*                                    /                                               301
