@@ -20,6 +20,11 @@
 /html/famalbum.html                   /family-album-project/                          301
 /html/akiya.html                      /family-album/akiya/                            301
 /html/ayukawa.html                    /family-album/ayukawa/                          301
+/html/tsuyuki.html                    /family-album-project/                          301
+/html/miyatake1.html                  /family-album-project/                          301
+/html/fukuyama.html                   /family-album-project/                          301
+/html/nomura.html                     /family-album-project/                          301
+/html/morioka.html                    /family-album-project/                          301
 
 # Interactive map
 /html/map.html                        /map/                                           301
@@ -31,8 +36,25 @@
 # Bibliography and education
 /html/biblio.html                     /education/bibliography/                        301
 
+# Professional and teaching content
+/html/profess.html                    /about/                                         301
+
+# Artist statement and resume
+/html/statement.html                  /about/                                         301
+/html/resume.html                     /about/                                         301
+
 # Camp-specific pages to artwork gallery
 /html/amache.html                     /artwork/japanese-american-internment-camps/    301
+/html/gila.html                       /artwork/japanese-american-internment-camps/    301
+/html/granada.html                    /artwork/japanese-american-internment-camps/    301
+/html/htmt.html                       /artwork/japanese-american-internment-camps/    301
+/html/jerome.html                     /artwork/japanese-american-internment-camps/    301
+/html/manzanar.html                   /artwork/japanese-american-internment-camps/    301
+/html/minidoka.html                   /artwork/japanese-american-internment-camps/    301
+/html/poston.html                     /artwork/japanese-american-internment-camps/    301
+/html/rohwer.html                     /artwork/japanese-american-internment-camps/    301
+/html/topaz.html                      /artwork/japanese-american-internment-camps/    301
+/html/tulelake.html                   /artwork/japanese-american-internment-camps/    301
 
 # ==============================================================
 # SMART CONTENT ROUTING BY QUERY PARAMETERS
