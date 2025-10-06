@@ -1,7 +1,15 @@
 # Masumi Hayashi Legacy URL Redirects
 # Maps old masumihayashi.com HTML structure to new Astro site
 # Generated: 2025-09-26
+# Updated: 2025-10-06 - Added www redirect and sitemap support
 # Purpose: Preserve 20+ years SEO equity and user bookmarks
+
+# ==============================================================
+# DOMAIN REDIRECT - WWW TO NON-WWW
+# ==============================================================
+
+# Force HTTPS and non-www canonical URL
+https://www.masumihayashi.com/*  https://masumihayashi.com/:splat  301!
 
 # ==============================================================
 # CORE LEGACY PAGE REDIRECTS

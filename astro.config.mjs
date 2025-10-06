@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+import sitemap from "@astrojs/sitemap";
 // import icon from "@astrojs/icon";
 
 import icon from "astro-icon";
@@ -9,6 +10,7 @@ import path from 'path';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://masumihayashi.com',
   devToolbar: {
     enabled: false,
   },
@@ -22,7 +24,8 @@ export default defineConfig({
     }),
     tailwind(),
     icon(),
-    mdx()
+    mdx(),
+    sitemap()
   ],
   vite: {
     resolve: {
