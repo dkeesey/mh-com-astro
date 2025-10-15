@@ -21,6 +21,8 @@ const { title, description, type, image, keywords, classes = "" } = Astro.props;
   <head>
     <MainHead title={title} description={description} type={type} image={image} keywords={keywords}>
       <FontLoader />
+      <!-- PhotoSwipe CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css" />
     </MainHead>
   </head>
   <body class="bg-white text-fa-text-secondary font-inter min-h-screen">
@@ -32,5 +34,10 @@ const { title, description, type, image, keywords, classes = "" } = Astro.props;
       <Footer class="mt-auto" />
     </div>
     <PersistentDonateButton />
+
+    <!-- PhotoSwipe initialization -->
+    <script>
+      import '../scripts/photoswipe-init.ts';
+    </script>
   </body>
 </html>
