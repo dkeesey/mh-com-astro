@@ -19,6 +19,71 @@ const seoConfig = {
   image={seoConfig.image}
   keywords={seoConfig.keywords}
 />
+<body>
+  <!-- JSON-LD Schema for SEO and AI -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Masumi Hayashi at SFMOMA - (Re)Constructing History",
+    "description": "Masumi Hayashi's EPA Superfund Site, Fields Brook Stream panoramic photo-collage now on view at the San Francisco Museum of Modern Art",
+    "image": "https://masumihayashi.com/images/sf-moma-installation.jpg",
+    "datePublished": "2025-10-14",
+    "dateModified": "2025-10-14",
+    "author": {
+      "@type": "Person",
+      "name": "Masumi Hayashi",
+      "description": "Born 1945, Rivers, Arizona, died 2006, Cleveland"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Masumi Hayashi Foundation",
+      "url": "https://masumihayashi.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://masumihayashi.com/favicon.svg"
+      }
+    },
+    "about": {
+      "@type": "VisualArtwork",
+      "name": "EPA Superfund Site, Fields Brook Stream, Ashtabula, Ohio",
+      "artform": "Photography",
+      "artMedium": "Collaged chromogenic prints",
+      "dateCreated": "1990",
+      "creator": {
+        "@type": "Person",
+        "name": "Masumi Hayashi"
+      },
+      "locationCreated": {
+        "@type": "Place",
+        "name": "Ashtabula, Ohio"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://masumihayashi.com/sfmoma-2025"
+    }
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://masumihayashi.com"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "SFMOMA Exhibition 2025",
+      "item": "https://masumihayashi.com/sfmoma-2025"
+    }]
+  }
+  </script>
   <main class="min-h-screen bg-white">
     <!-- Hero Section -->
     <div class="relative bg-gray-50">

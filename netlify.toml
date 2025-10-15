@@ -1,0 +1,49 @@
+# Netlify Configuration for masumihayashi.com
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+    # Content Security Policy (CSP)
+    # Allows Google Analytics, Facebook Pixel, and inline scripts
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https://www.google-analytics.com https://www.facebook.com;
+      connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.facebook.com;
+      frame-src 'self';
+    """
+
+    # Caching
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Special cache rules for HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Image optimization headers
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects (if needed later)
+# [[redirects]]
+#   from = "/old-path"
+#   to = "/new-path"
+#   status = 301
