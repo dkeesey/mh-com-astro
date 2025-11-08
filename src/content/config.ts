@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
 const artworkCollection = defineCollection({
+  type: 'content',
   schema: z.object({
     // Core identification
     title: z.string(),
@@ -33,6 +34,7 @@ const artworkCollection = defineCollection({
 });
 
 const campCollection = defineCollection({
+  type: 'content',
   schema: z.object({
     // Core identification
     name: z.string(),
@@ -73,10 +75,47 @@ const campCollection = defineCollection({
   })
 });
 
+const exhibitionsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    // Core information
+    title: z.string(),
+    venue: z.string(),
+    location: z.string().optional(), // City, State/Country
+
+    // Dates
+    startDate: z.date(),
+    endDate: z.date().optional(),
+
+    // Status and visibility
+    featured: z.boolean().default(false),
+    status: z.enum(['upcoming', 'current', 'past']).default('upcoming'),
+
+    // Content
+    description: z.string(),
+    curatorName: z.string().optional(),
+    artworkSlugs: z.array(z.string()).optional(), // References to artwork collection
+
+    // Media
+    featuredImageId: z.string().optional(), // Cloudinary ID
+    galleryImageIds: z.array(z.string()).optional(), // Cloudinary IDs
+
+    // External links
+    venueWebsite: z.string().url().optional(),
+    pressRelease: z.string().url().optional(),
+    externalLinks: z.array(z.object({
+      title: z.string(),
+      url: z.string().url(),
+    })).optional(),
+  })
+});
+
 export const collections = {
   'artwork': artworkCollection,
   'camps': campCollection,
+  'exhibitions': exhibitionsCollection,
   'family-album': defineCollection({
+    type: 'content',
     schema: z.object({
       title: z.string(),
       description: z.string().optional(),

@@ -47,7 +47,24 @@ const {
 
 // Base Cloudinary configuration
 const baseURL = "https://res.cloudinary.com/masumi-hayashi-foundation/image/upload";
-const transformations = ["bo_30px_solid_black", "b_black", "c_scale"];
+
+// ========================================
+// IMAGE OPTIMIZATION TOGGLE
+// ========================================
+// Set to true to enable f_auto and q_auto:best optimizations (40-60% smaller files)
+// Set to false to revert to original quality settings
+const USE_OPTIMIZED_DELIVERY = true;
+
+// ORIGINAL transformations (no optimization)
+// const transformations = ["bo_30px_solid_black", "b_black", "c_scale"];
+
+// OPTIMIZED transformations (f_auto + q_auto:best)
+// - f_auto: Automatic format selection (AVIF → WebP → JPG based on browser)
+// - q_auto:best: Smart quality optimization (95%+ SSIM, museum-quality)
+const transformations = USE_OPTIMIZED_DELIVERY
+  ? ["bo_30px_solid_black", "b_black", "c_scale", "f_auto", "q_auto:best"]
+  : ["bo_30px_solid_black", "b_black", "c_scale"];
+
 const currentYear = new Date().getFullYear();
 const altText = altTag || `${name} by Dr. Masumi Hayashi`;
 

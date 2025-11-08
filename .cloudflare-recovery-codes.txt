@@ -1,0 +1,16 @@
+# CloudFlare 2FA Recovery Codes
+# Account: Dkeesey@gmail.com
+# Created: 2025-10-15
+# KEEP SECURE - These codes can be used to access your account if you lose your 2FA device
+
+408371978
+013149897
+187806086
+853273171
+020518971
+269951072
+459772393
+613980198
+
+# Usage: Each code can only be used once
+# Store in password manager or secure location

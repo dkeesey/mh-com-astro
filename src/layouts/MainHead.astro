@@ -1,6 +1,6 @@
 ---
 import { generateSEOTags } from "@utils/seo";
-import Analytics from "@components/Analytics.astro";
+import GTMAnalytics from "@components/GTMAnalytics.astro";
 
 interface Props {
   title?: string;
@@ -15,8 +15,12 @@ const seo = generateSEOTags({ title, description, type, image, keywords });
 ---
 
 <head>
-  <!-- Google Analytics 4 - Direct Implementation -->
-  <Analytics gaId="G-PBJM0849KH" />
+  <!-- Google Analytics 4 + Facebook Pixel + Microsoft Clarity -->
+  <!-- Comprehensive analytics stack via GTMAnalytics component -->
+  <GTMAnalytics
+    gaId="G-PBJM0849KH"
+    fbPixelId="1395116998650711"
+  />
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />

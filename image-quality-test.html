@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudinary Quality Test - Side by Side Comparison</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #4ade80;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .image-container {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .image-container h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #444;
+            border-radius: 4px;
+        }
+        .stats {
+            margin-top: 10px;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .stat-label {
+            color: #888;
+            display: inline-block;
+            width: 80px;
+        }
+        .stat-value {
+            color: #4ade80;
+            font-weight: bold;
+        }
+        .instructions {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #4ade80;
+        }
+        .instructions ul {
+            line-height: 1.8;
+        }
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Cloudinary Image Quality Test</h1>
+
+    <div class="warning">
+        <strong>⚠️ What to Check:</strong>
+        <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+            <li>Text overlays (watermarks, titles) - Should remain sharp</li>
+            <li>Fine details in photocollage - No loss of texture</li>
+            <li>Color gradients - No banding or artifacts</li>
+            <li>Overall sharpness - Images should look identical</li>
+        </ul>
+    </div>
+
+    <div class="instructions">
+        <h3>How to Test:</h3>
+        <ul>
+            <li><strong>Zoom in</strong> to 200% on both images (Cmd/Ctrl + click)</li>
+            <li><strong>Compare text sharpness</strong> - Watermarks should be crisp on both</li>
+            <li><strong>Check file sizes below</strong> - Optimized should be 40-60% smaller</li>
+            <li><strong>Toggle between images</strong> - Look for any visible differences</li>
+        </ul>
+        <p>If you see <strong>ANY</strong> quality degradation, we won't proceed with optimization.</p>
+    </div>
+
+    <div class="comparison">
+        <div class="image-container">
+            <h2>❌ Current (No Optimization)</h2>
+            <img
+                src="https://res.cloudinary.com/masumi-hayashi-foundation/image/upload/bo_30px_solid_black,b_black,c_scale,w_1920/internment-camps/tule-lake-internment-camp-sewer_izrt98"
+                alt="Tule Lake - Current"
+                id="original"
+            />
+            <div class="stats">
+                <div><span class="stat-label">Format:</span> <span class="stat-value">JPG</span></div>
+                <div><span class="stat-label">Quality:</span> <span class="stat-value">Default (~80)</span></div>
+                <div><span class="stat-label">Size:</span> <span class="stat-value" id="original-size">Loading...</span></div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <h2>✅ Proposed (f_auto, q_auto:best)</h2>
+            <img
+                src="https://res.cloudinary.com/masumi-hayashi-foundation/image/upload/bo_30px_solid_black,b_black,c_scale,f_auto,q_auto:best,w_1920/internment-camps/tule-lake-internment-camp-sewer_izrt98"
+                alt="Tule Lake - Optimized"
+                id="optimized"
+            />
+            <div class="stats">
+                <div><span class="stat-label">Format:</span> <span class="stat-value">AVIF/WebP</span></div>
+                <div><span class="stat-label">Quality:</span> <span class="stat-value">Auto (95+ SSIM)</span></div>
+                <div><span class="stat-label">Size:</span> <span class="stat-value" id="optimized-size">Loading...</span></div>
+                <div><span class="stat-label">Savings:</span> <span class="stat-value" id="savings">Calculating...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 20px; background: #2a2a2a; border-radius: 8px;">
+        <h3 style="margin-top: 0;">Test Another Image?</h3>
+        <p>Replace the cloudinaryId in the URLs above with any image from your collection:</p>
+        <code style="background: #1a1a1a; padding: 5px 10px; border-radius: 4px; font-size: 14px;">
+            /internment-camps/tule-lake-internment-camp-sewer_izrt98
+        </code>
+    </div>
+
+    <script>
+        // Estimate file sizes (approximate based on browser fetch)
+        async function getFileSize(url, elementId) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                const size = response.headers.get('content-length');
+                if (size) {
+                    const kb = Math.round(size / 1024);
+                    document.getElementById(elementId).textContent = kb + ' KB';
+                    return parseInt(size);
+                }
+            } catch (e) {
+                document.getElementById(elementId).textContent = 'Unable to fetch';
+            }
+            return 0;
+        }
+
+        async function calculateSavings() {
+            const originalImg = document.getElementById('original').src;
+            const optimizedImg = document.getElementById('optimized').src;
+
+            const originalSize = await getFileSize(originalImg, 'original-size');
+            const optimizedSize = await getFileSize(optimizedImg, 'optimized-size');
+
+            if (originalSize && optimizedSize) {
+                const percent = Math.round((1 - optimizedSize / originalSize) * 100);
+                document.getElementById('savings').textContent = percent + '%';
+                document.getElementById('savings').style.color = percent > 40 ? '#4ade80' : '#fbbf24';
+            }
+        }
+
+        // Run on page load
+        window.addEventListener('load', calculateSavings);
+    </script>
+</body>
+</html>

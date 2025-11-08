@@ -10,12 +10,15 @@ import path from 'path';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://masumihayashi.com',
+  site: 'https://internment.masumihayashi.com',
   devToolbar: {
     enabled: false,
   },
   security: {
     csp: false
+  },
+  experimental: {
+    clientPrerender: true, // Enables faster page transitions
   },
   integrations: [
     react({
