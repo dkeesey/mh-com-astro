@@ -1,0 +1,124 @@
+---
+import Layout from '@layouts/Layout.astro';
+
+// Get Stripe session ID from URL parameter (if available)
+const { searchParams } = Astro.url;
+const sessionId = searchParams.get('session_id');
+---
+
+<Layout title="Thank You for Your Donation - Masumi Hayashi Foundation">
+  <main class="container mx-auto px-4 py-16 max-w-3xl">
+    <div class="text-center">
+      <!-- Success Icon -->
+      <div class="mb-8">
+        <svg class="w-24 h-24 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+
+      <!-- Thank You Message -->
+      <h1 class="text-4xl font-bold mb-4">Thank You!</h1>
+      <p class="text-xl text-gray-700 mb-8">
+        Your generous donation helps preserve Masumi Hayashi's legacy and supports our mission to educate future generations about environmental art and social justice.
+      </p>
+
+      <!-- What Your Donation Supports -->
+      <div class="bg-gray-50 rounded-lg p-8 mb-8 text-left">
+        <h2 class="text-2xl font-semibold mb-4">Your donation supports:</h2>
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Catalogue raisonné development and authentication</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Museum exhibitions and curator outreach</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Educational programs on environmental racism and social ecology</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Digital archive and accessibility initiatives</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">What's Next?</h2>
+        <p class="text-gray-700 mb-4">
+          You will receive a confirmation email with your donation receipt for tax purposes.
+          The Masumi Hayashi Foundation is a 501(c)(3) nonprofit organization, and your donation is tax-deductible.
+        </p>
+        <p class="text-gray-700">
+          <strong>Tax ID (EIN):</strong> [Your EIN here]
+        </p>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="space-y-4">
+        <a href="/artwork/japanese-american-internment-camps/" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          Explore Masumi's Work
+        </a>
+        <br />
+        <a href="/" class="inline-block text-blue-600 hover:text-blue-800">
+          Return to Homepage
+        </a>
+      </div>
+
+      <!-- Social Sharing -->
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <p class="text-gray-600 mb-4">Help us spread the word:</p>
+        <div class="flex justify-center space-x-4">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://masumihayashi.com"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="text-blue-600 hover:text-blue-800">
+            Share on Facebook
+          </a>
+          <span class="text-gray-400">|</span>
+          <a href="https://twitter.com/intent/tweet?text=I%20just%20supported%20the%20Masumi%20Hayashi%20Foundation&url=https://masumihayashi.com"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="text-blue-400 hover:text-blue-600">
+            Share on Twitter
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Track Donation Completion -->
+  <script is:inline>
+    // Fire donation_completed conversion
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'donation_completed', {
+        'event_category': 'conversion',
+        'event_label': 'stripe_success',
+        'currency': 'USD',
+        'value': 25.0, // Default value - Stripe doesn't pass amount in URL
+        'transaction_id': new URLSearchParams(window.location.search).get('session_id') || 'unknown'
+      });
+
+      console.log('✅ Donation completed conversion tracked');
+    }
+
+    // Also track as Facebook Pixel Purchase event
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Purchase', {
+        value: 25.0,
+        currency: 'USD'
+      });
+    }
+  </script>
+</Layout>

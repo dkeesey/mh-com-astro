@@ -17,10 +17,15 @@ const seo = generateSEOTags({ title, description, type, image, keywords });
 <head>
   <!-- Google Analytics 4 + Facebook Pixel + Microsoft Clarity -->
   <!-- Comprehensive analytics stack via GTMAnalytics component -->
+  <!-- useDetailedTracking=false because we're using custom masumi-analytics-tracking.js -->
   <GTMAnalytics
     gaId="G-PBJM0849KH"
     fbPixelId="1395116998650711"
+    useDetailedTracking={false}
   />
+
+  <!-- Masumi-specific conversion tracking for Google Ad Grants -->
+  <script src="/scripts/masumi-analytics-tracking.js" is:inline></script>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
