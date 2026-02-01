@@ -98,11 +98,18 @@ https://www.masumihayashi.com/*  https://masumihayashi.com/:splat  301!
 /                                     /                                               200
 
 # ==============================================================
+# STATIC FILE PASSTHROUGHS (verification files, etc)
+# ==============================================================
+
+# IndexNow API key for Bing instant indexing
+/e75a841de7f54e28ac475fc56e29efab.txt  /e75a841de7f54e28ac475fc56e29efab.txt         200
+
+# ==============================================================
 # FALLBACK FOR UNMATCHED LEGACY URLS
 # ==============================================================
 
 # Any other /html/* paths go to main gallery
 /html/*                               /artwork/japanese-american-internment-camps/    301
 
-# Catch-all for any other legacy structure
+# Catch-all for any other legacy structure - EXCLUDES static files above
 /*                                    /                                               301
