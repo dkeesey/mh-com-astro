@@ -111,8 +111,6 @@ https://www.masumihayashi.com/*  https://masumihayashi.com/:splat  301!
 # Any other /html/* paths go to main gallery
 /html/*                               /artwork/japanese-american-internment-camps/    301
 
-# Verification files - serve directly (must come before catch-all)
-/*.txt                                /:splat.txt                                     200!
-
-# Catch-all for any other legacy structure
-/*                                    /                                               301
+# DISABLED: Catch-all was blocking static .txt files
+# Verification files (.txt) should serve directly from public/
+# If legacy URLs break, add specific redirects above instead of catch-all
